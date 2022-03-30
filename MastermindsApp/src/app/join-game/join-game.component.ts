@@ -12,4 +12,7 @@ export class JoinGameComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  joinRoom() {
+    console.log("Joined room")
+  }
 }

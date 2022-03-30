@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-create-game',
@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-game.component.scss']
 })
 export class CreateGameComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  createRoom() {
+    console.log("Room Created")
+  }
 }
