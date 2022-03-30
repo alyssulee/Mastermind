@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "create-game.component.scss"
+    ],
+    "names": [],
+    "file": "create-game.component.css"
+}

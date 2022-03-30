@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,MAAM,CAAC;EACH,gBAAgB,ECFV,OAAO;EDGb,aAAa,EAAE,IAAI;EACnB,KAAK,EAAE,KAAK;EACZ,OAAO,EAAE,IAAI;EACb,SAAS,EAAE,IAAI;EACf,KAAK,EAAE,KAAK;CACf",
+    "sources": [
+        "rules-button.component.scss",
+        "../shared/colors.scss"
+    ],
+    "names": [],
+    "file": "rules-button.component.css"
+}
