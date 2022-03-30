@@ -2,8 +2,8 @@
     "version": 3,
     "mappings": "",
     "sources": [
-        "variables.scss"
+        "colors.scss"
     ],
     "names": [],
-    "file": "variables.css"
+    "file": "colors.css"
 }
