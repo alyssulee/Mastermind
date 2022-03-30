@@ -1,9 +1,9 @@
 {
     "version": 3,
-    "mappings": "AAEA,AAAA,MAAM,CAAC;EACH,gBAAgB,ECFV,OAAO;EDGb,aAAa,EAAE,IAAI;EACnB,KAAK,EAAE,KAAK;EACZ,OAAO,EAAE,IAAI;EACb,SAAS,EAAE,IAAI;EACf,KAAK,EAAE,KAAK;CACf",
+    "mappings": "AAEA,AAAA,MAAM,CAAC;EACH,gBAAgB,ECFV,OAAO;EDGb,aAAa,EAAE,IAAI;EACnB,KAAK,EAAE,KAAK;EACZ,OAAO,EAAE,IAAI;EACb,SAAS,EAAE,IAAI;EACf,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,GAAG,CAAC,KAAK,CCRX,OAAO;CDShB;;AAED,AAAA,MAAM,AAAA,MAAM,CAAC;EACT,gBAAgB,ECTN,OAAO;EDUjB,MAAM,EAAE,GAAG,CAAC,KAAK,CCVP,OAAO;CDWpB",
     "sources": [
         "rules-button.component.scss",
-        "../shared/colors.scss"
+        "../shared/variables.scss"
     ],
     "names": [],
     "file": "rules-button.component.css"

@@ -7,6 +7,7 @@ client/out-tsc
 client/bazel-out
 
 # Node
+node_modules
 client/node_modules
 server/node_modules
 client/npm-debug.log

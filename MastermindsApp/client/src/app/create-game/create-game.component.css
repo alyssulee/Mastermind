@@ -1,1 +1,60 @@
-/* No CSS *//*# sourceMappingURL=create-game.component.css.map */
+/* No CSS */
+.login-page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.login-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.rules-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
+}
+
+.rules-container h3 {
+  margin: 0;
+}
+
+@media (max-width: 800px) {
+  .login-container {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  .login-page h2 {
+    font-size: 16px;
+    margin-top: 5px;
+  }
+  .rules-container h3 {
+    font-size: 14px;
+  }
+  .rules-container button {
+    padding: 5px;
+  }
+}
+/*# sourceMappingURL=create-game.component.css.map */
