@@ -12,4 +12,7 @@ export class CreateGameComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  createRoom() {
+    console.log("Room Created")
+  }
 }
