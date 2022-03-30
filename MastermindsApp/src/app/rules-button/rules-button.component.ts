@@ -12,7 +12,4 @@ export class RulesButtonComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openRulesPopup() {
-
-  }
 }
