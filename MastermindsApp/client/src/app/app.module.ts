@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CreateGameComponent } from './create-game/create-game.component';
 import { JoinGameComponent } from './join-game/join-game.component';
 import { RulesButtonComponent } from './rules-button/rules-button.component';
+import { WordGridComponent } from './word-grid/word-grid.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { RulesButtonComponent } from './rules-button/rules-button.component';
     AppComponent,
     CreateGameComponent,
     JoinGameComponent,
-    RulesButtonComponent
+    RulesButtonComponent,
+    WordGridComponent
   ],
   imports: [
     BrowserModule,

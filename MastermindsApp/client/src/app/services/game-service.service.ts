@@ -8,6 +8,6 @@ export class GameService {
 
   constructor() { }
 
-  socket = io('http://localhost:8080');
+  public static socket = io('http://localhost:8080');
 
 }
