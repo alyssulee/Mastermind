@@ -1,4 +1,3 @@
-declare var require: any
 const PORT = 8080;
 
 var express = require('express'),
