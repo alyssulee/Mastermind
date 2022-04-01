@@ -6,8 +6,11 @@ import { io } from "socket.io-client";
 })
 export class GameService {
 
-  constructor() { }
+  public socket = io('http://localhost:8080');
 
-  socket = io('http://localhost:8080');
+  constructor() { 
+    console.log('GameService created');
+  }
+
 
 }
