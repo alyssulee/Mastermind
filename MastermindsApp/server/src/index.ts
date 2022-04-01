@@ -1,7 +1,4 @@
-import { WordService } from "./services/WordService";
-
 const PORT = 8080;
-var wordService = new WordService();
 
 var express = require('express'),
     app = express(), 
@@ -11,8 +8,14 @@ var express = require('express'),
 server.listen(PORT);
 console.log("Server Running on Port ", PORT);
 
+const registerWordHandler = require('./services/EventHandlers/WordHandler')
+
 io.on('connection', (socket) => 
 {
     console.log(socket.id, ': user connected');
+    let roomCode = 'ABC'
+    socket.join(roomCode);
+
+    registerWordHandler(io, socket);
 });
 

@@ -1,6 +1,6 @@
 import { GameWord, WordCategory } from "../interfaces/GameWord"
 
-class WordService 
+export class WordService 
 {
     wordList: string [];
 
@@ -31,6 +31,7 @@ class WordService
         
         while(gameWords.length < 25)
         {
+            // Get Category
             let category : WordCategory;
             switch(true)
             {
@@ -47,6 +48,7 @@ class WordService
                     category = WordCategory.Neutral;
             }
 
+            // Generate Word
             let newWord = this.GenerateRandomWord();
             if(!usedWords.has(newWord))
             {
@@ -56,7 +58,7 @@ class WordService
             }
         }
 
-        return gameWords;
+        return this.ShuffleWordSet(gameWords);
     }
 
     /**
@@ -65,7 +67,10 @@ class WordService
     private GenerateRandomWord() : string
     {
         return this.wordList[Math.floor(Math.random() * this.wordList.length)]
+    }    
+
+    private ShuffleWordSet(gameWords : GameWord []) : GameWord []
+    {
+        return gameWords
     }
 }
-
-export {WordService};
