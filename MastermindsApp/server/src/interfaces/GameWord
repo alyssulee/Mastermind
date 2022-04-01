@@ -1,0 +1,11 @@
+export enum WordCategory {
+    GreenTeam,
+    PurpleTeam,
+    Neutral,
+    Bomb
+}
+
+export interface GameWord {
+  word: string;
+  category: WordCategory;
+}

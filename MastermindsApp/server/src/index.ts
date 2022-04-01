@@ -1,4 +1,7 @@
+import { WordService } from "./services/WordService";
+
 const PORT = 8080;
+var wordService = new WordService();
 
 var express = require('express'),
     app = express(), 
@@ -12,3 +15,4 @@ io.on('connection', (socket) =>
 {
     console.log(socket.id, ': user connected');
 });
+
