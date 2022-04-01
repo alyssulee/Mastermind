@@ -1,8 +1,8 @@
 export enum WordCategory {
-    GreenTeam,
-    PurpleTeam,
-    Neutral,
-    Bomb
+    Green = "Green",
+    Purple = "Purple",
+    Neutral = "Neutral",
+    Bomb = "Bomb",
 }
 
 export interface GameWord {
