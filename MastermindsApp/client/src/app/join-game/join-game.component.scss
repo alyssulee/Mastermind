@@ -1,7 +1,7 @@
 @import '../shared/variables';
 
 .error-message{
-    color: #cc0000;
+    color: $error-message;
     visibility: hidden;
     font-weight: bold;
     font-size: 14px;

@@ -40,6 +40,22 @@ export class RoomService
     });
   }
 
+  onNicknameEmptyCreate(){
+    return new Observable<string>(observer => {
+      this.socket.on('room:nickname-empty-create', () => {
+        observer.next();
+      });
+    });
+  }
+
+  onNicknameEmptyJoin(){
+    return new Observable<string>(observer => {
+      this.socket.on('room:nickname-empty-join', () => {
+        observer.next();
+      });
+    });
+  }
+
   onNicknameUsed(){
     return new Observable<string>(observer => {
       this.socket.on('room:user-already-exists', () => {

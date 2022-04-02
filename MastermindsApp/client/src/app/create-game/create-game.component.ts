@@ -16,10 +16,22 @@ export class CreateGameComponent implements OnInit {
     this.roomService.onJoinedRoom().subscribe((roomCode: string) => {
       this.router.navigate(['/game/' + roomCode]);
     });
+
+    this.roomService.onNicknameEmptyCreate().subscribe(() => {
+      $("#error-message-no-nickname-create").css('visibility', 'visible');
+      $('#create-game-nickname').css('border', '2px solid #cc0000');
+    });
   }
 
   createRoom() {
+    this.resetErrorMessage();
+
     var nickname = String($("#create-game-nickname").val());
     this.roomService.onNewRoomRequested(nickname);
+  }
+  
+  resetErrorMessage(){
+    $("#error-message-no-nickname-create").css('visibility', 'hidden');
+    $('#create-game-nickname').css('border', '0px');
   }
 }
