@@ -2,8 +2,10 @@
     <h1>Join a Game</h1>
     <hr>
     <h2>Nickname</h2>
-    <input type="text" id="nickname">
+    <input type="text" id="join-game-nickname" (keydown)="resetErrorMessages()">
+    <p class="error-message" id="error-message-nickname">The nickname you entered already exists.</p>  
     <h2>Room Code</h2>
-    <input type="text" id="room-code">    
+    <input type="text" id="room-code" (keydown)="resetErrorMessages()">  
+    <p class="error-message" id="error-message-room-code">The room code does not exist.</p>  
     <button (click)="joinRoom()">Join</button>
 </div>

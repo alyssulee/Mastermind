@@ -1,0 +1,16 @@
+@import '../shared/variables';
+
+.error-message{
+    color: #cc0000;
+    visibility: hidden;
+    font-weight: bold;
+    font-size: 14px;
+    margin: 0 0 5px 0;
+    height: 10px;
+}
+
+@media (max-width: $mobile-width){
+    .error-message{
+        font-size: 12px;
+    }
+}
