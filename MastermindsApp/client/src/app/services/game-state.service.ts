@@ -14,12 +14,10 @@ export class GameStateService
 
   constructor(private gameService : GameService) { 
     this.socket = this.gameService.socket; 
-    this.sendGenerateWordEvent();
   }
 
   sendGenerateWordEvent() {
-    // let socketRoom = io.sockets.manager.roomClients[this.socket.id]
-    this.socket.emit('words:generate-set', "ABC");
+    this.socket.emit('words:generate-set');
   }
 
   onGeneratedWordSet () {

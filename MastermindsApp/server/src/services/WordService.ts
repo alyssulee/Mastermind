@@ -69,8 +69,14 @@ export class WordService
         return this.wordList[Math.floor(Math.random() * this.wordList.length)]
     }    
 
-    private ShuffleWordSet(gameWords : GameWord []) : GameWord []
+    private ShuffleWordSet(array : GameWord []) : GameWord []
     {
-        return gameWords
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
     }
 }

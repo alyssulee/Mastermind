@@ -17,7 +17,7 @@ export class WordGridComponent implements OnInit {
   ngOnInit(): void {
     this.gameStateService.onGeneratedWordSet().subscribe((words : GameWord[]) => {
       this.gameWordSet = words;
-      console.log('got a msg: ' + words);
+      console.log('got a msg: ' + JSON.stringify(words));
     });
   }
 
