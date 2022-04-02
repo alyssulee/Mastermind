@@ -1,8 +1,8 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { WordCategory } from '../interfaces/GameWord';
 import * as $ from 'jquery';
-import { Clue } from '../interfaces/Clue';
 import { GameStateService } from '../services/game-state.service';
+import { Clue } from '../interfaces/GameLogicInterfaces';
 
 
 @Component({
@@ -16,6 +16,7 @@ export class SendClueComponent implements OnInit {
 
   team :WordCategory = WordCategory.Green; // TODO: Change this to use userService
   clue : Clue = {word: "", number: 1}
+  isMastermind: boolean = true;   // TODO: Change this to use userService
 
   constructor(private elementRef: ElementRef, private gameStateService : GameStateService) { }
 

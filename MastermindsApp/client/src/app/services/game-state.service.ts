@@ -3,8 +3,7 @@ import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { GameWord } from '../interfaces/GameWord';
 import { GameService } from './game-service.service';
-import { Clue } from '../interfaces/Clue';
-import { Guess } from '../interfaces/Guess';
+import { Clue, Guess } from '../interfaces/GameLogicInterfaces';
 
 @Injectable({
   providedIn: 'root'

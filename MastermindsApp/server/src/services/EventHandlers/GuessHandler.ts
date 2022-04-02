@@ -1,4 +1,4 @@
-import { Guess } from "../../interfaces/Guess";
+import { Guess } from "../../interfaces/GameLogicInterfaces";
 
 module.exports = (io, socket) => {
     socket.on('guess:suggest-word', (guess : Guess) => {

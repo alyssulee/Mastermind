@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { GameWord, WordCategory } from '../interfaces/GameWord';
 import * as $ from 'jquery';
 import { GameStateService } from '../services/game-state.service';
-import { Guess } from '../interfaces/Guess';
+import { Guess } from '../interfaces/GameLogicInterfaces';
 
 @Component({
   selector: 'app-minion-word-card',
