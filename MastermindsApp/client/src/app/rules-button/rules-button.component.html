@@ -1,1 +1,49 @@
 <button (click)="openRulesPopup()">Rules</button>
+
+<p-dialog class="background" [(visible)]="displayRules" [modal]="true" [style]="{width: '70vw', height: '80vh', 'background-color':'#EAEAEA', 'text-align': 'center','color':'#000', 'border-radius':'20px', 'border': '2px solid black', 'padding': '20px' }" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <div class="rules">
+      <h1>Rules</h1>
+      <hr>
+      <h2>General</h2>
+      <p>Masterminds is a game with two teams where each team has a Mastermind and Minion(s). Each team is assigned a subset of words from a set of 25 words. 
+        The Mastermind will try and get their Minion(s) to guess this specific subset without clicking any of the other 25 words. Whichever team successfully 
+        guesses all of their words first wins!</p>
+      <h2>Teams and Roles</h2>
+      <p>There are two teams for players to choose from. This includes the <span style="color: #4CC36d"><b>Green Team</b></span> and the <span style="color: #B264F2"><b>Purple Team</b></span>. 
+        In these teams, users can choose to either by the <b>Mastermind</b> or one of the <b>Minions</b>. If you don’t want to be on a team, you can also join the game as a 
+        spectator.<br><br>
+        <b>The Mastermind</b> is responsible for giving clues to their team to guess. Both team’s Mastermind knows exactly which words relate to which team.
+      </p>
+      <img src="../../assets/Mastermind-View.png">
+      <p><b>Minions</b> are responsible for guessing words that relate to the clues given by their Mastermind. Minions have no indication which words relate to which team 
+        until they guess.</p>
+      <img src="../../assets/Minion-View.png">
+      <h2>Giving Clues</h2>
+      <p>Once it’s your turn, the Mastermind will have a chance to create a clue for their team. The Mastermind can type in a word and assign a number to the clue. The number 
+        defines how many words are related to this specific clue. <br><br>
+        There are a couple restrictions to what words can be used for clues. These include:</p>
+        <ul>
+          <li>- Clues must be a single word</li>
+          <li>- Clues cannot be a form of a word that belongs to the 25 words<br>
+            <span style="color: #A8A8A8">Example: You cannot say <span style="color: #808080">BALL</span> if <span style="color: #808080">BASKETBALL</span> is one of the words</span>
+          </li>
+        </ul>
+      <p>     
+      <h2>Guessing</h2>
+      <p>After a Mastermind has given a clue, the Minions can guess words that relate to it. Minions can guess as many words as the number the Mastermind entered with the 
+        clue.<br><br>
+        If they want to indicate if they think a word might be related, they can click the card and highlight it.<br><br>
+        If they want to confirm their guess, they can click the orange “Guess” button on the word. If their guess is correct, the word will highlight in their team colour and 
+        they can continue guessing.</p>
+      <h2>End of Turn</h2>
+      <p>There are 3 ways a team’s turn can end.</p>
+        <ul>
+          <li>- If a minion guesses an incorrect word.</li>
+          <li>- If a minion presses the end guessing button.</li>
+          <li>- If the max amount of guesses for the turn has been reached.</li>
+        </ul>
+      <h2>Winning and Losing</h2>
+      <p>A team wins once they have guessed all of their words correctly. If any team accidentally guesses the bomb word (highlighted in <span style="color: #FF9900"><b>orange</b></span>), then that team automatically loses.</p>
+    </div>
+</p-dialog>

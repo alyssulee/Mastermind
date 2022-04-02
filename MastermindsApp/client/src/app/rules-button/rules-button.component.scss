@@ -14,3 +14,36 @@ button:hover {
     background-color: $accent-grey;
     border: 1px solid $accent-grey;
 }
+
+img {
+    width: 450px;
+    height: 350px;
+}
+
+.rules{
+    margin: 0 100px;
+}
+
+ul {
+    list-style: none;
+    font-weight: bold;
+}
+
+li {
+    margin: 5px 0;
+}
+
+@media (max-width: $mobile-width){
+    .rules {
+        margin: 0px;
+    }
+
+    img {
+        width: 350px;
+        height: 250px;
+    }
+
+    ul{
+        padding: 0px;
+    }
+}
