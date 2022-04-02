@@ -9,13 +9,13 @@ server.listen(PORT);
 console.log("Server Running on Port ", PORT);
 
 const registerWordHandler = require('./services/EventHandlers/WordHandler')
+const registerRoomHandler = require('./services/EventHandlers/RoomHandler')
 
 io.on('connection', (socket) => 
 {
     console.log(socket.id, ': user connected');
-    let roomCode = 'ABC'
-    socket.join(roomCode);
 
     registerWordHandler(io, socket);
+    registerRoomHandler(io, socket);
 });
 
