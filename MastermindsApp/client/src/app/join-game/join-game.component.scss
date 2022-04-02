@@ -9,6 +9,10 @@
     height: 10px;
 }
 
+#error-message-no-nickname-join {
+    display: none;
+}
+
 @media (max-width: $mobile-width){
     .error-message{
         font-size: 12px;

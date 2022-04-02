@@ -19,11 +19,15 @@ export class JoinGameComponent implements OnInit {
 
     this.roomService.onNicknameUsed().subscribe(() => {
       $("#error-message-nickname").css('visibility', 'visible');
+      $("#error-message-nickname").show();
+      $("#error-message-no-nickname-join").hide();
       $('#join-game-nickname').css('border', '2px solid #cc0000');
     });
     
     this.roomService.onNicknameEmptyJoin().subscribe(() => {
       $("#error-message-no-nickname-join").css('visibility', 'visible');
+      $("#error-message-no-nickname-join").show();
+      $("#error-message-nickname").hide();
       $('#join-game-nickname').css('border', '2px solid #cc0000');
     });
 
@@ -44,6 +48,8 @@ export class JoinGameComponent implements OnInit {
   resetErrorMessages(){
     $("#error-message-nickname").css('visibility', 'hidden');
     $("#error-message-no-nickname-join").css('visibility', 'hidden');
+    $("#error-message-nickname").show();
+    $("#error-message-no-nickname-join").hide();
     $("#error-message-room-code").css('visibility', 'hidden');
     $('#join-game-nickname').css('border', '0px');
     $('#room-code').css('border', '0px');
