@@ -1,7 +1,15 @@
-<p>word-grid works!</p>
 <div class="grid">
-    <div *ngFor="let word of gameWordSet">
-        <h3>{{word.word}}</h3>
-        <h3>{{word.category}}</h3>
+    <div *ngFor="let word of gameWordSet; let i = index;">
+        <div class="word-card {{word.category}}">
+            <h3>{{word.word}}</h3>
+            <h3>{{word.category}}</h3>
+        </div>
     </div>
+
+    <!-- <div class='row' *ngFor="let row of [0, 1, 2, 3, 4, 5]; let i = index">
+        <div class="word-card {{word.category}}">
+            <h3>{{word.word}}</h3>
+            <h3>{{word.category}}</h3>
+        </div>
+    </div> -->
 </div>
