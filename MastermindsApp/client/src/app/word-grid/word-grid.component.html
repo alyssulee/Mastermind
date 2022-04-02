@@ -1,5 +1,5 @@
 <!-- Mastermind  -->
-<ng-container *ngIf="!isMastermind">
+<ng-container *ngIf="isMastermind">
     <div class="grid">
         <ng-container *ngFor="let word of gameWordSet; let i = index;">
             <ng-container *ngIf="(i % 5) == 0">
