@@ -1,4 +1,5 @@
 @import '../shared/variables';
+@import '../shared/word-card';
 
 .grid {
     justify-content: center;
@@ -7,17 +8,7 @@
     grid-auto-flow: column;
 }
 
-.word-card {
-    border-radius: 5px;
-    padding: 2rem;
-    margin-right: 15px;
-    margin-top: 15px;
-    text-align: center;
-    padding: 2em 0;
-}
-
 .Bomb { background-color: $orange; }
 .Green { background-color: $green-team; }
 .Purple { background-color: $purple-team; } 
 .Neutral { background-color: $default; }
-.default { background-color: $default; }

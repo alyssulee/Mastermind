@@ -16,6 +16,7 @@ import { GameComponent } from './game/game.component';
 import { WordGridComponent } from './word-grid/word-grid.component';
 import { GameStateService } from './services/game-state.service';
 import { SendClueComponent } from './send-clue/send-clue.component';
+import { MinionWordCardComponent } from './minion-word-card/minion-word-card.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SendClueComponent } from './send-clue/send-clue.component';
     WordGridComponent,
     LoginComponent,
     GameComponent,
-    SendClueComponent
+    SendClueComponent,
+    MinionWordCardComponent
   ],
   imports: [
     BrowserModule,

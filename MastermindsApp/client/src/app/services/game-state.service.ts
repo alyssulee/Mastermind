@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { GameWord } from '../interfaces/GameWord';
 import { GameService } from './game-service.service';
 import { Clue } from '../interfaces/Clue';
+import { Guess } from '../interfaces/Guess';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { Clue } from '../interfaces/Clue';
 
 export class GameStateService
 {
-  private socket: Socket;
+  socket: Socket;
 
   constructor(private gameService : GameService) { 
     this.socket = this.gameService.socket; 
@@ -20,6 +21,43 @@ export class GameStateService
   /* Clue Events */
   sendClueEvent(clue : Clue) {
     this.socket.emit('clue:send-clue', clue);
+  }
+
+  /* Guess Events */
+  sendSuggestEvent(guess : Guess) {
+    this.socket.emit('guess:suggest-word', guess);
+  }
+
+  sendUnsuggestEvent(guess : Guess) {
+    this.socket.emit('guess:unsuggest-word', guess);
+  }
+
+  sendGuessEvent(guess : Guess) {
+    this.socket.emit('guess:guess-word', guess);
+  }
+
+  onSuggestEvent () {
+    return new Observable<Guess>(observer => {
+      this.socket.on('guess:suggest-word', guess => {
+        observer.next(guess);
+      });
+    });
+  }
+  
+  onUnsuggestEvent () {
+    return new Observable<Guess>(observer => {
+      this.socket.on('guess:unsuggest-word', guess => {
+        observer.next(guess);
+      });
+    });
+  }
+
+  onGuessEvent () {
+    return new Observable<Guess>(observer => {
+      this.socket.on('guess:guess-word', guess => {
+        observer.next(guess);
+      });
+    });
   }
 
   /* Word Events */

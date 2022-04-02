@@ -9,7 +9,7 @@ import {GameStateService} from '../services/game-state.service'
 })
 export class WordGridComponent implements OnInit {
   gameWordSet : GameWord [] = [];
-  isMastermind = true;  // TODO: Change this to use userService
+  isMastermind = false;  // TODO: Change this to use userService
 
   constructor( private gameStateService : GameStateService) { 
     gameStateService.sendGenerateWordEvent();

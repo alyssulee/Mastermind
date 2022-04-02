@@ -1,0 +1,20 @@
+<!-- Minion Card  -->
+<div class="minion-card">
+    <!-- Word Card  -->
+    <div>
+        <div class="word-card" id='{{gameWord.word}}-card' (click)="onMinionCartClick()">
+            {{gameWord.word}}
+            <div class="suggest-name self {{team}}">
+                {{selfUsername}}
+            </div>
+            <div class="suggest-name not-self {{team}}">
+                {{notSelfUsername}}
+            </div>
+        </div>
+    </div>
+
+    <!-- Guess Button -->
+    <button class="guess-button">
+        Guess
+    </button>
+</div>

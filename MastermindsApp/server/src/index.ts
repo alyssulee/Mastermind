@@ -10,6 +10,7 @@ console.log("Server Running on Port ", PORT);
 
 const registerWordHandler = require('./services/EventHandlers/WordHandler')
 const registerRoomHandler = require('./services/EventHandlers/RoomHandler')
+const registerGuessHandler = require('./services/EventHandlers/GuessHandler')
 
 io.on('connection', (socket) => 
 {
@@ -17,5 +18,6 @@ io.on('connection', (socket) =>
 
     registerWordHandler(io, socket);
     registerRoomHandler(io, socket);
+    registerGuessHandler(io, socket);
 });
 
