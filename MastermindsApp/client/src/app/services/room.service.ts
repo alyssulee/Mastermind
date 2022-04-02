@@ -11,9 +11,11 @@ import { joinRequest } from '../interfaces/JoinRequest';
 export class RoomService
 {
   private socket: Socket;
+  roomcode: string;
 
   constructor(private gameService : GameService) { 
     this.socket = this.gameService.socket;
+    this.roomcode = "";
   }
 
   onNewRoomRequested (nickname: string) {
@@ -32,6 +34,7 @@ export class RoomService
   onJoinedRoom () {
     return new Observable<string>(observer => {
       this.socket.on('room:joined-room', roomCode => {
+        this.roomcode = roomCode;
         observer.next(roomCode);
       });
     });
