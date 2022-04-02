@@ -9,16 +9,18 @@ import {GameStateService} from '../services/game-state.service'
 })
 export class WordGridComponent implements OnInit {
   gameWordSet : GameWord [] = [];
+  isMastermind = true;
 
   constructor( private gameStateService : GameStateService) { 
     gameStateService.sendGenerateWordEvent();
   }
 
   ngOnInit(): void {
+    // Subscribe
     this.gameStateService.onGeneratedWordSet().subscribe((words : GameWord[]) => {
       this.gameWordSet = words;
       console.log('got a msg: ' + JSON.stringify(words));
     });
   }
-
+  
 }

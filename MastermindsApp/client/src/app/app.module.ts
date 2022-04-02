@@ -11,9 +11,10 @@ import { CreateGameComponent } from './create-game/create-game.component';
 import { JoinGameComponent } from './join-game/join-game.component';
 import { RulesButtonComponent } from './rules-button/rules-button.component';
 import { GameService } from './services/game-service.service';
-import { WordGridComponent } from './word-grid/word-grid.component';
 import { LoginComponent } from './login/login.component';
 import { GameComponent } from './game/game.component';
+import { WordGridComponent } from './word-grid/word-grid.component';
+import { GameStateService } from './services/game-state.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { GameComponent } from './game/game.component';
     DialogModule, 
     ButtonModule
   ],
-  providers: [GameService],
+  providers: [GameService, GameStateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,8 +1,14 @@
 <div class="grid">
-    <div *ngFor="let word of gameWordSet; let i = index;">
-        <div class="word-card {{word.category}}">
-            <h3>{{word.word}}</h3>
-            <h3>{{word.category}}</h3>
-        </div>
-    </div>
+    <ng-container *ngFor="let word of gameWordSet; let i = index;">
+        <ng-container *ngIf="(i % 5) == 0">
+            <div class='row'>
+                <div class="word-card" [ngClass]="isMastermind ? gameWordSet[i].category : 'default'"
+                >{{gameWordSet[i].word}}</div>
+                <div class="word-card" [ngClass]="isMastermind ? gameWordSet[i+1].category : 'default'">{{gameWordSet[i+1].word}}</div>
+                <div class="word-card" [ngClass]="isMastermind ? gameWordSet[i+2].category : 'default'">{{gameWordSet[i+2].word}}</div>
+                <div class="word-card" [ngClass]="isMastermind ? gameWordSet[i+3].category : 'default'">{{gameWordSet[i+3].word}}</div>
+                <div class="word-card" [ngClass]="isMastermind ? gameWordSet[i+4].category : 'default'">{{gameWordSet[i+4].word}}</div>
+            </div>
+        </ng-container>
+    </ng-container>
 </div>
