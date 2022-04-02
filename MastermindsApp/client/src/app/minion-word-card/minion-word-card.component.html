@@ -2,7 +2,10 @@
 <div class="minion-card">
     <!-- Word Card  -->
     <div>
-        <div class="word-card" id='{{gameWord.word}}-card' (click)="onMinionCartClick()">
+        <div class="word-card {{gameWord.word}}-card" 
+        [ngClass]="gameWord.guessed ? gameWord.category : 'minion'" 
+        id='{{gameWord.word}}-card' 
+        (click)="onMinionCardClick()">
             {{gameWord.word}}
             <div class="suggest-name self {{team}}">
                 {{selfUsername}}
@@ -14,7 +17,9 @@
     </div>
 
     <!-- Guess Button -->
-    <button class="guess-button">
-        Guess
-    </button>
+    <ng-container *ngIf="!gameWord.guessed">
+        <button class="guess-button" (click)="onGuessButtonClick()">
+            Guess
+        </button>
+    </ng-container>
 </div>

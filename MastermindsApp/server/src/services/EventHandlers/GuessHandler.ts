@@ -10,4 +10,9 @@ module.exports = (io, socket) => {
         let roomCode = [...socket.rooms][1];
         io.to(roomCode).emit('guess:unsuggest-word', guess);
     });
+
+    socket.on('guess:guess-word', (guess : Guess) => {
+        let roomCode = [...socket.rooms][1];
+        io.to(roomCode).emit('guess:guess-word', guess);
+    });
 }

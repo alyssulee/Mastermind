@@ -21,7 +21,8 @@ export class MinionWordCardComponent implements OnInit
     this.selfUsername = gameState.socket.id;  // TODO: Change to username instead of socketid
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
      // Subscribe
      this.gameState.onSuggestEvent().subscribe((guess: Guess) => {
       if(this.gameWord.word == guess.gameWord.word && this.selfUsername != guess.username)
@@ -30,6 +31,7 @@ export class MinionWordCardComponent implements OnInit
         $(`#${this.gameWord.word}-card .suggest-name.not-self`).show();
       }
     });
+
     this.gameState.onUnsuggestEvent().subscribe((guess: Guess) => {
       if(this.gameWord.word == guess.gameWord.word && this.selfUsername != guess.username)
       {
@@ -37,9 +39,20 @@ export class MinionWordCardComponent implements OnInit
         $(`#${this.gameWord.word}-card .suggest-name.not-self`).hide();
       }
     });
+
+    this.gameState.onGuessEvent().subscribe((guess: Guess) => {
+      if(this.gameWord.word == guess.gameWord.word)
+      {
+        // Hide suggest names and add guessed class
+        $(`.${this.gameWord.word}-card`).addClass('guessed');
+        $(`#${this.gameWord.word}-card .suggest-name.self`).hide();
+        $(`#${this.gameWord.word}-card .suggest-name.not-self`).hide();
+        this.gameWord.guessed = true;
+      }
+    });
   }
 
-  onMinionCartClick(): void 
+  onMinionCardClick(): void 
   {
     let suggestName = $(`#${this.gameWord.word}-card .suggest-name.self`);
     let guess: Guess = {gameWord: this.gameWord, username: this.selfUsername}
@@ -53,6 +66,13 @@ export class MinionWordCardComponent implements OnInit
       this.gameState.sendSuggestEvent(guess)
       suggestName.show(); 
     }
+  }
+
+  onGuessButtonClick(): void 
+  {
+    this.gameWord.guessed = true;
+    let guess: Guess = {gameWord: this.gameWord, username: this.selfUsername}
+    this.gameState.sendGuessEvent(guess);
   }
 
 }
