@@ -30,13 +30,7 @@ import { GameComponent } from './game/game.component';
     AppRoutingModule,
     BrowserAnimationsModule, 
     DialogModule, 
-    ButtonModule, 
-    RouterModule.forRoot(
-      [
-        { path:'', component:AppComponent},
-        { path: 'game-page', component:JoinGameComponent }
-      ]
-    )
+    ButtonModule
   ],
   providers: [GameService],
   bootstrap: [AppComponent]

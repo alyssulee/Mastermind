@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Socket } from 'socket.io-client';
+import { GameService } from '../services/game-service.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-create-game',
@@ -7,15 +10,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-game.component.scss']
 })
 export class CreateGameComponent implements OnInit {
-
-  constructor(private router: Router) {  }
+  constructor(private router: Router, private userService: UserService) { 
+   }
 
   ngOnInit(): void {
+    this.userService.onRoomCodeCreated().subscribe((roomCode: string) => {
+      console.log('got a msg: ' + roomCode);
+      this.router.navigate(['/game/' + roomCode]);
+    });
   }
 
   createRoom() {
     console.log("Room Created");
-    var roomCode = "1";
-    this.router.navigate(['/game/' + roomCode]);
+    this.userService.onNewRoomRequested();
   }
 }
