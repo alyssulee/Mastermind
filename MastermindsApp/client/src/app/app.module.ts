@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { GameComponent } from './game/game.component';
 import { WordGridComponent } from './word-grid/word-grid.component';
 import { GameStateService } from './services/game-state.service';
+import { SendClueComponent } from './send-clue/send-clue.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { GameStateService } from './services/game-state.service';
     RulesButtonComponent,
     WordGridComponent,
     LoginComponent,
-    GameComponent
+    GameComponent,
+    SendClueComponent
   ],
   imports: [
     BrowserModule,
