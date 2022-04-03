@@ -1,4 +1,4 @@
-import { Role, Team, Turn, Guess } from "../interfaces/GameLogicInterfaces";
+import { Role, Team, Turn, Guess, Clue } from "../interfaces/GameLogicInterfaces";
 import { GameWord, WordCategory } from "../interfaces/GameWord";
 
 export enum GuessResult {
@@ -15,6 +15,8 @@ export class GameStateService
     endOfGame: boolean = false;
     winningTeam: Team;
     words: { [word: string]: GameWord } = {};
+    currentClue: Clue;
+    currentAmountOfGuesses: number;
 
     constructor() 
     { 
@@ -35,6 +37,11 @@ export class GameStateService
             this.gameTurn = {team: Team.Green, role: Role.Mastermind}
         }
     }
+    
+    setClue(clue: Clue){
+        this.currentClue = clue;
+        this.currentAmountOfGuesses = 0;
+    }
 
     CheckGuessedWord(guess : Guess) : GuessResult {
         switch(guess.gameWord.category){
@@ -42,6 +49,11 @@ export class GameStateService
                 switch(guess.user.team){
                     case Team.Green:
                         //Add check for end of turn or won game
+                        this.currentAmountOfGuesses++;
+                        if(this.currentAmountOfGuesses >= this.currentClue.number){
+                            return GuessResult.EndTurn;
+                        }
+                        
                         return GuessResult.Success;
                     case Team.Purple:
                         return GuessResult.Failure;
@@ -52,6 +64,11 @@ export class GameStateService
                         return GuessResult.Failure;
                     case Team.Purple:
                         //Add check for end of turn or won game
+                        this.currentAmountOfGuesses++; 
+                        if(this.currentAmountOfGuesses >= this.currentClue.number){
+                            return GuessResult.EndTurn;
+                        }
+                        
                         return GuessResult.Success;
                 }
             case WordCategory.Neutral:

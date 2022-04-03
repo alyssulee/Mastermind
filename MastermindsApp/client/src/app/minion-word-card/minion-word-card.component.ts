@@ -54,7 +54,7 @@ export class MinionWordCardComponent implements OnInit
         $(`.${this.gameWord.word}-card`).addClass('guessed');
         $(`#${this.gameWord.word}-card .suggest-name.self`).hide();
         $(`#${this.gameWord.word}-card .suggest-name.not-self`).hide();
-        this.gameWord.guessed = true;
+        this.gameState.updateGuessedWord(this.gameWord);
       }
     });
 

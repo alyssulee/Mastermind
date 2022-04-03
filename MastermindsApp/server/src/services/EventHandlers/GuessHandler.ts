@@ -16,6 +16,7 @@ module.exports = (io, socket) => {
     socket.on('clue:send-clue', (clue: Clue) => {
         let roomCode = [...socket.rooms][1];
         updateTurn(roomCode);
+        gameStateService.setClue(clue);
         io.to(roomCode).emit('clue:send-clue', clue);
     });
 

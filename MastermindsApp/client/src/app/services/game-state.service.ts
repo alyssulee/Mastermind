@@ -61,6 +61,11 @@ export class GameStateService
     });
   }
 
+  updateGuessedWord(word: GameWord){
+    this.gameWordSet[this.gameWordSet.indexOf(word)].guessed = true;
+    this.updated();
+  }
+
   setWords(words: GameWord []) {
     this.gameWordSet = words;
   }
