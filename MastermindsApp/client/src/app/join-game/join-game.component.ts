@@ -40,7 +40,7 @@ export class JoinGameComponent implements OnInit {
   joinRoom() {
     this.resetErrorMessages();
 
-    var nickname = String($("#join-game-nickname").val());
+    var nickname = String($("#join-game-nickname").val()).trim();
     var roomCode = String($("#room-code").val());
     this.roomService.onRequestToJoinRoom(nickname, roomCode);
   }

@@ -26,7 +26,7 @@ export class CreateGameComponent implements OnInit {
   createRoom() {
     this.resetErrorMessage();
 
-    var nickname = String($("#create-game-nickname").val());
+    var nickname = String($("#create-game-nickname").val()).trim();
     this.roomService.onNewRoomRequested(nickname);
   }
   
