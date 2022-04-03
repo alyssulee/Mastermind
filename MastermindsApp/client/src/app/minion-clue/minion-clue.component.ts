@@ -24,6 +24,11 @@ export class MinionClueComponent implements OnInit {
     this.gameState.onEndGuessingEvent().subscribe(() => {
       console.log("End Guessing");
     });
+    
+    this.gameState.onSendClueEvent().subscribe((clue : Clue) => {
+      console.log("Got clue: ", JSON.stringify(clue));
+      this.clue = clue;
+    });
   }
 
   onEndGuessing() : void {

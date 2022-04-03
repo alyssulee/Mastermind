@@ -31,6 +31,14 @@ export class GameStateService
     this.socket.emit('clue:send-clue', clue);
   }
 
+  onSendClueEvent() {
+    return new Observable<Clue>(observer => {
+      this.socket.on('clue:send-clue', clue => {
+        observer.next(clue);
+      });
+    });
+  }
+
   /* Guess Events */
   sendSuggestEvent(guess : Guess) {
     this.socket.emit('guess:suggest-word', guess);
