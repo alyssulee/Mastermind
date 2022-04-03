@@ -31,7 +31,7 @@ import { RoomcodeComponent } from './roomcode/roomcode.component';
     GameComponent,
     SendClueComponent,
     MinionWordCardComponent,
-    MinionClueComponent
+    MinionClueComponent,
     RoomcodeComponent
   ],
   imports: [
