@@ -44,6 +44,8 @@ export class GameStateService
     }
 
     CheckGuessedWord(guess : Guess) : GuessResult {
+        this.words[guess.gameWord.word].guessed = true;
+
         switch(guess.gameWord.category){
             case WordCategory.Green:
                 switch(guess.user.team){
