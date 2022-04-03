@@ -5,12 +5,21 @@
     position: relative;
 }
 
+.not-guessing {
+    pointer-events: none;
+    cursor: auto;
+}
+
 .word-card {
     cursor: pointer;
 
     &:hover {
         background-color: $dark-grey;
     }
+}
+
+.not-guessing .guess-button {
+    display: none;
 }
 
 .guess-button {

@@ -1,5 +1,5 @@
 <!-- Minion Card  -->
-<div class="minion-card">
+<div class="minion-card" [ngClass]="!isMyTurn ? 'not-guessing' : ''">
     <!-- Word Card  -->
     <div>
         <div class="word-card {{gameWord.word}}-card" 

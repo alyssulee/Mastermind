@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { GameWord, WordCategory } from '../interfaces/GameWord';
 import * as $ from 'jquery';
 import { GameStateService } from '../services/game-state.service';
-import { Guess } from '../interfaces/GameLogicInterfaces';
+import { Guess, Team } from '../interfaces/GameLogicInterfaces';
 
 @Component({
   selector: 'app-minion-word-card',
@@ -12,13 +12,18 @@ import { Guess } from '../interfaces/GameLogicInterfaces';
 export class MinionWordCardComponent implements OnInit 
 {
   @Input() gameWord: GameWord; 
-  selfUsername = "";
-  notSelfUsername = "";
-  team: WordCategory = WordCategory.Green;
+  selfUsername: string;
+  notSelfUsername: string;
+  team: Team;
+  isMyTurn: boolean;
 
   constructor(private gameState : GameStateService) { 
     this.gameWord = {word: "", category: WordCategory.Neutral, guessed: false}
     this.selfUsername = gameState.socket.id;  // TODO: Change to username instead of socketid
+    this.team = gameState.team;
+    this.selfUsername = gameState.username;
+    this.notSelfUsername = ""
+    this.isMyTurn = gameState.isMyTurn;
   }
 
   ngOnInit(): void 

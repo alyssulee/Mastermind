@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
 import { WordCategory } from '../interfaces/GameWord';
 import * as $ from 'jquery';
 import { GameStateService } from '../services/game-state.service';
-import { Clue } from '../interfaces/GameLogicInterfaces';
+import { Clue, Role, Team } from '../interfaces/GameLogicInterfaces';
 
 
 @Component({
@@ -14,11 +14,15 @@ export class SendClueComponent implements OnInit {
   @ViewChild('clueNumber') numberButton!: ElementRef;
   @ViewChild('numberPopup') numberPopup!: ElementRef;
 
-  team :WordCategory = WordCategory.Green; // TODO: Change this to use userService
   clue : Clue = {word: "", number: 1}
-  isMastermind: boolean = true;   // TODO: Change this to use userService
 
-  constructor(private elementRef: ElementRef, private gameStateService : GameStateService) { }
+  isMastermind: boolean = true;   // TODO: Change this to use userService
+  team: Team = Team.Green; // TODO: Change this to use userService
+
+  constructor(private elementRef: ElementRef, private gameStateService : GameStateService) { 
+    this.isMastermind = gameStateService.role == Role.Mastermind;
+    this.team = gameStateService.team;
+  }
 
   ngOnInit(): void { }
 

@@ -3,7 +3,7 @@ import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { GameWord } from '../interfaces/GameWord';
 import { GameService } from './game-service.service';
-import { Clue, Guess } from '../interfaces/GameLogicInterfaces';
+import { Clue, Guess, Role, Team, Turn } from '../interfaces/GameLogicInterfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,17 @@ export class GameStateService
 {
   socket: Socket;
 
+  // TODO: Initialize these values proplery.
+  username: string = "Hello";
+  role: Role = Role.Minion;
+  team: Team = Team.Green;
+  turn: Turn = {role: Role.Minion, team: Team.Green}
+  isMyTurn: boolean = false;
+
   constructor(private gameService : GameService) { 
     this.socket = this.gameService.socket; 
+    this.username = this.socket.id;
+    this.isMyTurn = (this.turn.role == this.role && this.turn.team == this.team);
   }
 
   /* Clue Events */
@@ -33,6 +42,11 @@ export class GameStateService
 
   sendGuessEvent(guess : Guess) {
     this.socket.emit('guess:guess-word', guess);
+  }
+
+  endGuessingEvent()
+  {
+    this.socket.emit('guess:end-guessing');
   }
 
   onSuggestEvent () {
@@ -55,6 +69,14 @@ export class GameStateService
     return new Observable<Guess>(observer => {
       this.socket.on('guess:guess-word', guess => {
         observer.next(guess);
+      });
+    });
+  }
+
+  onEndGuessingEvent () {
+    return new Observable(observer => {
+      this.socket.on('guess:end-guessing', () => {
+        console.log('end-guessing')
       });
     });
   }

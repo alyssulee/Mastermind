@@ -9,7 +9,7 @@ export enum Role {
 export enum Team {
   Purple = 'Purple',
   Green = 'Green',
-  Minion = 'Minion'
+  None = 'None'
 }
 
 export interface Turn {
