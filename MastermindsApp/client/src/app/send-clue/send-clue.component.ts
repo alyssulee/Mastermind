@@ -18,10 +18,12 @@ export class SendClueComponent implements OnInit {
 
   isMastermind: boolean;
   team: Team;
+  isMyTurn: boolean;
 
   constructor(private elementRef: ElementRef, private gameStateService : GameStateService) { 
     this.isMastermind = gameStateService.role == Role.Mastermind;
     this.team = gameStateService.team;
+    this.isMyTurn = gameStateService.isMyTurn;
   }
 
   ngOnInit(): void { }

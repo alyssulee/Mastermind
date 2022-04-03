@@ -15,9 +15,9 @@ export class GameStateService
 
   // TODO: Initialize these values proplery.
   username: string = "Hello";
-  role: Role = Role.Minion;
+  role: Role = Role.Mastermind;
   team: Team = Team.Green;
-  turn: Turn = {role: Role.Minion, team: Team.Green}
+  turn: Turn = {role: Role.Mastermind, team: Team.Green}
   isMyTurn: boolean = false;
 
   constructor(private gameService : GameService) { 
