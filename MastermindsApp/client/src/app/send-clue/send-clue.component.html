@@ -2,7 +2,7 @@
     <div class="container {{team}}">
         <!-- Clue Popup -->
         <div class="number-popup" #numberPopup>
-            <ng-container *ngFor="let i of [1, 2, 3, 4, 5, 6, 7];">
+            <ng-container *ngFor="let i of numberArray;">
                 <input type="radio" id="radio-{{i}}" value="{{i}}" name="clue-number-radio" [checked]="clue.number == i"
                 (change)="onClueNumberChange(i)">
                 <label for="radio-{{i}}" class="radio-{{team}}">

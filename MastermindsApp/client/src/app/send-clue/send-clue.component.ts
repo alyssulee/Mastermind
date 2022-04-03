@@ -20,8 +20,15 @@ export class SendClueComponent implements OnInit {
   team: Team = Team.None;
   isMyTurn: boolean = false;
 
+  remainingCards: number;
+  numberArray: Array<number>;
+
   constructor(private elementRef: ElementRef, private gameStateService : GameStateService) { 
     this.update(gameStateService);
+
+    // TODO: Update to number of remaining cards when score is implemented.
+    this.remainingCards = 9;
+    this.numberArray = Array(this.remainingCards).fill(1).map((x, i)=> i+1);
   }
 
   ngOnInit(): void {
