@@ -1,4 +1,3 @@
-import { join } from "path";
 import { joinRequest } from "../../interfaces/JoinRequest";
 import { RoomService } from "../RoomService";
 
@@ -45,5 +44,13 @@ module.exports = (io, socket) => {
         socket.join(roomCode);
 
         io.to(socket.id).emit("room:joined-room", roomCode);
+    });
+
+    socket.on('changed-role', (role) => {
+        io.to(socket.id).emit("role-updated", role);
+    });
+    socket.on('changed-team', (team) => {
+
+        io.to(socket.id).emit("team-updated", team);
     });
 }

@@ -11,6 +11,4 @@ export class GameService {
   constructor() { 
     console.log('GameService created');
   }
-
-
 }

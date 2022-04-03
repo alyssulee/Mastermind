@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { GameWord, WordCategory } from '../interfaces/GameWord';
 import * as $ from 'jquery';
 import { GameStateService } from '../services/game-state.service';
-import { Guess, Team } from '../interfaces/GameLogicInterfaces';
+import { Guess, Team, User } from '../interfaces/GameLogicInterfaces';
 
 @Component({
   selector: 'app-minion-word-card',
@@ -12,16 +12,19 @@ import { Guess, Team } from '../interfaces/GameLogicInterfaces';
 export class MinionWordCardComponent implements OnInit 
 {
   @Input() gameWord: GameWord; 
+  user: User;
   selfUsername: string;
   notSelfUsername: string;
   team: Team;
   isMyTurn: boolean;
 
   constructor(private gameState : GameStateService) { 
+    this.update(gameState);
     this.gameWord = {word: "", category: WordCategory.Neutral, guessed: false}
-    this.selfUsername = gameState.username;
-    this.notSelfUsername = ""
-    this.team = gameState.team;
+    this.notSelfUsername = "";
+    this.user = gameState.user;
+    this.selfUsername = gameState.user.username;
+    this.team = gameState.user.team;
     this.isMyTurn = gameState.isMyTurn;
   }
 
@@ -29,17 +32,17 @@ export class MinionWordCardComponent implements OnInit
   {
      // Subscribe
      this.gameState.onSuggestEvent().subscribe((guess: Guess) => {
-      if(this.gameWord.word == guess.gameWord.word && this.selfUsername != guess.username)
+      if(this.gameWord.word == guess.gameWord.word && this.selfUsername != guess.user.username)
       {
-        this.notSelfUsername = guess.username;
+        this.notSelfUsername = guess.user.username;
         $(`#${this.gameWord.word}-card .suggest-name.not-self`).show();
       }
     });
 
     this.gameState.onUnsuggestEvent().subscribe((guess: Guess) => {
-      if(this.gameWord.word == guess.gameWord.word && this.selfUsername != guess.username)
+      if(this.gameWord.word == guess.gameWord.word && this.selfUsername != guess.user.username)
       {
-        this.notSelfUsername = guess.username;
+        this.notSelfUsername = guess.user.username;
         $(`#${this.gameWord.word}-card .suggest-name.not-self`).hide();
       }
     });
@@ -54,12 +57,16 @@ export class MinionWordCardComponent implements OnInit
         this.gameWord.guessed = true;
       }
     });
+
+    this.gameState.updated().subscribe(() => {
+      this.update(this.gameState);
+    });
   }
 
   onMinionCardClick(): void 
   {
     let suggestName = $(`#${this.gameWord.word}-card .suggest-name.self`);
-    let guess: Guess = {gameWord: this.gameWord, username: this.selfUsername}
+    let guess: Guess = {gameWord: this.gameWord, user: this.user}
     if(suggestName.is(":visible"))
     {
       this.gameState.sendUnsuggestEvent(guess)
@@ -75,8 +82,14 @@ export class MinionWordCardComponent implements OnInit
   onGuessButtonClick(): void 
   {
     this.gameWord.guessed = true;
-    let guess: Guess = {gameWord: this.gameWord, username: this.selfUsername}
+    let guess: Guess = {gameWord: this.gameWord, user: this.user}
     this.gameState.sendGuessEvent(guess);
   }
 
+  update(gameState : GameStateService): void {
+    this.user = gameState.user;
+    this.selfUsername = gameState.user.username;
+    this.team = gameState.user.team;
+    this.isMyTurn = gameState.isMyTurn;
+  }
 }

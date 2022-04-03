@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Role, Team } from '../interfaces/GameLogicInterfaces';
+import { GameStateService } from '../services/game-state.service';
 
 @Component({
   selector: 'app-game',
@@ -7,8 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameComponent implements OnInit {
 
-  constructor() { }
+  constructor(private gameService : GameStateService) { 
+  }
 
   ngOnInit(): void {
   }
+
+  updateGreenMastermind(): void {
+    this.gameService.setTeamAndRole(Team.Green, Role.Mastermind);
+  }
+  updateGreenMinion(): void {
+    this.gameService.setTeamAndRole(Team.Green, Role.Minion);
+    
+  }
+  updatePurpleMastermind(): void {
+    this.gameService.setTeamAndRole(Team.Purple, Role.Mastermind);
+    
+  }
+  updatePurpleMinion(): void {
+    this.gameService.setTeamAndRole(Team.Purple, Role.Minion);
+    
+  }
+
 }

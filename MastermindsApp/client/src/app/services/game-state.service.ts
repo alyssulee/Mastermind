@@ -3,7 +3,7 @@ import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { GameWord } from '../interfaces/GameWord';
 import { GameService } from './game-service.service';
-import { Clue, Guess, Role, Team, Turn } from '../interfaces/GameLogicInterfaces';
+import { Clue, Guess, Role, Team, Turn, User } from '../interfaces/GameLogicInterfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +14,55 @@ export class GameStateService
   socket: Socket;
 
   // TODO: Initialize these values proplery.
-  username: string = "Hello";
-  role: Role = Role.Mastermind;
-  team: Team = Team.Green;
+  user: User = {
+    username: "Hello",
+    team: Team.Green,
+    role: Role.Mastermind
+  }
   turn: Turn = {role: Role.Mastermind, team: Team.Green}
-  isMyTurn: boolean = false;
+  isMyTurn: boolean = (this.turn.role == this.user.role && this.turn.team == this.user.team);
+  endOfGame: boolean = false;
+  winningTeam: Team = Team.None;
+  gameWordSet : GameWord [] = [];
 
   constructor(private gameService : GameService) { 
     this.socket = this.gameService.socket; 
-    this.username = this.socket.id;
-    this.isMyTurn = (this.turn.role == this.role && this.turn.team == this.team);
+    this.user.username = this.socket.id;
+    this.isMyTurn = (this.turn.role == this.user.role && this.turn.team == this.user.team);
+  }
+
+  setTeamAndRole(team: Team, role: Role) {
+    if(this.user.role != role)
+      this.socket.emit('changed-role', role);
+
+    if(this.user.team != team)
+      this.socket.emit('changed-team', team);
+  }
+
+  updated(){
+    return new Observable<GameStateService>(observer => {
+      this.socket.on('team-updated', team => {
+        this.user.team = team;
+        this.isMyTurn = (this.turn.role == this.user.role && this.turn.team == this.user.team);
+        observer.next();
+      });
+
+      this.socket.on('role-updated', role => {
+        this.user.role = role;
+        this.isMyTurn = (this.turn.role == this.user.role && this.turn.team == this.user.team);
+        observer.next();
+      });
+
+      this.socket.on('turn:updated', turn => {
+        this.turn = JSON.parse(turn);
+        this.isMyTurn = (this.turn.role == this.user.role && this.turn.team == this.user.team);
+        observer.next();
+      });
+    });
+  }
+
+  setWords(words: GameWord []) {
+    this.gameWordSet = words;
   }
 
   /* Clue Events */
@@ -101,5 +140,4 @@ export class GameStateService
       });
     });
   }
-  
 }
