@@ -91,5 +91,10 @@ export class MinionWordCardComponent implements OnInit
     this.selfUsername = gameState.user.username;
     this.team = gameState.user.team;
     this.isMyTurn = gameState.isMyTurn;
+
+    if(!this.isMyTurn) {
+      $(`.suggest-name.self`).hide();
+      $(`.suggest-name.not-self`).hide();
+    }
   }
 }
