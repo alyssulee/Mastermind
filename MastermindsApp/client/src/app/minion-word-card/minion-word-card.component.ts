@@ -19,10 +19,9 @@ export class MinionWordCardComponent implements OnInit
 
   constructor(private gameState : GameStateService) { 
     this.gameWord = {word: "", category: WordCategory.Neutral, guessed: false}
-    this.selfUsername = gameState.socket.id;  // TODO: Change to username instead of socketid
-    this.team = gameState.team;
     this.selfUsername = gameState.username;
     this.notSelfUsername = ""
+    this.team = gameState.team;
     this.isMyTurn = gameState.isMyTurn;
   }
 

@@ -16,8 +16,8 @@ export class SendClueComponent implements OnInit {
 
   clue : Clue = {word: "", number: 1}
 
-  isMastermind: boolean = true;   // TODO: Change this to use userService
-  team: Team = Team.Green; // TODO: Change this to use userService
+  isMastermind: boolean;
+  team: Team;
 
   constructor(private elementRef: ElementRef, private gameStateService : GameStateService) { 
     this.isMastermind = gameStateService.role == Role.Mastermind;
