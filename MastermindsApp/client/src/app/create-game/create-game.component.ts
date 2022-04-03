@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Socket } from 'socket.io-client';
-import { GameService } from '../services/game-service.service';
-import { UserService } from '../services/user.service';
+import { RoomService } from '../services/room.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-create-game',
@@ -10,18 +9,29 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./create-game.component.scss']
 })
 export class CreateGameComponent implements OnInit {
-  constructor(private router: Router, private userService: UserService) { 
+  constructor(private router: Router, private roomService: RoomService) { 
    }
 
   ngOnInit(): void {
-    this.userService.onRoomCodeCreated().subscribe((roomCode: string) => {
-      console.log('got a msg: ' + roomCode);
+    this.roomService.onJoinedRoom().subscribe((roomCode: string) => {
       this.router.navigate(['/game/' + roomCode]);
+    });
+
+    this.roomService.onNicknameEmptyCreate().subscribe(() => {
+      $("#error-message-no-nickname-create").css('visibility', 'visible');
+      $('#create-game-nickname').css('border', '2px solid #cc0000');
     });
   }
 
   createRoom() {
-    console.log("Room Created");
-    this.userService.onNewRoomRequested();
+    this.resetErrorMessage();
+
+    var nickname = String($("#create-game-nickname").val()).trim();
+    this.roomService.onNewRoomRequested(nickname);
+  }
+  
+  resetErrorMessage(){
+    $("#error-message-no-nickname-create").css('visibility', 'hidden');
+    $('#create-game-nickname').css('border', '0px');
   }
 }

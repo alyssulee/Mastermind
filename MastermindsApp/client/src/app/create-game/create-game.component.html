@@ -2,6 +2,7 @@
     <h1>Create a Game</h1>
     <hr>
     <h2>Nickname</h2>
-    <input type="text" id="nickname">    
+    <input type="text" id="create-game-nickname" (keydown)="resetErrorMessage()">    
+    <p class="error-message" id="error-message-no-nickname-create">The nickname cannot be empty.</p>  
     <button (click)="createRoom()">Create</button>
 </div>
