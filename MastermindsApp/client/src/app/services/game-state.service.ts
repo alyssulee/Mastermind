@@ -58,6 +58,14 @@ export class GameStateService
         this.isMyTurn = (this.turn.role == this.user.role && this.turn.team == this.user.team);
         observer.next();
       });
+
+      this.socket.on('game:end', winner => {
+        this.endOfGame = true;
+        this.winningTeam = winner;
+        this.isMyTurn = false;
+        this.turn = {role: Role.None, team: Team.None};
+        observer.next();
+      });
     });
   }
 

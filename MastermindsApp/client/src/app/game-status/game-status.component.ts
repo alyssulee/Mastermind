@@ -12,14 +12,21 @@ export class GameStatusComponent implements OnInit {
   team: Team; 
   status: string;
   constructor(private gameState : GameStateService) { 
-    this.status = this.setStatus(gameState);
+    this.status = this.getStatus(gameState);
     this.team = gameState.user.team;
   }
 
   ngOnInit(): void {
+    this.gameState.updated().subscribe(() => {
+      this.update(this.gameState);
+    });
   }
 
-  setStatus(gameState: GameStateService) : string {
+  update(gameStateService: GameStateService){
+    this.status = this.getStatus(gameStateService);
+  }
+
+  getStatus(gameState: GameStateService) : string {
     var turn = gameState.turn;
     var team = gameState.user.team;
     var role = gameState.user.role;
@@ -30,7 +37,6 @@ export class GameStatusComponent implements OnInit {
     if(gameState.endOfGame){
       return "End Game";
     }
-
 
     if(isMyTurn){
       switch(role){
@@ -48,7 +54,7 @@ export class GameStatusComponent implements OnInit {
           return "Wait for your Mastermind to give a clue";
       }
     } else {
-      return "It's the ${this.team} Team's Turn";
+      return ("It's the " + this.team + " Team's Turn");
     }
 
     return "";
