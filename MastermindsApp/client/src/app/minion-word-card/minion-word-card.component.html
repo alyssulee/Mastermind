@@ -3,7 +3,7 @@
     <!-- Word Card  -->
     <div>
         <div class="word-card {{gameWord.word}}-card" 
-        [ngClass]="gameWord.guessed ? gameWord.category : 'minion'" 
+        [ngClass]="gameWord.guessed ? gameWord.category + ' guessed' : 'minion'" 
         id='{{gameWord.word}}-card' 
         (click)="onMinionCardClick()">
             {{gameWord.word}}
