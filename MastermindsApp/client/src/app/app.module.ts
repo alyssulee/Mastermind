@@ -18,6 +18,7 @@ import { GameStateService } from './services/game-state.service';
 import { SendClueComponent } from './send-clue/send-clue.component';
 import { MinionWordCardComponent } from './minion-word-card/minion-word-card.component';
 import { MinionClueComponent } from './minion-clue/minion-clue.component';
+import { RoomcodeComponent } from './roomcode/roomcode.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MinionClueComponent } from './minion-clue/minion-clue.component';
     SendClueComponent,
     MinionWordCardComponent,
     MinionClueComponent
+    RoomcodeComponent
   ],
   imports: [
     BrowserModule,
