@@ -1,0 +1,12 @@
+<ng-container *ngIf="!isMastermind && isMyTurn">
+    <div class="container">
+        <!-- Clue -->
+        <div class="clue-container">
+            <div class="clue-word {{team}}">{{clue.word}}</div>    
+            <div class="clue-number {{team}}">{{clue.number}}</div>
+        </div>
+    
+        <!-- End Guessing Button -->
+        <button class='end-guessing-button' (click)="onEndGuessing()">End Guessing</button>
+    </div>
+</ng-container>

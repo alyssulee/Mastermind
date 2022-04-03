@@ -1,0 +1,109 @@
+@import '../shared/variables';
+
+.Green { background-color: $green-team; }
+.Purple { background-color: $purple-team; } 
+
+.error {
+    text-align: center;
+    color: white;
+    display: none;
+}
+
+.container {
+    padding: 1em;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px;
+    position: relative;
+}
+
+.clue-container {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#clue-field {
+    font-size: 25px;
+    font-weight: bold;
+    padding: 5px 20px;
+    text-align: center;
+    border-radius: 20px;
+    text-transform: uppercase;
+    border: none;
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+button {
+    font-size: 25px;
+    font-weight: bold;
+    border: none;
+}
+
+.clue-number {
+    margin-left: 10px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background: white;
+}
+
+.send-button {
+    color: white;
+    border-radius: 10px;
+    padding: 2px 2rem;
+    background: $dark-grey;
+    align-self: center;
+    transition: 0.2s ease;
+
+    &:hover {
+        background: $darker-grey;
+    }
+}
+
+/* POPUP */
+.number-popup {
+    display: none;
+    background: $log-background;
+    padding: 1rem;
+    position: absolute;
+    right: -10px;
+    top: -50px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 5px;
+}
+
+/* Radio buttons*/
+input[type="radio"]
+{
+  display: none;
+
+  + label 
+    {
+        color: black;
+        font-family: Arial, sans-serif;
+        font-size: 22px;
+        background-color: white;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        margin: 5px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    &:checked + label.radio-Purple {
+        background-color: $purple-team;
+    }
+    &:checked + label.radio-Green {
+        background-color: $green-team;
+    }
+}

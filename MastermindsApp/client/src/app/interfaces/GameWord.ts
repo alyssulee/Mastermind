@@ -8,4 +8,5 @@ export enum WordCategory {
 export interface GameWord {
   word: string;
   category: WordCategory;
+  guessed: boolean;
 }

@@ -1,0 +1,14 @@
+@import '../shared/variables';
+@import '../shared/word-card';
+
+.grid {
+    justify-content: center;
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+}
+
+.Bomb { background-color: $orange; }
+.Green { background-color: $green-team; }
+.Purple { background-color: $purple-team; } 
+.Neutral { background-color: $default; }

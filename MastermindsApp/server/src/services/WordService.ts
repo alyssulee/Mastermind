@@ -52,7 +52,7 @@ export class WordService
             let newWord = this.GenerateRandomWord();
             if(!usedWords.has(newWord))
             {
-                let gameWord : GameWord = { word: newWord, category: category}
+                let gameWord : GameWord = { word: newWord, category: category, guessed: false}
                 gameWords.push(gameWord);
                 usedWords.add(newWord);
             }

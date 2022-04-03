@@ -1,0 +1,21 @@
+
+.word-card {
+    border-radius: 5px;
+    margin-right: 15px;
+    margin-top: 15px;
+    text-align: center;
+    padding: 2.5em 0;
+    background: $default;
+}
+
+.guessed {
+    filter: brightness(0.50);
+    cursor: auto;
+    pointer-events:none;
+}
+
+.Bomb { background-color: $orange; }
+.Green { background-color: $green-team; }
+.Purple { background-color: $purple-team; } 
+.Neutral { background-color: $default; }
+.minion { background-color: $default; }

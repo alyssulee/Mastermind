@@ -1,0 +1,76 @@
+@import '../shared/variables';
+@import '../shared/word-card';
+
+.minion-card {
+    position: relative;
+}
+
+.not-guessing {
+    pointer-events: none;
+    cursor: auto;
+}
+
+.word-card {
+    cursor: pointer;
+
+    &:hover {
+        background-color: $dark-grey;
+    }
+}
+
+.not-guessing .guess-button {
+    display: none;
+}
+
+.guess-button {
+    font-size: 13px;
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    width: 45px;
+    height: 45px;
+    background-color: #FF9900;
+    color: white;
+    outline: none;
+    border: white solid 2px;
+    border-radius: 50%;
+    padding: 0;
+
+    &:hover {
+        background-color: $orange-hover;
+    }
+}
+
+.suggest-name {
+    display: none;
+    position: absolute;
+    padding: 3px;
+    margin: 5px;
+    font-size: 13px;
+    border-radius: 5px;
+    border: white solid 2px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.suggest-name.self {
+    max-width: 50%;
+    top: 0;
+    left: 0;
+}
+
+.suggest-name.not-self {
+    max-width: 75%;
+    bottom: 0;
+    left: 0;
+
+}
+
+.suggest-name.Purple {
+    background-color: $purple-team;
+}
+
+.suggest-name.Green {
+    background-color: $green-team;
+}

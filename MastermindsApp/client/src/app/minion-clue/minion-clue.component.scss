@@ -1,0 +1,66 @@
+@import '../shared/variables';
+
+.Green { background-color: $green-team; }
+.Purple { background-color: $purple-team; } 
+
+.container {
+    padding: 1em;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px;
+    position: relative;
+}
+
+.clue-container {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.clue-word {
+    font-size: 25px;
+    font-weight: bold;
+    padding: 5px 20px;
+    text-align: center;
+    border-radius: 20px;
+    text-transform: uppercase;
+    border: none;
+    min-width: 30%;
+}
+
+.clue-number {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 10px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    font-size: 25px;
+    font-weight: bold;
+    border: none;
+}
+
+.end-guessing-button {
+    color: white;
+    border-radius: 10px;
+    padding: 2px 2rem;
+    background: $orange;
+    align-self: center;
+    transition: 0.2s ease;
+
+    &:hover {
+        background: $orange-hover;
+    }
+}

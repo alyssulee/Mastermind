@@ -11,9 +11,13 @@ import { CreateGameComponent } from './create-game/create-game.component';
 import { JoinGameComponent } from './join-game/join-game.component';
 import { RulesButtonComponent } from './rules-button/rules-button.component';
 import { GameService } from './services/game-service.service';
-import { WordGridComponent } from './word-grid/word-grid.component';
 import { LoginComponent } from './login/login.component';
 import { GameComponent } from './game/game.component';
+import { WordGridComponent } from './word-grid/word-grid.component';
+import { GameStateService } from './services/game-state.service';
+import { SendClueComponent } from './send-clue/send-clue.component';
+import { MinionWordCardComponent } from './minion-word-card/minion-word-card.component';
+import { MinionClueComponent } from './minion-clue/minion-clue.component';
 import { RoomcodeComponent } from './roomcode/roomcode.component';
 
 @NgModule({
@@ -25,6 +29,9 @@ import { RoomcodeComponent } from './roomcode/roomcode.component';
     WordGridComponent,
     LoginComponent,
     GameComponent,
+    SendClueComponent,
+    MinionWordCardComponent,
+    MinionClueComponent,
     RoomcodeComponent
   ],
   imports: [
@@ -34,7 +41,7 @@ import { RoomcodeComponent } from './roomcode/roomcode.component';
     DialogModule, 
     ButtonModule
   ],
-  providers: [GameService],
+  providers: [GameService, GameStateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

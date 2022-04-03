@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Role } from '../interfaces/GameLogicInterfaces';
 import { GameWord } from '../interfaces/GameWord';
 import {GameStateService} from '../services/game-state.service'
 
@@ -9,12 +10,15 @@ import {GameStateService} from '../services/game-state.service'
 })
 export class WordGridComponent implements OnInit {
   gameWordSet : GameWord [] = [];
+  isMastermind: boolean;
 
   constructor( private gameStateService : GameStateService) { 
     gameStateService.sendGenerateWordEvent();
+    this.isMastermind = gameStateService.role == Role.Mastermind;
   }
 
   ngOnInit(): void {
+    // Subscribe
     this.gameStateService.onGeneratedWordSet().subscribe((words : GameWord[]) => {
       this.gameWordSet = words;
       console.log('got a msg: ' + JSON.stringify(words));

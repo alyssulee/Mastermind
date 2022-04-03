@@ -1,0 +1,24 @@
+<ng-container *ngIf="isMastermind && isMyTurn">
+    <div class="container {{team}}">
+        <!-- Clue Popup -->
+        <div class="number-popup" #numberPopup>
+            <ng-container *ngFor="let i of [1, 2, 3, 4, 5, 6, 7];">
+                <input type="radio" id="radio-{{i}}" value="{{i}}" name="clue-number-radio" [checked]="clue.number == i"
+                (change)="onClueNumberChange(i)">
+                <label for="radio-{{i}}" class="radio-{{team}}">
+                    <span>{{i}}</span>
+                </label>
+            </ng-container>
+        </div>
+    
+        <!-- Enter Clue -->
+        <div class="error">* Please enter a clue below.</div>
+        <div class="clue-container">
+            <input type="text" id="clue-field" placeholder="Enter your clue">    
+            <button class="clue-number" #clueNumber (click)="togglePopup()">{{clue.number}}</button>
+        </div>
+    
+        <!-- Send Clue Button -->
+        <button class='send-button' (click)="onSendClue()">Send Clue</button>
+    </div>
+</ng-container>
