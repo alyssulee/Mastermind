@@ -1,12 +1,16 @@
 import internal from "stream";
+import { GameWord } from "../interfaces/GameWord";
+import { GameStateService } from "./GameStateService";
+import { WordService } from "./WordService";
 
 export class RoomService 
 {
     roomCodes: string [] = [];
     rooms: { [roomCode: string]: string [] } = {};
+    roomGameStates: { [roomCode: string]: GameStateService } = {};
     roomCodeLength = 8;
 
-    constructor() { }
+    constructor(private wordService: WordService) { }
 
     GenerateRoomCode() : string
     {
@@ -17,7 +21,19 @@ export class RoomService
 
         this.roomCodes.push(code);
         this.rooms[code] = [];
+
         return code;
+    }
+
+    GenerateWordSet(code: string) : { [word: string]: GameWord } {
+        this.roomGameStates[code] = new GameStateService();
+        var wordset = this.wordService.GenerateWordSet();
+
+        wordset.forEach(word => {
+            this.roomGameStates[code].words[word.word] = word;
+        });
+
+        return this.roomGameStates[code].words;
     }
 
     getRandomCode() {

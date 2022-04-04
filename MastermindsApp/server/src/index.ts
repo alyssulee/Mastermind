@@ -1,3 +1,6 @@
+import { RoomService } from "./services/RoomService";
+import { WordService } from "./services/WordService";
+
 const PORT = 8080;
 
 var express = require('express'),
@@ -8,16 +11,14 @@ var express = require('express'),
 server.listen(PORT);
 console.log("Server Running on Port ", PORT);
 
-const registerWordHandler = require('./services/EventHandlers/WordHandler')
 const registerRoomHandler = require('./services/EventHandlers/RoomHandler')
-const registerGuessHandler = require('./services/EventHandlers/GuessHandler')
+
+var wordService = new WordService();
+var roomService = new RoomService(wordService);
 
 io.on('connection', (socket) => 
 {
     console.log(socket.id, ': user connected');
-
-    registerWordHandler(io, socket);
-    registerRoomHandler(io, socket);
-    registerGuessHandler(io, socket);
+    registerRoomHandler(io, socket, roomService);
 });
 

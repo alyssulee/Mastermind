@@ -11,19 +11,17 @@ import {GameStateService} from '../services/game-state.service'
 })
 export class WordGridComponent implements OnInit {
   isMastermind: boolean;
-  gameWordSet : GameWord [] = [];
+  gameWordSet :GameWord[] = [];
 
   constructor( private gameStateService : GameStateService) { 
-    gameStateService.sendGenerateWordEvent();
     this.isMastermind = gameStateService.user.role == Role.Mastermind;
-    this.gameWordSet = gameStateService.gameWordSet;
+    this.gameWordSet = Object.values(gameStateService.gameWordSet);
   }
 
   ngOnInit(): void {
     // Subscribe
-    this.gameStateService.onGeneratedWordSet().subscribe((words : GameWord[]) => {
-      this.gameStateService.setWords(words);
-      this.gameWordSet = this.gameStateService.gameWordSet;
+    this.gameStateService.onGeneratedWordSet().subscribe(() => {
+      this.gameWordSet = Object.values(this.gameStateService.gameWordSet);
     });
 
     this.gameStateService.updated().subscribe(() => {
@@ -33,6 +31,6 @@ export class WordGridComponent implements OnInit {
   
   update(gameStateService : GameStateService) : void {
     this.isMastermind = gameStateService.user.role == Role.Mastermind;
-    this.gameWordSet = gameStateService.gameWordSet;
+    this.gameWordSet = Object.values(gameStateService.gameWordSet);
   }
 }

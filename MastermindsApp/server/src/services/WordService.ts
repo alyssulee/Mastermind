@@ -33,15 +33,16 @@ export class WordService
         {
             // Get Category
             let category : WordCategory;
+            let starterRandomizer = Math.round(Math.random());
             switch(true)
             {
                 case gameWords.length < 1:
                     category = WordCategory.Bomb;
                     break;
-                case (gameWords.length < 10 && gameWords.length >= 1):
+                case (gameWords.length < (9 + starterRandomizer) && gameWords.length >= 1):
                     category = WordCategory.Green;
                     break;
-                case (gameWords.length < 18 && gameWords.length >= 10): 
+                case (gameWords.length < 18 && gameWords.length >= (9 + starterRandomizer)): 
                     category = WordCategory.Purple;
                     break;
                 default: 

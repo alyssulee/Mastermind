@@ -19,11 +19,12 @@ export class GameStateService
     team: Team.Green,
     role: Role.Mastermind
   }
-  turn: Turn = {role: Role.Mastermind, team: Team.Green}
+
+  turn: Turn = {role: Role.Mastermind, team: Team.None}
   isMyTurn: boolean = (this.turn.role == this.user.role && this.turn.team == this.user.team);
   endOfGame: boolean = false;
   winningTeam: Team = Team.None;
-  gameWordSet : GameWord [] = [];
+  gameWordSet : { [word: string]: GameWord } = {};
 
   constructor(private gameService : GameService) { 
     this.socket = this.gameService.socket; 
@@ -54,7 +55,7 @@ export class GameStateService
       });
 
       this.socket.on('turn:updated', turn => {
-        this.turn = JSON.parse(turn);
+        this.turn = turn;
         this.isMyTurn = (this.turn.role == this.user.role && this.turn.team == this.user.team);
         observer.next();
       });
@@ -66,15 +67,21 @@ export class GameStateService
         this.turn = {role: Role.None, team: Team.None};
         observer.next();
       });
+
+      this.socket.on('team:starting-team', team => {
+        this.turn = {role: Role.Mastermind, team: team};
+        this.isMyTurn = (this.turn.role == this.user.role && this.turn.team == this.user.team);
+        observer.next();
+      });
     });
   }
 
   updateGuessedWord(word: GameWord){
-    this.gameWordSet[this.gameWordSet.indexOf(word)].guessed = true;
+    this.gameWordSet[word.word].guessed = true;
     this.updated();
   }
 
-  setWords(words: GameWord []) {
+  setWords(words: { [word: string]: GameWord }) {
     this.gameWordSet = words;
   }
 
@@ -101,6 +108,7 @@ export class GameStateService
   }
 
   sendGuessEvent(guess : Guess) {
+    console.log("Guessing word");
     this.socket.emit('guess:guess-word', guess);
   }
 
@@ -141,14 +149,15 @@ export class GameStateService
     });
   }
 
-  /* Word Events */
-  sendGenerateWordEvent() {
-    this.socket.emit('words:generate-set');
-  }
+  // /* Word Events */
+  // sendGenerateWordEvent() {
+  //   this.socket.emit('words:generate-set');
+  // }
 
   onGeneratedWordSet () {
     return new Observable<GameWord []>(observer => {
       this.socket.on('words:generated-set', wordSet => {
+        this.setWords(wordSet);
         observer.next(wordSet);
       });
     });

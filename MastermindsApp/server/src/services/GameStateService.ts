@@ -17,11 +17,9 @@ export class GameStateService
     words: { [word: string]: GameWord } = {};
     currentClue: Clue;
     currentAmountOfGuesses: number;
+    startingTeam: Team;
 
-    constructor() 
-    { 
-        this.gameTurn = {team: Team.Green, role: Role.Mastermind}
-    }
+    constructor() {}
 
     updateTurn() : void {
         if(this.gameTurn.team == Team.Green && this.gameTurn.role == Role.Mastermind) {
@@ -37,6 +35,21 @@ export class GameStateService
             this.gameTurn = {team: Team.Green, role: Role.Mastermind}
         }
     }
+
+    setStartingTeam(words: { [word: string]: GameWord }){
+        var greenWords = 0;
+        var purpleWords = 0;
+        Object.values(words).forEach(word => {
+            if(word.category == WordCategory.Green) greenWords++;
+            if(word.category == WordCategory.Purple) purpleWords++;
+        })
+
+        var team = Team.Purple;
+        if(greenWords > purpleWords) team = Team.Green;
+
+        this.startingTeam = team;
+        this.gameTurn = {team: team, role: Role.Mastermind};
+    }
     
     setClue(clue: Clue){
         this.currentClue = clue;
@@ -45,6 +58,12 @@ export class GameStateService
 
     CheckGuessedWord(guess : Guess) : GuessResult {
         this.words[guess.gameWord.word].guessed = true;
+        console.log(guess.gameWord.category);
+        console.log(guess.user.team);
+
+        var hasWon = this.CheckForWinner(guess.user.team);
+
+        if(hasWon != null) return hasWon;
 
         switch(guess.gameWord.category){
             case WordCategory.Green:
@@ -52,6 +71,9 @@ export class GameStateService
                     case Team.Green:
                         //Add check for end of turn or won game
                         this.currentAmountOfGuesses++;
+
+                        console.log(this.currentAmountOfGuesses);
+                        console.log(this.currentClue.number);
                         if(this.currentAmountOfGuesses >= this.currentClue.number){
                             return GuessResult.EndTurn;
                         }
@@ -78,5 +100,32 @@ export class GameStateService
             case WordCategory.Bomb:
                 return GuessResult.LostGame;
         }
+    }
+    
+    CheckForWinner(team: Team){
+        var greenTeamWon = true;
+        var purpleTeamWon = true;
+        Object.values(this.words).forEach(word => {
+            if(word.category == WordCategory.Green && word.guessed == false){
+                greenTeamWon = false;
+            }
+
+            if(word.category == WordCategory.Purple && word.guessed == false){
+                purpleTeamWon = false;
+            }
+        });
+
+        switch(team){
+            case Team.Green:
+                if(greenTeamWon) return GuessResult.WonGame;
+                if(purpleTeamWon) return GuessResult.LostGame;
+                break;
+            case Team.Purple:
+                if(purpleTeamWon) return GuessResult.WonGame;
+                if(greenTeamWon) return GuessResult.LostGame;
+                break;
+        }
+
+        return null;
     }
 }

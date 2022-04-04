@@ -1,11 +1,14 @@
 import { joinRequest } from "../../interfaces/JoinRequest";
-import { RoomService } from "../RoomService";
 
-var roomService = new RoomService();
+const registerGuessHandler = require('./GuessHandler')
 
-module.exports = (io, socket) => {
+module.exports = (io, socket, roomService) => {
     socket.on('room:request-room-creation', (nickname) => {
         var roomCode = roomService.GenerateRoomCode();
+        var wordSet = roomService.GenerateWordSet(roomCode);
+        roomService.roomGameStates[roomCode].setStartingTeam(wordSet);
+
+        registerGuessHandler(io, socket, roomService.roomGameStates[roomCode]);
 
         if(nickname == ""){
             io.to(socket.id).emit("room:nickname-empty-create");
@@ -16,7 +19,11 @@ module.exports = (io, socket) => {
 
         socket.join(roomCode);
 
+        let rooms = socket.rooms; 
+        let socketRoomCode = [...rooms][1];
         io.to(socket.id).emit("room:joined-room", roomCode);
+        io.to(socketRoomCode).emit("words:generated-set", wordSet);
+        io.to(socketRoomCode).emit("team:starting-team", roomService.roomGameStates[roomCode].startingTeam);
     });
 
     socket.on('room:request-to-join', (msg) => {
@@ -43,14 +50,20 @@ module.exports = (io, socket) => {
 
         socket.join(roomCode);
 
+        var wordSet = roomService.roomGameStates[roomCode].words;
+
+        let rooms = socket.rooms; 
+        let socketRoomCode = [...rooms][1];
         io.to(socket.id).emit("room:joined-room", roomCode);
+        io.to(socketRoomCode).emit("words:generated-set", wordSet);
+        io.to(socketRoomCode).emit("turn:updated", roomService.roomGameStates[roomCode].gameTurn);
     });
 
     socket.on('changed-role', (role) => {
         io.to(socket.id).emit("role-updated", role);
     });
-    socket.on('changed-team', (team) => {
 
+    socket.on('changed-team', (team) => {
         io.to(socket.id).emit("team-updated", team);
     });
 }
