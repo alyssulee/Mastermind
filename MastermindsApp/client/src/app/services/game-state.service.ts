@@ -118,7 +118,7 @@ export class GameStateService
   }
 
   sendGuessEvent(guess : Guess) {
-    console.log("Guessing word");
+    console.log("Guessing word", JSON.stringify(guess));
     this.socket.emit('guess:guess-word', guess);
   }
 

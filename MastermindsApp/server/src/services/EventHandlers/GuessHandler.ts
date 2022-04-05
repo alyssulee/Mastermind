@@ -29,8 +29,9 @@ module.exports = (io, socket, roomGameStates: GameStateService[]) => {
     });
 
     socket.on('guess:guess-word', (guess : Guess) => {
-        console.log("Guessing word");
+        console.log("Guessing word", guess);
         let roomCode = [...socket.rooms][1];
+        console.log(roomCode);
         var guessResult = roomGameStates[roomCode].CheckGuessedWord(guess);
         console.log(guessResult);
         io.to(roomCode).emit('guess:guess-word', guess);

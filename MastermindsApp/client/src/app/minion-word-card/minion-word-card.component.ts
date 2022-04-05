@@ -34,6 +34,8 @@ export class MinionWordCardComponent implements OnInit
      this.gameState.onSuggestEvent().subscribe((guess: Guess) => {
       if(this.gameWord.word == guess.gameWord.word && this.selfUsername != guess.user.username)
       {
+        console.log("Received suggest event", JSON.stringify(guess));
+        
         this.notSelfUsername = guess.user.username;
         $(`#${this.gameWord.word}-card .suggest-name.not-self`).show();
       }
@@ -42,6 +44,8 @@ export class MinionWordCardComponent implements OnInit
     this.gameState.onUnsuggestEvent().subscribe((guess: Guess) => {
       if(this.gameWord.word == guess.gameWord.word && this.selfUsername != guess.user.username)
       {
+        console.log("Received unsuggest event", JSON.stringify(guess));
+
         this.notSelfUsername = guess.user.username;
         $(`#${this.gameWord.word}-card .suggest-name.not-self`).hide();
       }
@@ -50,6 +54,8 @@ export class MinionWordCardComponent implements OnInit
     this.gameState.onGuessEvent().subscribe((guess: Guess) => {
       if(this.gameWord.word == guess.gameWord.word)
       {
+        console.log("Received guess event", JSON.stringify(guess));
+
         // Hide suggest names and add guessed class
         $(`.${this.gameWord.word}-card`).addClass('guessed');
         $(`#${this.gameWord.word}-card .suggest-name.self`).hide();

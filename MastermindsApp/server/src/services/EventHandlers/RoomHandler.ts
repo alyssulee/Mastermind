@@ -51,14 +51,13 @@ module.exports = (io, socket, roomService: RoomService) => {
         }
 
         socket.join(roomCode);
+        registerGuessHandler(io, socket, roomService.roomGameStates);
 
         var wordSet = roomService.roomGameStates[roomCode].words;
-
-        let rooms = socket.rooms; 
-        let socketRoomCode = [...rooms][1];
+        
         io.to(socket.id).emit("room:joined-room", roomCode);
-        io.to(socketRoomCode).emit("words:generated-set", wordSet);
-        io.to(socketRoomCode).emit("turn:updated", roomService.roomGameStates[roomCode].gameTurn);
+        io.to(socket.id).emit("words:generated-set", wordSet);
+        io.to(socket.id).emit("turn:updated", roomService.roomGameStates[roomCode].gameTurn);
     });
 
     socket.on('changed-role', (role) => {
