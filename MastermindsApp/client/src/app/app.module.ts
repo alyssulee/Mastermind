@@ -20,6 +20,7 @@ import { MinionWordCardComponent } from './minion-word-card/minion-word-card.com
 import { MinionClueComponent } from './minion-clue/minion-clue.component';
 import { RoomcodeComponent } from './roomcode/roomcode.component';
 import { GameStatusComponent } from './game-status/game-status.component';
+import { GameOverComponent } from './game-over/game-over.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { GameStatusComponent } from './game-status/game-status.component';
     MinionWordCardComponent,
     MinionClueComponent,
     RoomcodeComponent,
-    GameStatusComponent
+    GameStatusComponent,
+    GameOverComponent
   ],
   imports: [
     BrowserModule,

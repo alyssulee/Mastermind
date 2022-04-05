@@ -1,8 +1,10 @@
 import { joinRequest } from "../../interfaces/JoinRequest";
+import { GameStateService } from "../GameStateService";
+import { RoomService } from "../RoomService";
 
 const registerGuessHandler = require('./GuessHandler')
 
-module.exports = (io, socket, roomService) => {
+module.exports = (io, socket, roomService: RoomService) => {
     socket.on('room:request-room-creation', (nickname) => {
         var roomCode = roomService.GenerateRoomCode();
         var wordSet = roomService.GenerateWordSet(roomCode);
@@ -65,5 +67,18 @@ module.exports = (io, socket, roomService) => {
 
     socket.on('changed-team', (team) => {
         io.to(socket.id).emit("team-updated", team);
+    });
+
+    socket.on('game:restart-game', () =>{
+        let roomCode = [...socket.rooms][1];
+        let wordSet = roomService.GenerateWordSet(roomCode);
+        roomService.roomGameStates[roomCode].setStartingTeam(wordSet);
+
+        io.to(roomCode).emit("game:restart-game");
+        io.to(roomCode).emit("words:generated-set", wordSet);
+        io.to(roomCode).emit("team:starting-team", roomService.roomGameStates[roomCode].startingTeam);
+        io.to(roomCode).emit("turn:updated", roomService.roomGameStates[roomCode].gameTurn);
+
+        console.log('Restart game');
     });
 }
