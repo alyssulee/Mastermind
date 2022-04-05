@@ -41,6 +41,9 @@ export class SendClueComponent implements OnInit {
       this.isMastermind = gameStateService.user.role == Role.Mastermind;
       this.team = gameStateService.user.team;
       this.isMyTurn = gameStateService.isMyTurn;
+      if(!this.isMyTurn) {
+        this.clue.number = 1;
+      }
    }
 
   onClueNumberChange(value:number) : void {
@@ -60,6 +63,7 @@ export class SendClueComponent implements OnInit {
     {
       $(".error").show();
     }
+
   }
 
   togglePopup() : void {

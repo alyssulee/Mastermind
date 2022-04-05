@@ -57,6 +57,9 @@ export class GameStateService
     }
 
     CheckGuessedWord(guess : Guess) : GuessResult {
+        console.log(this.words);
+        console.log(guess.gameWord.word);
+
         this.words[guess.gameWord.word].guessed = true;
         console.log(guess.gameWord.category);
         console.log(guess.user.team);

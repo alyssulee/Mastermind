@@ -10,7 +10,7 @@ module.exports = (io, socket, roomService: RoomService) => {
         var wordSet = roomService.GenerateWordSet(roomCode);
         roomService.roomGameStates[roomCode].setStartingTeam(wordSet);
 
-        registerGuessHandler(io, socket, roomService.roomGameStates[roomCode]);
+        registerGuessHandler(io, socket, roomService.roomGameStates);
 
         if(nickname == ""){
             io.to(socket.id).emit("room:nickname-empty-create");
@@ -72,6 +72,8 @@ module.exports = (io, socket, roomService: RoomService) => {
     socket.on('game:restart-game', () =>{
         let roomCode = [...socket.rooms][1];
         let wordSet = roomService.GenerateWordSet(roomCode);
+
+        roomService.roomGameStates[roomCode].words = wordSet;
         roomService.roomGameStates[roomCode].setStartingTeam(wordSet);
 
         io.to(roomCode).emit("game:restart-game");

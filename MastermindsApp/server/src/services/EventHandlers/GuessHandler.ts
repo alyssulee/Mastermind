@@ -1,10 +1,10 @@
 import { Clue, Guess, Team } from "../../interfaces/GameLogicInterfaces";
-import { GuessResult } from "../GameStateService";
+import { GameStateService, GuessResult } from "../GameStateService";
 
-module.exports = (io, socket, gameStateService) => {
+module.exports = (io, socket, roomGameStates: GameStateService[]) => {
     const updateTurn = (roomCode) => {
-        gameStateService.updateTurn();
-        io.to(roomCode).emit('turn:updated', gameStateService.gameTurn);
+        roomGameStates[roomCode].updateTurn();
+        io.to(roomCode).emit('turn:updated', roomGameStates[roomCode].gameTurn);
     }
 
     const endGame = (winningTeam, roomCode) => {
@@ -14,7 +14,7 @@ module.exports = (io, socket, gameStateService) => {
     socket.on('clue:send-clue', (clue: Clue) => {
         let roomCode = [...socket.rooms][1];
         updateTurn(roomCode);
-        gameStateService.setClue(clue);
+        roomGameStates[roomCode].setClue(clue);
         io.to(roomCode).emit('clue:send-clue', clue);
     });
 
@@ -31,7 +31,7 @@ module.exports = (io, socket, gameStateService) => {
     socket.on('guess:guess-word', (guess : Guess) => {
         console.log("Guessing word");
         let roomCode = [...socket.rooms][1];
-        var guessResult = gameStateService.CheckGuessedWord(guess);
+        var guessResult = roomGameStates[roomCode].CheckGuessedWord(guess);
         console.log(guessResult);
         io.to(roomCode).emit('guess:guess-word', guess);
 
