@@ -22,15 +22,12 @@ module.exports = (io, socket, roomGameStates: GameStateService[]) => {
         let roomCode = [...socket.rooms][1];    
         roomGameStates[roomCode].SuggestWord(guess);
         io.to(roomCode).emit('game:update-words', roomGameStates[roomCode].words);
-
-        // io.to(roomCode).emit('guess:suggest-word', guess);
     });
 
     socket.on('guess:unsuggest-word', (guess : Guess) => {
         let roomCode = [...socket.rooms][1];
         roomGameStates[roomCode].UnsuggestWord(guess);
         io.to(roomCode).emit('game:update-words', roomGameStates[roomCode].words);
-        // io.to(roomCode).emit('guess:unsuggest-word', guess);
     });
 
     socket.on('guess:guess-word', (guess : Guess) => {
@@ -39,7 +36,6 @@ module.exports = (io, socket, roomGameStates: GameStateService[]) => {
         var guessResult = roomGameStates[roomCode].CheckGuessedWord(guess);
 
         io.to(roomCode).emit('game:update-words', roomGameStates[roomCode].words);
-        // io.to(roomCode).emit('guess:guess-word', guess);
 
         switch(guessResult){
             case GuessResult.Failure:
