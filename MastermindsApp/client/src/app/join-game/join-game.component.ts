@@ -33,6 +33,16 @@ export class JoinGameComponent implements OnInit {
 
     this.roomService.onRoomDoesNotExist().subscribe(() => {
       $("#error-message-room-code").css('visibility', 'visible');
+      $("#error-message-room-code").show();
+      $("#error-message-max-capacity").hide();
+      $('#room-code').css('border', '2px solid #cc0000');
+    });
+
+    
+    this.roomService.onMaxCapacityReached().subscribe(() => {
+      $("#error-message-max-capacity").css('visibility', 'visible');
+      $("#error-message-max-capacity").show();
+      $("#error-message-room-code").hide();
       $('#room-code').css('border', '2px solid #cc0000');
     });
   }
@@ -51,6 +61,9 @@ export class JoinGameComponent implements OnInit {
     $("#error-message-nickname").show();
     $("#error-message-no-nickname-join").hide();
     $("#error-message-room-code").css('visibility', 'hidden');
+    $("#error-message-max-capacity").css('visibility', 'hidden');
+    $("#error-message-room-code").show();
+    $("#error-message-max-capacity").hide();
     $('#join-game-nickname').css('border', '0px');
     $('#room-code').css('border', '0px');
   }

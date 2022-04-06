@@ -71,4 +71,12 @@ export class RoomService
       });
     });
   }
+
+  onMaxCapacityReached(){
+    return new Observable<string>(observer => {
+      this.socket.on('room:max-capacity', () => {
+        observer.next();
+      });
+    });
+  }
 }

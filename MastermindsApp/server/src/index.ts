@@ -19,6 +19,7 @@ var roomService = new RoomService(wordService);
 io.on('connection', (socket) => 
 {
     console.log(socket.id, ': user connected');
+    io.to(socket.id).emit("login:redirect");
     registerRoomHandler(io, socket, roomService);
 });
 
