@@ -1,7 +1,10 @@
 import { Clue, Guess, Team } from "../../interfaces/GameLogicInterfaces";
 import { GameStateService, GuessResult } from "../GameStateService";
+import { SaveGameService } from "../SaveGameService";
 
-module.exports = (io, socket, roomGameStates: GameStateService[]) => {
+var saveGameService = new SaveGameService();
+
+module.exports = (io, socket, roomGameStates:{ [roomCode: string]: GameStateService }) => {
     const updateTurn = (roomCode) => {
         roomGameStates[roomCode].updateTurn();
         io.to(roomCode).emit('turn:updated', roomGameStates[roomCode].gameTurn);
@@ -9,6 +12,8 @@ module.exports = (io, socket, roomGameStates: GameStateService[]) => {
 
     const endGame = (winningTeam, roomCode) => {
         io.to(roomCode).emit('game:end', winningTeam);
+        io.emit('game:save');
+        saveGameService.SaveGames(roomGameStates);
     }
 
     socket.on('clue:send-clue', (clue: Clue) => {
@@ -16,6 +21,7 @@ module.exports = (io, socket, roomGameStates: GameStateService[]) => {
         updateTurn(roomCode);
         roomGameStates[roomCode].setClue(clue);
         io.to(roomCode).emit('clue:send-clue', clue);
+        saveGameService.SaveGames(roomGameStates);
     });
 
     socket.on('guess:suggest-word', (guess : Guess) => {
@@ -58,7 +64,8 @@ module.exports = (io, socket, roomGameStates: GameStateService[]) => {
                 endGame(guess.user.team, roomCode);
                 break;
         }
-
+        
+        saveGameService.SaveGames(roomGameStates);
     });
 
     socket.on('guess:end-guessing', () => {
@@ -69,5 +76,6 @@ module.exports = (io, socket, roomGameStates: GameStateService[]) => {
         io.to(roomCode).emit('game:update-words', roomGameStates[roomCode].words);
 
         io.to(roomCode).emit('guess:end-guessing');
+        saveGameService.SaveGames(roomGameStates);
     });
 }

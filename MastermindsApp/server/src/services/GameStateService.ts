@@ -19,7 +19,8 @@ export class GameStateService
     currentAmountOfGuesses: number;
     startingTeam: Team;
 
-    constructor() {}
+    constructor() {
+    }
 
     updateTurn() : void {
         if(this.gameTurn.team == Team.Green && this.gameTurn.role == Role.Mastermind) {
@@ -78,43 +79,56 @@ export class GameStateService
 
         var hasWon = this.CheckForWinner(guess.user.team);
 
-        if(hasWon != null) return hasWon;
+        if(hasWon != null) {
+            this.endOfGame = true;
+            return hasWon;
+        }
 
+        let result;
         switch(guess.gameWord.category){
             case WordCategory.Green:
                 switch(guess.user.team){
                     case Team.Green:
                         //Add check for end of turn or won game
                         this.currentAmountOfGuesses++;
-
-                        console.log(this.currentAmountOfGuesses);
-                        console.log(this.currentClue.number);
                         if(this.currentAmountOfGuesses >= this.currentClue.number){
-                            return GuessResult.EndTurn;
+                            result = GuessResult.EndTurn;
+                            break;
                         }
                         
-                        return GuessResult.Success;
+                        result = GuessResult.Success;
+                        break;
                     case Team.Purple:
-                        return GuessResult.Failure;
+                        result = GuessResult.Failure;
+                        break;
                 }
+                break;
             case WordCategory.Purple:
                 switch(guess.user.team){
                     case Team.Green:
-                        return GuessResult.Failure;
+                        result = GuessResult.Failure;
+                        break;
                     case Team.Purple:
                         //Add check for end of turn or won game
                         this.currentAmountOfGuesses++; 
                         if(this.currentAmountOfGuesses >= this.currentClue.number){
-                            return GuessResult.EndTurn;
+                            result = GuessResult.EndTurn;
+                            break;
                         }
                         
-                        return GuessResult.Success;
+                        result = GuessResult.Success;
+                        break;
                 }
+                break;
             case WordCategory.Neutral:
-                return GuessResult.Failure;
+                result = GuessResult.Failure;
+                break;
             case WordCategory.Bomb:
-                return GuessResult.LostGame;
+                result = GuessResult.LostGame;
+                break;
         }
+
+        return result;
     }
     
     CheckForWinner(team: Team){
@@ -132,12 +146,24 @@ export class GameStateService
 
         switch(team){
             case Team.Green:
-                if(greenTeamWon) return GuessResult.WonGame;
-                if(purpleTeamWon) return GuessResult.LostGame;
+                if(greenTeamWon) {
+                    this.winningTeam = Team.Green;
+                    return GuessResult.WonGame;
+                }
+                if(purpleTeamWon) {
+                    this.winningTeam = Team.Purple;
+                    return GuessResult.LostGame;
+                }
                 break;
             case Team.Purple:
-                if(purpleTeamWon) return GuessResult.WonGame;
-                if(greenTeamWon) return GuessResult.LostGame;
+                if(purpleTeamWon) {
+                    this.winningTeam = Team.Purple;
+                    return GuessResult.WonGame;
+                }
+                if(greenTeamWon){
+                    this.winningTeam = Team.Green;
+                    return GuessResult.LostGame;
+                }
                 break;
         }
 

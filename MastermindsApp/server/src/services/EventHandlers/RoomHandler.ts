@@ -27,6 +27,7 @@ module.exports = (io, socket, roomService: RoomService) => {
         io.to(socket.id).emit("room:joined-room", roomCode);
         io.to(socketRoomCode).emit("words:generated-set", wordSet);
         io.to(socketRoomCode).emit("team:starting-team", roomService.roomGameStates[roomCode].startingTeam);
+        roomService.SaveGames();
     });
 
     socket.on('room:request-to-join', (msg) => {
@@ -85,6 +86,7 @@ module.exports = (io, socket, roomService: RoomService) => {
         io.to(roomCode).emit("words:generated-set", wordSet);
         io.to(roomCode).emit("team:starting-team", roomService.roomGameStates[roomCode].startingTeam);
         io.to(roomCode).emit("turn:updated", roomService.roomGameStates[roomCode].gameTurn);
+        roomService.SaveGames();
 
         console.log('Restart game');
     });
@@ -97,5 +99,9 @@ module.exports = (io, socket, roomService: RoomService) => {
     socket.on('room:leave', () => {
         console.log("Removing user: " + socket.id);
         roomService.RemoveUser(socket.id);
+    });
+
+    socket.on('game:save', () => {
+        roomService.SaveGames();
     });
 }
