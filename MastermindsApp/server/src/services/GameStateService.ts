@@ -59,17 +59,21 @@ export class GameStateService
 
     SuggestWord(guess: Guess) : void {
         this.words[guess.gameWord.word].suggested.push(guess.user);
-        console.log("suggesting word",  this.words[guess.gameWord.word]);
     }
 
     UnsuggestWord(guess: Guess) : void {
         this.words[guess.gameWord.word].suggested = this.words[guess.gameWord.word].suggested.filter(user => user.username !== guess.user.username);
-        console.log("unsuggesting word",  this.words[guess.gameWord.word]);
     }
 
-    ResetSuggesstedWords() : void {
+    ResetSuggestedWords() : void {
         Object.values(this.words).forEach(word => {
             word.suggested = [];
+        });
+    }
+
+    RemoveUserFromSuggestedWords(username: string): void{
+        Object.values(this.words).forEach(word => {
+            this.words[word.word].suggested = this.words[word.word].suggested.filter(user => user.username !== username);
         });
     }
 

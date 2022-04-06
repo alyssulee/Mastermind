@@ -8,3 +8,11 @@
 
 .Green { background-color: $green-team; }
 .Purple { background-color: $purple-team; } 
+
+@media (max-width: $mobile-width) {
+    .game-status-bar {
+        border-radius: 10px;
+        text-align: center;
+        padding: 0;
+    }
+}

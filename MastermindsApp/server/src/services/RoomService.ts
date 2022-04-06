@@ -43,7 +43,7 @@ export class RoomService
             this.roomGameStates[code].words[word.word] = word;
         });
 
-        console.log(this.roomGameStates);
+        // console.log(this.roomGameStates);
         return this.roomGameStates[code].words;
     }
 
@@ -71,6 +71,9 @@ export class RoomService
     RemoveUser(socketId: string) {
         var nickname = this.userNames[socketId];
         var roomCode = this.userRooms[socketId];
+
+        // TODO: When username is actually integrated in the front end, user username instead of socketID.
+        this.roomGameStates[roomCode].RemoveUserFromSuggestedWords(socketId);
 
         if(this.rooms[roomCode] != null && this.rooms[roomCode].includes(nickname)){
             const index = this.rooms[roomCode].indexOf(nickname, 0);

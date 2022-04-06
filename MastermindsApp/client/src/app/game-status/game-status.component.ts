@@ -13,30 +13,30 @@ export class GameStatusComponent implements OnInit {
   status: string;
 
   constructor(private gameState : GameStateService) { 
-    this.status = this.getStatus(gameState);
+    this.status = this.getStatus();
     this.team = gameState.user.team;
   }
 
   ngOnInit(): void {
     this.gameState.updated().subscribe(() => {
-      this.update(this.gameState);
+      this.update();
     });
   }
 
-  update(gameStateService: GameStateService){
-    this.status = this.getStatus(gameStateService);
+  update(){
+    this.status = this.getStatus();
   }
 
-  getStatus(gameState: GameStateService) : string {
-    var turn = gameState.turn;
-    var team = gameState.user.team;
-    var role = gameState.user.role;
-    var isMyTurn = gameState.isMyTurn;
+  getStatus() : string {
+    var turn = this.gameState.turn;
+    var team = this.gameState.user.team;
+    var role = this.gameState.user.role;
+    var isMyTurn = this.gameState.isMyTurn;
 
     this.team = turn.team;
 
-    if(gameState.endOfGame){
-      return `Game Over! ${gameState.winningTeam} Team Wins`;
+    if(this.gameState.endOfGame){
+      return `Game Over! ${this.gameState.winningTeam} Team Wins`;
     }
 
     if(isMyTurn){

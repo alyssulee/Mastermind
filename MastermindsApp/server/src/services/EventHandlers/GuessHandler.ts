@@ -46,7 +46,7 @@ module.exports = (io, socket, roomGameStates:{ [roomCode: string]: GameStateServ
         switch(guessResult){
             case GuessResult.Failure:
             case GuessResult.EndTurn:
-                roomGameStates[roomCode].ResetSuggesstedWords();
+                roomGameStates[roomCode].ResetSuggestedWords();
                 io.to(roomCode).emit('game:update-words', roomGameStates[roomCode].words);
                 updateTurn(roomCode);
                 break;
@@ -72,7 +72,7 @@ module.exports = (io, socket, roomGameStates:{ [roomCode: string]: GameStateServ
         let roomCode = [...socket.rooms][1];
         
         updateTurn(roomCode);
-        roomGameStates[roomCode].ResetSuggesstedWords();
+        roomGameStates[roomCode].ResetSuggestedWords();
         io.to(roomCode).emit('game:update-words', roomGameStates[roomCode].words);
 
         io.to(roomCode).emit('guess:end-guessing');
