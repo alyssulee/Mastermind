@@ -1,9 +1,12 @@
 import { joinRequest } from "../../interfaces/JoinRequest";
 import { GameStateService } from "../GameStateService";
 import { RoomService } from "../RoomService";
+import { SaveGameService } from "../SaveGameService";
 
 const registerGuessHandler = require('./GuessHandler');
 const maxUsers = 6;
+
+var saveGameService = new SaveGameService();
 
 module.exports = (io, socket, roomService: RoomService) => {
     socket.on('room:request-room-creation', (nickname) => {
@@ -27,7 +30,7 @@ module.exports = (io, socket, roomService: RoomService) => {
         io.to(socket.id).emit("room:joined-room", roomCode);
         io.to(socketRoomCode).emit("words:generated-set", wordSet);
         io.to(socketRoomCode).emit("team:starting-team", roomService.roomGameStates[roomCode].startingTeam);
-        roomService.SaveGames();
+        saveGameService.SaveGames(roomService.roomGameStates);
     });
 
     socket.on('room:request-to-join', (msg) => {
@@ -86,7 +89,7 @@ module.exports = (io, socket, roomService: RoomService) => {
         io.to(roomCode).emit("words:generated-set", wordSet);
         io.to(roomCode).emit("team:starting-team", roomService.roomGameStates[roomCode].startingTeam);
         io.to(roomCode).emit("turn:updated", roomService.roomGameStates[roomCode].gameTurn);
-        roomService.SaveGames();
+        saveGameService.SaveGames(roomService.roomGameStates);
 
         console.log('Restart game');
     });
@@ -99,9 +102,5 @@ module.exports = (io, socket, roomService: RoomService) => {
     socket.on('room:leave', () => {
         console.log("Removing user: " + socket.id);
         roomService.RemoveUser(socket.id);
-    });
-
-    socket.on('game:save', () => {
-        roomService.SaveGames();
     });
 }

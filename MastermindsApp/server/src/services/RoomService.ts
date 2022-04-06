@@ -1,4 +1,5 @@
 import { GameWord } from "../interfaces/GameWord";
+import { GameRetrieverService } from "./GameRetrieverService";
 import { GameStateService } from "./GameStateService";
 import { WordService } from "./WordService";
 
@@ -12,27 +13,13 @@ export class RoomService
     roomCodeLength = 8;
 
     constructor(private wordService: WordService) { 
-        this.roomGameStates = this.ReadPreviousGames();
+        var gameRetrieverService = new GameRetrieverService();
+        this.roomGameStates = gameRetrieverService.ReadPreviousGames();
         
         Object.keys(this.roomGameStates).forEach(roomcode => {
             this.rooms[roomcode] = [];
             this.roomCodes.push(roomcode);
         });
-    }
-
-    ReadPreviousGames() : { [roomCode: string]: GameStateService }
-    {
-        let fs = require('fs');
-        let path = require('path');
-        let text = fs.readFileSync(path.join(__dirname, '../data') + '/past-games.json');
-        let json = JSON.parse(text);
-        return json;
-    }
-
-    SaveGames() {
-        let fs = require('fs');
-        let path = require('path');
-        fs.writeFileSync(path.join(__dirname, '../data') + '/past-games.json', JSON.stringify(this.roomGameStates));
     }
 
     GenerateRoomCode() : string
