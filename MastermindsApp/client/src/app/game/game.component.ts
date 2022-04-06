@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Role, Team } from '../interfaces/GameLogicInterfaces';
 import { GameStateService } from '../services/game-state.service';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -9,10 +11,13 @@ import { GameStateService } from '../services/game-state.service';
 })
 export class GameComponent implements OnInit {
 
-  constructor(private gameService : GameStateService) { 
+  constructor(private router: Router, private gameService : GameStateService) { 
   }
 
   ngOnInit(): void {
+    this.onLoginRedirect().subscribe(() => {
+      this.router.navigate(['/login']);
+  });
   }
 
   updateGreenMastermind(): void {
@@ -31,4 +36,11 @@ export class GameComponent implements OnInit {
     
   }
 
+  onLoginRedirect () {
+    return new Observable(observer => {
+      this.gameService.socket.on('login:redirect', () => {
+        observer.next();
+      });
+    });
+  }
 }

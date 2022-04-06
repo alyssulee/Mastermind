@@ -2,7 +2,8 @@ import { joinRequest } from "../../interfaces/JoinRequest";
 import { GameStateService } from "../GameStateService";
 import { RoomService } from "../RoomService";
 
-const registerGuessHandler = require('./GuessHandler')
+const registerGuessHandler = require('./GuessHandler');
+const maxUsers = 6;
 
 module.exports = (io, socket, roomService: RoomService) => {
     socket.on('room:request-room-creation', (nickname) => {
@@ -17,7 +18,7 @@ module.exports = (io, socket, roomService: RoomService) => {
             return;
         }
 
-        roomService.AddUser(nickname, roomCode);
+        roomService.AddUser(socket.id, nickname, roomCode);
 
         socket.join(roomCode);
 
@@ -44,7 +45,12 @@ module.exports = (io, socket, roomService: RoomService) => {
             return;
         }
 
-        var userAdded = roomService.AddUser(nickname, roomCode);
+        if(roomService.rooms[roomCode].length >= maxUsers){
+            io.to(socket.id).emit("room:max-capacity");
+            return;
+        }
+
+        var userAdded = roomService.AddUser(socket.id, nickname, roomCode);
         if(!userAdded) {   
             io.to(socket.id).emit("room:user-already-exists");
             return;
@@ -81,5 +87,15 @@ module.exports = (io, socket, roomService: RoomService) => {
         io.to(roomCode).emit("turn:updated", roomService.roomGameStates[roomCode].gameTurn);
 
         console.log('Restart game');
+    });
+    
+    socket.on('disconnect', () => {
+        console.log("Removing user: " + socket.id);
+        roomService.RemoveUser(socket.id);
+    });
+
+    socket.on('room:leave', () => {
+        console.log("Removing user: " + socket.id);
+        roomService.RemoveUser(socket.id);
     });
 }
