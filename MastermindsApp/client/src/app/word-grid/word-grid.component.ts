@@ -25,12 +25,12 @@ export class WordGridComponent implements OnInit {
     });
 
     this.gameStateService.updated().subscribe(() => {
-      this.update(this.gameStateService);
+      this.update();
     });
   }
   
-  update(gameStateService : GameStateService) : void {
-    this.isMastermind = gameStateService.user.role == Role.Mastermind;
-    this.gameWordSet = Object.values(gameStateService.gameWordSet);
+  update() : void {
+    this.isMastermind = this.gameStateService.user.role == Role.Mastermind;
+    this.gameWordSet = Object.values(this.gameStateService.gameWordSet);
   }
 }

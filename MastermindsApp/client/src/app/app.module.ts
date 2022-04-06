@@ -21,6 +21,7 @@ import { MinionClueComponent } from './minion-clue/minion-clue.component';
 import { RoomcodeComponent } from './roomcode/roomcode.component';
 import { GameStatusComponent } from './game-status/game-status.component';
 import { GameOverComponent } from './game-over/game-over.component';
+import { MastermindWordCardComponent } from './mastermind-word-card/mastermind-word-card.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { GameOverComponent } from './game-over/game-over.component';
     MinionClueComponent,
     RoomcodeComponent,
     GameStatusComponent,
-    GameOverComponent
+    GameOverComponent,
+    MastermindWordCardComponent
   ],
   imports: [
     BrowserModule,

@@ -4,12 +4,17 @@
         <ng-container *ngFor="let word of gameWordSet; let i = index;">
             <ng-container *ngIf="(i % 5) == 0">
                 <div class='row'>
-                    <div class="word-card {{gameWordSet[i].word}}-card {{gameWordSet[i].category}}" [ngClass]="gameWordSet[i].guessed ? 'guessed' : ''" >
+                    <!-- <div class="word-card {{gameWordSet[i].word}}-card {{gameWordSet[i].category}}" [ngClass]="gameWordSet[i].guessed ? 'guessed' : ''" >
                     {{gameWordSet[i].word}}</div>
                     <div class="word-card {{gameWordSet[i+1].word}}-card {{gameWordSet[i+1].category}}" [ngClass]="gameWordSet[i+1].guessed ? 'guessed' : ''">{{gameWordSet[i+1].word}}</div>
                     <div class="word-card {{gameWordSet[i+2].word}}-card {{gameWordSet[i+2].category}}" [ngClass]="gameWordSet[i+2].guessed ? 'guessed' : ''">{{gameWordSet[i+2].word}}</div>
                     <div class="word-card {{gameWordSet[i+3].word}}-card {{gameWordSet[i+3].category}}" [ngClass]="gameWordSet[i+3].guessed ? 'guessed' : ''">{{gameWordSet[i+3].word}}</div>
-                    <div class="word-card {{gameWordSet[i+4].word}}-card {{gameWordSet[i+4].category}}" [ngClass]="gameWordSet[i+4].guessed ? 'guessed' : ''">{{gameWordSet[i+4].word}}</div>
+                    <div class="word-card {{gameWordSet[i+4].word}}-card {{gameWordSet[i+4].category}}" [ngClass]="gameWordSet[i+4].guessed ? 'guessed' : ''">{{gameWordSet[i+4].word}}</div> -->
+                    <app-mastermind-word-card [gameWord]="gameWordSet[i]"></app-mastermind-word-card>
+                    <app-mastermind-word-card [gameWord]="gameWordSet[i+1]"></app-mastermind-word-card>
+                    <app-mastermind-word-card [gameWord]="gameWordSet[i+2]"></app-mastermind-word-card>
+                    <app-mastermind-word-card [gameWord]="gameWordSet[i+3]"></app-mastermind-word-card>
+                    <app-mastermind-word-card [gameWord]="gameWordSet[i+4]"></app-mastermind-word-card>
                 </div>
             </ng-container>
         </ng-container>

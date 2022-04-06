@@ -20,25 +20,32 @@ module.exports = (io, socket, roomGameStates: GameStateService[]) => {
 
     socket.on('guess:suggest-word', (guess : Guess) => {
         let roomCode = [...socket.rooms][1];    
-        io.to(roomCode).emit('guess:suggest-word', guess);
+        roomGameStates[roomCode].SuggestWord(guess);
+        io.to(roomCode).emit('game:update-words', roomGameStates[roomCode].words);
+
+        // io.to(roomCode).emit('guess:suggest-word', guess);
     });
 
     socket.on('guess:unsuggest-word', (guess : Guess) => {
         let roomCode = [...socket.rooms][1];
-        io.to(roomCode).emit('guess:unsuggest-word', guess);
+        roomGameStates[roomCode].UnsuggestWord(guess);
+        io.to(roomCode).emit('game:update-words', roomGameStates[roomCode].words);
+        // io.to(roomCode).emit('guess:unsuggest-word', guess);
     });
 
     socket.on('guess:guess-word', (guess : Guess) => {
         console.log("Guessing word", guess);
         let roomCode = [...socket.rooms][1];
-        console.log(roomCode);
         var guessResult = roomGameStates[roomCode].CheckGuessedWord(guess);
-        console.log(guessResult);
-        io.to(roomCode).emit('guess:guess-word', guess);
+
+        io.to(roomCode).emit('game:update-words', roomGameStates[roomCode].words);
+        // io.to(roomCode).emit('guess:guess-word', guess);
 
         switch(guessResult){
             case GuessResult.Failure:
             case GuessResult.EndTurn:
+                roomGameStates[roomCode].ResetSuggesstedWords();
+                io.to(roomCode).emit('game:update-words', roomGameStates[roomCode].words);
                 updateTurn(roomCode);
                 break;
             case GuessResult.LostGame:
@@ -60,7 +67,11 @@ module.exports = (io, socket, roomGameStates: GameStateService[]) => {
 
     socket.on('guess:end-guessing', () => {
         let roomCode = [...socket.rooms][1];
+        
         updateTurn(roomCode);
+        roomGameStates[roomCode].ResetSuggesstedWords();
+        io.to(roomCode).emit('game:update-words', roomGameStates[roomCode].words);
+
         io.to(roomCode).emit('guess:end-guessing');
     });
 }

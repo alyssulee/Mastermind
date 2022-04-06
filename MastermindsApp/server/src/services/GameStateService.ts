@@ -56,9 +56,26 @@ export class GameStateService
         this.currentAmountOfGuesses = 0;
     }
 
+    SuggestWord(guess: Guess) : void {
+        this.words[guess.gameWord.word].suggested.push(guess.user);
+        console.log("suggesting word",  this.words[guess.gameWord.word]);
+    }
+
+    UnsuggestWord(guess: Guess) : void {
+        this.words[guess.gameWord.word].suggested = this.words[guess.gameWord.word].suggested.filter(user => user.username !== guess.user.username);
+        console.log("unsuggesting word",  this.words[guess.gameWord.word]);
+    }
+
+    ResetSuggesstedWords() : void {
+        Object.values(this.words).forEach(word => {
+            word.suggested = [];
+        });
+    }
+
     CheckGuessedWord(guess : Guess) : GuessResult {
         this.words[guess.gameWord.word].guessed = true;
-        
+        this.words[guess.gameWord.word].suggested = [];
+
         var hasWon = this.CheckForWinner(guess.user.team);
 
         if(hasWon != null) return hasWon;

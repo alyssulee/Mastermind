@@ -77,12 +77,30 @@ export class GameStateService
       this.socket.on('game:restart-game', () => {
         this.winningTeam = Team.None;
         this.endOfGame = false;
+        observer.next();
+      });
+
+      this.socket.on("game:update-words", (wordSet) => {
+        this.gameWordSet = wordSet;
+        observer.next();
       });
     });
   }
 
   updateGuessedWord(word: GameWord){
     this.gameWordSet[word.word].guessed = true;
+    this.updated();
+  }
+
+  updateSuggestedWord(word: GameWord, user: User)
+  {
+    this.gameWordSet[word.word].suggested.push(user);
+    this.updated();
+  }
+
+  updateUnsuggestedWord(word: GameWord, user: User)
+  {
+    this.gameWordSet[word.word].suggested =  this.gameWordSet[word.word].suggested.filter(suggest => suggest !== user);
     this.updated();
   }
 
@@ -110,10 +128,12 @@ export class GameStateService
 
   /* Guess Events */
   sendSuggestEvent(guess : Guess) {
+    console.log("Suggest", guess);
     this.socket.emit('guess:suggest-word', guess);
   }
 
   sendUnsuggestEvent(guess : Guess) {
+    console.log("Unsuggest", guess);
     this.socket.emit('guess:unsuggest-word', guess);
   }
 
