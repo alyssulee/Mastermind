@@ -11,6 +11,7 @@ export class GameStatusComponent implements OnInit {
 
   team: Team; 
   status: string;
+
   constructor(private gameState : GameStateService) { 
     this.status = this.getStatus(gameState);
     this.team = gameState.user.team;
@@ -35,7 +36,7 @@ export class GameStatusComponent implements OnInit {
     this.team = turn.team;
 
     if(gameState.endOfGame){
-      return "End Game";
+      return `Game Over! ${gameState.winningTeam} Team Wins`;
     }
 
     if(isMyTurn){

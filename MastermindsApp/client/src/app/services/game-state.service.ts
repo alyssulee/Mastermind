@@ -73,6 +73,11 @@ export class GameStateService
         this.isMyTurn = (this.turn.role == this.user.role && this.turn.team == this.user.team);
         observer.next();
       });
+
+      this.socket.on('game:restart-game', () => {
+        this.winningTeam = Team.None;
+        this.endOfGame = false;
+      });
     });
   }
 
@@ -83,6 +88,11 @@ export class GameStateService
 
   setWords(words: { [word: string]: GameWord }) {
     this.gameWordSet = words;
+  }
+
+  /* Restart Game Event*/
+  sendRestartGameEvent() {
+    this.socket.emit('game:restart-game');
   }
 
   /* Clue Events */
@@ -108,7 +118,7 @@ export class GameStateService
   }
 
   sendGuessEvent(guess : Guess) {
-    console.log("Guessing word");
+    console.log("Guessing word", JSON.stringify(guess));
     this.socket.emit('guess:guess-word', guess);
   }
 

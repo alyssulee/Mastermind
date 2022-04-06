@@ -58,9 +58,7 @@ export class GameStateService
 
     CheckGuessedWord(guess : Guess) : GuessResult {
         this.words[guess.gameWord.word].guessed = true;
-        console.log(guess.gameWord.category);
-        console.log(guess.user.team);
-
+        
         var hasWon = this.CheckForWinner(guess.user.team);
 
         if(hasWon != null) return hasWon;
