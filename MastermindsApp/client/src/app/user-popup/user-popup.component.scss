@@ -1,0 +1,19 @@
+@import "../shared/variables";
+
+.Green {
+  background-color: $green-team;
+}
+.Purple {
+  background-color: $purple-team;
+}
+
+button {
+  border-radius: 10px;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  width: 100px;
+  border: 1px solid $default;
+  right: 0;
+  position: absolute;
+}

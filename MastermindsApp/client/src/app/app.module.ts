@@ -23,6 +23,7 @@ import { GameStatusComponent } from './game-status/game-status.component';
 import { GameOverComponent } from './game-over/game-over.component';
 import { MastermindWordCardComponent } from './mastermind-word-card/mastermind-word-card.component';
 import { ChatComponent } from './chat/chat.component';
+import { UserPopupComponent } from './user-popup/user-popup.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ChatComponent } from './chat/chat.component';
     GameStatusComponent,
     GameOverComponent,
     MastermindWordCardComponent,
-    ChatComponent
+    ChatComponent,
+    UserPopupComponent
   ],
   imports: [
     BrowserModule,
