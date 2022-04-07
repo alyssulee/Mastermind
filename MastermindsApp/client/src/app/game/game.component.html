@@ -1,6 +1,6 @@
 <header>
-    <app-roomcode></app-roomcode>
-    <app-rules-button></app-rules-button>
+  <app-roomcode></app-roomcode>
+  <app-rules-button></app-rules-button>
 </header>
 <app-game-status></app-game-status>
 <button (click)="updateGreenMastermind()">Join as Green Mastermind</button>
@@ -8,8 +8,11 @@
 <button (click)="updatePurpleMastermind()">Join as Purple Mastermind</button>
 <button (click)="updatePurpleMinion()">Join as Purple Minion</button>
 <div class="main-content">
-    <app-word-grid></app-word-grid>
-    <app-send-clue></app-send-clue>
-    <app-minion-clue></app-minion-clue>
-    <app-game-over></app-game-over>
+  <app-chat></app-chat>
+  <app-word-grid></app-word-grid>
+
+  <app-send-clue></app-send-clue>
+  <app-minion-clue></app-minion-clue>
+
+  <app-game-over></app-game-over>
 </div>

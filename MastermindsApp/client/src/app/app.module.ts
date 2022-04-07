@@ -22,6 +22,7 @@ import { RoomcodeComponent } from './roomcode/roomcode.component';
 import { GameStatusComponent } from './game-status/game-status.component';
 import { GameOverComponent } from './game-over/game-over.component';
 import { MastermindWordCardComponent } from './mastermind-word-card/mastermind-word-card.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MastermindWordCardComponent } from './mastermind-word-card/mastermind-w
     RoomcodeComponent,
     GameStatusComponent,
     GameOverComponent,
-    MastermindWordCardComponent
+    MastermindWordCardComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
