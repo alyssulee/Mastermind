@@ -1,49 +1,51 @@
-@import '../shared/variables';
+@import "../shared/variables";
 
 button {
-    background-color: $default;
-    border-radius: 10px;
-    color: white;
-    padding: 10px;
-    font-size: 16px;
-    width: 100px;
-    border: 1px solid $default;
+  background-color: $default;
+  border-radius: 10px;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  width: 100px;
+  border: 1px solid $default;
+  right: 0;
+  position: absolute;
 }
 
 button:hover {
-    background-color: $accent-grey;
-    border: 1px solid $accent-grey;
+  background-color: $accent-grey;
+  border: 1px solid $accent-grey;
 }
 
 img {
-    width: 450px;
-    height: 350px;
+  width: 450px;
+  height: 350px;
 }
 
-.rules{
-    margin: 0 100px;
+.rules {
+  margin: 0 100px;
 }
 
 ul {
-    list-style: none;
-    font-weight: bold;
+  list-style: none;
+  font-weight: bold;
 }
 
 li {
-    margin: 5px 0;
+  margin: 5px 0;
 }
 
-@media (max-width: $mobile-width){
-    .rules {
-        margin: 0px;
-    }
+@media (max-width: $mobile-width) {
+  .rules {
+    margin: 0px;
+  }
 
-    img {
-        width: 350px;
-        height: 250px;
-    }
+  img {
+    width: 350px;
+    height: 250px;
+  }
 
-    ul{
-        padding: 0px;
-    }
+  ul {
+    padding: 0px;
+  }
 }
