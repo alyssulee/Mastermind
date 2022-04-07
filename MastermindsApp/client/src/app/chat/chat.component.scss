@@ -2,7 +2,7 @@
 
 .container {
   float: right;
-  max-width: 235px;
+  max-width: 285px;
   background: #eaeaea;
   margin: 80px 15px;
   overflow: hidden;
@@ -14,16 +14,16 @@
   color: black;
   text-align: center;
   background: #c4c4c4;
+
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   display: flex;
   justify-content: center;
-  height: 14px;
+  height: fit-content;
   margin: 0;
-  padding-bottom: 20px;
 }
 .Chat-Header h1 {
-  font-size: 0.9em;
+  font-size: 1.1em;
 }
 /* Form styling */
 
@@ -36,7 +36,7 @@
 }
 
 .form-container {
-  padding: 250px 15px;
+  padding: 275px 15px;
   padding-bottom: 0;
   background-color: #eaeaea;
 }
@@ -47,7 +47,7 @@
 
 .form-container input[type="text"] {
   font-size: 16px;
-  width: 165px;
+  width: 215px;
   padding: 1px;
   margin-bottom: 10px;
   padding-right: 0px;
@@ -62,10 +62,10 @@
   padding: 5px 10px 5px 10px;
   margin-right: 1px;
   margin-left: 3px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   background: #c4c4c4;
   color: black;
-  border-radius: 7 px;
+  border-radius: 10px;
   border: 0;
   font-size: 15px;
   display: flex;
