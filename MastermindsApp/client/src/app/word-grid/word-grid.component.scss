@@ -1,10 +1,10 @@
-@import '../shared/variables';
-@import '../shared/word-card';
+@import "../shared/variables";
+@import "../shared/word-card";
 
 .grid {
-    justify-content: center;
-    display: grid;
-    grid-auto-columns: minmax(0, 1fr);
-    grid-auto-flow: column;
-    margin-left: 10px;
+  justify-content: center;
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  margin-left: 10px;
 }
