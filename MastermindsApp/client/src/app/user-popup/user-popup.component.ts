@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Role, Team, Turn } from '../interfaces/GameLogicInterfaces';
+import { Role, Team, Turn, User } from '../interfaces/GameLogicInterfaces';
 import { GameStateService } from '../services/game-state.service';
 @Component({
   selector: 'app-user-popup',
@@ -8,11 +8,11 @@ import { GameStateService } from '../services/game-state.service';
 })
 export class UserPopupComponent implements OnInit {
   team: Team;
-  status: string;
+  username: string;
 
   constructor(private gameState: GameStateService) {
-    this.status = this.getStatus();
     this.team = gameState.user.team;
+    this.username = gameState.user.username;
   }
 
   ngOnInit(): void {
@@ -22,14 +22,7 @@ export class UserPopupComponent implements OnInit {
   }
 
   update() {
-    this.status = this.getStatus();
-  }
-
-  getStatus(): string {
-    var turn = this.gameState.turn;
-    var team = this.gameState.user.team;
-
-    this.team = turn.team;
-    return '';
+    this.username = this.gameState.user.username;
+    this.team = this.gameState.user.team;
   }
 }
