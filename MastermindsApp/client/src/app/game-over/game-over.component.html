@@ -1,0 +1,11 @@
+<ng-container *ngIf="isEndGame">
+    <div class='flex'>
+        <ng-container *ngIf="winningTeam == myTeam">
+            <h3 class="{{myTeam}}">You Win!</h3>
+        </ng-container>
+        <ng-container *ngIf="winningTeam != myTeam">
+            <h3 class="{{myTeam}}">You Lose!</h3>
+        </ng-container>
+        <button class='play-again-button' (click)="onPlayAgainClick()">Play Again</button>
+    </div>
+</ng-container>

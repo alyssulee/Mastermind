@@ -24,5 +24,11 @@ export interface Clue {
 
 export interface Guess {
     gameWord: GameWord;
-    username: string;
+    user: User;
+}
+
+export interface User {
+  username: string,
+  team: Team,
+  role: Role
 }

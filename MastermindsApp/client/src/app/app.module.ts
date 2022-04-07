@@ -19,6 +19,9 @@ import { SendClueComponent } from './send-clue/send-clue.component';
 import { MinionWordCardComponent } from './minion-word-card/minion-word-card.component';
 import { MinionClueComponent } from './minion-clue/minion-clue.component';
 import { RoomcodeComponent } from './roomcode/roomcode.component';
+import { GameStatusComponent } from './game-status/game-status.component';
+import { GameOverComponent } from './game-over/game-over.component';
+import { MastermindWordCardComponent } from './mastermind-word-card/mastermind-word-card.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { RoomcodeComponent } from './roomcode/roomcode.component';
     SendClueComponent,
     MinionWordCardComponent,
     MinionClueComponent,
-    RoomcodeComponent
+    RoomcodeComponent,
+    GameStatusComponent,
+    GameOverComponent,
+    MastermindWordCardComponent
   ],
   imports: [
     BrowserModule,

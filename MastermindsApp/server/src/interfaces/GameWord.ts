@@ -1,3 +1,5 @@
+import { User } from "./GameLogicInterfaces";
+
 export enum WordCategory {
     Green = "Green",
     Purple = "Purple",
@@ -9,4 +11,5 @@ export interface GameWord {
   word: string;
   category: WordCategory;
   guessed: boolean;
+  suggested: User[];
 }

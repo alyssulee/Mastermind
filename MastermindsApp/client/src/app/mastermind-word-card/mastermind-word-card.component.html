@@ -1,0 +1,16 @@
+<div class="mastermind-card">
+    <div class="word-card {{gameWord.word}}-card {{gameWord.category}}" [ngClass]="gameWord.guessed ? 'guessed' : ''"  id='{{gameWord.word}}-mastermind-card'>
+        {{gameWord.word}}
+        <!-- Suggest minion names -->
+        <ng-container *ngIf="gameWord.suggested.length > 0">
+            <div class="suggest-name minion1 {{gameWord.suggested[0].team}}">
+                {{gameWord.suggested[0].username}}
+            </div>
+        </ng-container>
+        <ng-container *ngIf="gameWord.suggested.length > 1">
+            <div class="suggest-name minion2 {{gameWord.suggested[1].team}}">
+                {{gameWord.suggested[1].username}}
+            </div>
+        </ng-container>
+    </div>
+</div>

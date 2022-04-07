@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
 import { WordCategory } from '../interfaces/GameWord';
 import * as $ from 'jquery';
 import { GameStateService } from '../services/game-state.service';
-import { Clue, Role, Team } from '../interfaces/GameLogicInterfaces';
+import { Clue, Role, Team, Turn } from '../interfaces/GameLogicInterfaces';
 
 
 @Component({
@@ -16,17 +16,35 @@ export class SendClueComponent implements OnInit {
 
   clue : Clue = {word: "", number: 1}
 
-  isMastermind: boolean;
-  team: Team;
-  isMyTurn: boolean;
+  isMastermind: boolean = false;
+  team: Team = Team.None;
+  isMyTurn: boolean = false;
+
+  remainingCards: number;
+  numberArray: Array<number>;
 
   constructor(private elementRef: ElementRef, private gameStateService : GameStateService) { 
-    this.isMastermind = gameStateService.role == Role.Mastermind;
-    this.team = gameStateService.team;
-    this.isMyTurn = gameStateService.isMyTurn;
+    this.update(gameStateService);
+
+    // TODO: Update to number of remaining cards when score is implemented.
+    this.remainingCards = 9;
+    this.numberArray = Array(this.remainingCards).fill(1).map((x, i)=> i+1);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.gameStateService.updated().subscribe(() => {
+      this.update(this.gameStateService);
+    });
+   }
+
+   update(gameStateService: GameStateService): void {
+      this.isMastermind = gameStateService.user.role == Role.Mastermind;
+      this.team = gameStateService.user.team;
+      this.isMyTurn = gameStateService.isMyTurn;
+      if(!this.isMyTurn) {
+        this.clue.number = 1;
+      }
+   }
 
   onClueNumberChange(value:number) : void {
     this.clue.number = value;
@@ -45,6 +63,7 @@ export class SendClueComponent implements OnInit {
     {
       $(".error").show();
     }
+
   }
 
   togglePopup() : void {

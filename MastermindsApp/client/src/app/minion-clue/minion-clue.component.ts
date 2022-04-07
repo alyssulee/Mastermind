@@ -15,8 +15,8 @@ export class MinionClueComponent implements OnInit {
   isMyTurn: boolean;
 
   constructor(private gameState : GameStateService) { 
-    this.isMastermind = gameState.role == Role.Mastermind;
-    this.team = gameState.team;
+    this.isMastermind = gameState.user.role == Role.Mastermind;
+    this.team = gameState.user.team;
     this.isMyTurn = gameState.isMyTurn
   }
 
@@ -29,9 +29,19 @@ export class MinionClueComponent implements OnInit {
       console.log("Got clue: ", JSON.stringify(clue));
       this.clue = clue;
     });
+    
+    this.gameState.updated().subscribe(() => {
+      this.update(this.gameState);
+    });
   }
 
   onEndGuessing() : void {
     this.gameState.endGuessingEvent();
+  }
+
+  update(gameState: GameStateService): void {
+    this.isMastermind = gameState.user.role == Role.Mastermind;
+    this.team = gameState.user.team;
+    this.isMyTurn = gameState.isMyTurn
   }
 }

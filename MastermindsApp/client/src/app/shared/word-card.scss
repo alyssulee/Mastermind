@@ -4,8 +4,10 @@
     margin-right: 15px;
     margin-top: 15px;
     text-align: center;
-    padding: 2.5em 0;
+    padding: 4vh 0;
     background: $default;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .guessed {
@@ -19,3 +21,10 @@
 .Purple { background-color: $purple-team; } 
 .Neutral { background-color: $default; }
 .minion { background-color: $default; }
+
+
+@media (max-width: $mobile-width) {
+    .word-card {
+        padding: 3vh 0;
+    }
+}

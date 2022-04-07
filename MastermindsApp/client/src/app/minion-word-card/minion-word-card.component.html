@@ -3,16 +3,22 @@
     <!-- Word Card  -->
     <div>
         <div class="word-card {{gameWord.word}}-card" 
-        [ngClass]="gameWord.guessed ? gameWord.category : 'minion'" 
+        [ngClass]="gameWord.guessed ? gameWord.category + ' guessed' : 'minion'" 
         id='{{gameWord.word}}-card' 
         (click)="onMinionCardClick()">
             {{gameWord.word}}
-            <div class="suggest-name self {{team}}">
-                {{selfUsername}}
-            </div>
-            <div class="suggest-name not-self {{team}}">
-                {{notSelfUsername}}
-            </div>
+
+            <!-- Suggest names -->
+            <ng-container *ngIf="gameWord.suggested.length > 0">
+                <div class="suggest-name minion1 {{gameWord.suggested[0].team}}">
+                    {{gameWord.suggested[0].username}}
+                </div>
+            </ng-container>
+            <ng-container *ngIf="gameWord.suggested.length > 1">
+                <div class="suggest-name minion2 {{gameWord.suggested[1].team}}">
+                    {{gameWord.suggested[1].username}}
+                </div>
+            </ng-container>
         </div>
     </div>
 
