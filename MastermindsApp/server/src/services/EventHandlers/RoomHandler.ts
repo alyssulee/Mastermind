@@ -88,6 +88,10 @@ module.exports = (io, socket, roomService: RoomService) => {
     io.to(socket.id).emit("username-updated", username);
   });
 
+  socket.on("clicked-userpopup", () => {
+    io.to(socket.id).emit("clicked-user-popup");
+  });
+
   socket.on("game:restart-game", () => {
     let roomCode = [...socket.rooms][1];
     let wordSet = roomService.GenerateWordSet(roomCode);

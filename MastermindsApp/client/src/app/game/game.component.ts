@@ -7,17 +7,20 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit {
+  isClicked: boolean = false;
 
-  constructor(private router: Router, private gameService : GameStateService) { 
-  }
+  constructor(private router: Router, private gameService: GameStateService) {}
 
   ngOnInit(): void {
     this.onLoginRedirect().subscribe(() => {
       this.router.navigate(['/login']);
-  });
+    });
+    this.gameService.updated().subscribe(() => {
+      this.update();
+    });
   }
 
   updateGreenMastermind(): void {
@@ -25,22 +28,23 @@ export class GameComponent implements OnInit {
   }
   updateGreenMinion(): void {
     this.gameService.setTeamAndRole(Team.Green, Role.Minion);
-    
   }
   updatePurpleMastermind(): void {
     this.gameService.setTeamAndRole(Team.Purple, Role.Mastermind);
-    
   }
   updatePurpleMinion(): void {
     this.gameService.setTeamAndRole(Team.Purple, Role.Minion);
-    
   }
 
-  onLoginRedirect () {
-    return new Observable(observer => {
+  onLoginRedirect() {
+    return new Observable((observer) => {
       this.gameService.socket.on('login:redirect', () => {
         observer.next();
       });
     });
+  }
+
+  update() {
+    this.isClicked = this.gameService.isButtonClicked();
   }
 }

@@ -31,6 +31,7 @@ export class GameStateService {
   endOfGame: boolean = false;
   winningTeam: Team = Team.None;
   gameWordSet: { [word: string]: GameWord } = {};
+  isClicked: boolean = false;
 
   constructor(private gameService: GameService) {
     this.socket = this.gameService.socket;
@@ -39,10 +40,24 @@ export class GameStateService {
       this.turn.role == this.user.role && this.turn.team == this.user.team;
   }
 
+  clicked() {
+    this.isClicked = !this.isClicked;
+    this.socket.emit('clicked-userpopup');
+    this.updated();
+  }
+
+  isButtonClicked() {
+    return this.isClicked;
+  }
+
   setTeamAndRole(team: Team, role: Role) {
     if (this.user.role != role) this.socket.emit('changed-role', role);
 
     if (this.user.team != team) this.socket.emit('changed-team', team);
+  }
+
+  setTeam(team: Team) {
+    this.socket.emit('changed-team', team);
   }
 
   setUsername(username: string) {
@@ -68,6 +83,10 @@ export class GameStateService {
 
       this.socket.on('username-updated', (username) => {
         this.user.username = username;
+        observer.next();
+      });
+
+      this.socket.on('clicked-user-popup', () => {
         observer.next();
       });
 

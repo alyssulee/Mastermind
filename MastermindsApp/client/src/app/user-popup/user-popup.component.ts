@@ -9,10 +9,12 @@ import { GameStateService } from '../services/game-state.service';
 export class UserPopupComponent implements OnInit {
   team: Team;
   username: string;
+  isClicked: boolean;
 
   constructor(private gameState: GameStateService) {
     this.team = gameState.user.team;
     this.username = gameState.user.username;
+    this.isClicked = false;
   }
 
   ngOnInit(): void {
@@ -24,5 +26,8 @@ export class UserPopupComponent implements OnInit {
   update() {
     this.username = this.gameState.user.username;
     this.team = this.gameState.user.team;
+  }
+  openUserPopUp() {
+    this.gameState.clicked();
   }
 }

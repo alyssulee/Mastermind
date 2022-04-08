@@ -5,7 +5,7 @@
     <app-rules-button></app-rules-button>
     <app-user-popup></app-user-popup>
   </div>
-  <app-user-popup-box></app-user-popup-box>
+  <app-user-popup-box *ngIf="isClicked"></app-user-popup-box>
 </header>
 
 <app-game-status></app-game-status>
