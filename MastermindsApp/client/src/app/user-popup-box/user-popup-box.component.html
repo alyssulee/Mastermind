@@ -3,7 +3,7 @@
 
   <input type="text" value="{{ username }}" />
   <button>Save</button>
-  <button class="{{ oppositeColor }}">
+  <button (click)="switchTeam()" class="{{ oppositeColor }}">
     Switch to <br />
     {{ oppositeColor }} Team
   </button>

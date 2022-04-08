@@ -36,4 +36,10 @@ export class UserPopupBoxComponent implements OnInit {
     this.username = this.gameState.user.username;
     this.team = this.gameState.user.team;
   }
+
+  switchTeam() {
+    this.gameState.setTeam(this.oppositeColor);
+    console.log('this switch team clicked');
+    console.log('value of opposite team is' + this.oppositeColor);
+  }
 }
