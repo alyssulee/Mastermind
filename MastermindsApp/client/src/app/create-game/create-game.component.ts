@@ -20,7 +20,7 @@ export class CreateGameComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.roomService.onJoinedRoom().subscribe((roomCode: string) => {
+    this.roomService.onJoinedCreatedRoom().subscribe((roomCode: string) => {
       this.update();
       this.router.navigate(['/game/' + roomCode]);
     });
