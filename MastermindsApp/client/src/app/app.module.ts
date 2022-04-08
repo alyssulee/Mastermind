@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DialogModule } from "primeng/dialog";
-import { ButtonModule } from "primeng/button";
-import { RouterModule } from "@angular/router";
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +25,8 @@ import { MastermindWordCardComponent } from './mastermind-word-card/mastermind-w
 import { ChatComponent } from './chat/chat.component';
 import { UserPopupComponent } from './user-popup/user-popup.component';
 import { UserPopupBoxComponent } from './user-popup-box/user-popup-box.component';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -44,16 +46,18 @@ import { UserPopupBoxComponent } from './user-popup-box/user-popup-box.component
     MastermindWordCardComponent,
     ChatComponent,
     UserPopupComponent,
-    UserPopupBoxComponent
+    UserPopupBoxComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule, 
-    DialogModule, 
-    ButtonModule
+    BrowserAnimationsModule,
+    DialogModule,
+    ButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [GameService, GameStateService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

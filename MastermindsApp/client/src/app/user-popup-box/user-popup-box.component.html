@@ -1,8 +1,17 @@
 <div class="userPopUp">
   <h1>Nickname</h1>
 
-  <input type="text" value="{{ username }}" />
-  <button>Save</button>
+  <form (submit)="onSubmit()">
+    <input
+      id="input"
+      type="text"
+      [(ngModel)]="valueUsername"
+      name="username"
+      value="{{ username }}"
+    />
+    <button>Save</button>
+  </form>
+
   <button (click)="switchTeam()" class="{{ oppositeColor }}">
     Switch to <br />
     {{ oppositeColor }} Team
