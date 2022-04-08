@@ -1,15 +1,15 @@
-import { GameWord } from "./GameWord";
+import { GameWord } from './GameWord';
 
 export enum Role {
   Mastermind = 'Mastermind',
   Minion = 'Minion',
-  None = 'None'
+  None = 'None',
 }
 
 export enum Team {
   Purple = 'Purple',
   Green = 'Green',
-  None = 'None'
+  None = 'None',
 }
 
 export interface Turn {
@@ -23,12 +23,18 @@ export interface Clue {
 }
 
 export interface Guess {
-    gameWord: GameWord;
-    user: User;
+  gameWord: GameWord;
+  user: User;
 }
 
 export interface User {
-  username: string,
-  team: Team,
-  role: Role
+  username: string;
+  team: Team;
+  role: Role;
+}
+
+export interface Message {
+  username: string;
+  msg: string;
+  team: Team;
 }

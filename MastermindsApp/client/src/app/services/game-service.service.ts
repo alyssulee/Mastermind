@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { io } from "socket.io-client";
+import { io } from 'socket.io-client';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GameService {
-
   public socket = io('http://localhost:8080');
 
-  constructor() { 
+  constructor() {
     console.log('GameService created');
   }
 }
