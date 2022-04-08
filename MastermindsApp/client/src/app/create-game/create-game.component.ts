@@ -21,14 +21,18 @@ export class CreateGameComponent implements OnInit {
 
   ngOnInit(): void {
     this.roomService.onJoinedRoom().subscribe((roomCode: string) => {
+      this.update();
       this.router.navigate(['/game/' + roomCode]);
-      this.gameStateService.setUsername(this.username);
     });
 
     this.roomService.onNicknameEmptyCreate().subscribe(() => {
       $('#error-message-no-nickname-create').css('visibility', 'visible');
       $('#create-game-nickname').css('border', '2px solid #cc0000');
     });
+  }
+
+  update() {
+    this.gameStateService.createdUsername(this.username);
   }
 
   createRoom() {

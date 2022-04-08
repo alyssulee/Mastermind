@@ -4,6 +4,7 @@ import { RoomService } from "../RoomService";
 import { SaveGameService } from "../SaveGameService";
 
 const registerGuessHandler = require("./GuessHandler");
+const registerChatHandler = require("./ChatHandler");
 const maxUsers = 6;
 
 var saveGameService = new SaveGameService();
@@ -15,6 +16,7 @@ module.exports = (io, socket, roomService: RoomService) => {
     roomService.roomGameStates[roomCode].setStartingTeam(wordSet);
 
     registerGuessHandler(io, socket, roomService.roomGameStates);
+    registerChatHandler(io, socket, roomService.roomGameStates);
 
     if (nickname == "") {
       io.to(socket.id).emit("room:nickname-empty-create");
@@ -86,6 +88,10 @@ module.exports = (io, socket, roomService: RoomService) => {
 
   socket.on("changed-username", (username) => {
     io.to(socket.id).emit("username-updated", username);
+  });
+
+  socket.on("created-username", (username) => {
+    io.to(socket.id).emit("username-created", username);
   });
 
   socket.on("clicked-userpopup", () => {

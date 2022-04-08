@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { GameComponent } from './game/game.component';
 import { WordGridComponent } from './word-grid/word-grid.component';
 import { GameStateService } from './services/game-state.service';
+import { ChatService } from './services/chat.service';
 import { SendClueComponent } from './send-clue/send-clue.component';
 import { MinionWordCardComponent } from './minion-word-card/minion-word-card.component';
 import { MinionClueComponent } from './minion-clue/minion-clue.component';
@@ -57,7 +58,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [GameService, GameStateService],
+  providers: [GameService, GameStateService, ChatService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

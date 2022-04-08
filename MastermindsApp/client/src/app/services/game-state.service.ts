@@ -60,6 +60,10 @@ export class GameStateService {
     this.socket.emit('changed-team', team);
   }
 
+  createdUsername(username: string) {
+    this.socket.emit('created-username', username);
+  }
+
   setUsername(username: string) {
     if (this.user.username != username)
       this.socket.emit('changed-username', username);
@@ -82,6 +86,11 @@ export class GameStateService {
       });
 
       this.socket.on('username-updated', (username) => {
+        this.user.username = username;
+        observer.next();
+      });
+
+      this.socket.on('username-created', (username) => {
         this.user.username = username;
         observer.next();
       });
