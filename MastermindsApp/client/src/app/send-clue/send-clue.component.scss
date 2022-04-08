@@ -15,17 +15,16 @@
 
 .container {
   padding: 1em;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  display: flex;
-  width: 22%;
-  margin: 10px auto;
-  text-align: center;
-  align-items: center;
-  position: relative;
-
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 22%;
+    margin: 10px auto;
+    text-align: center;
+    align-items: center;
+    position: relative;
+    min-width: 400px;
 }
 
 .clue-container {
@@ -37,7 +36,7 @@
 }
 
 #clue-field {
-  font-size: 25px;
+  font-size: 1.5rem;
   font-weight: bold;
   padding: 5px 20px;
   text-align: center;
