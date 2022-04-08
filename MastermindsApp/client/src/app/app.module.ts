@@ -24,6 +24,7 @@ import { GameOverComponent } from './game-over/game-over.component';
 import { MastermindWordCardComponent } from './mastermind-word-card/mastermind-word-card.component';
 import { ChatComponent } from './chat/chat.component';
 import { UserPopupComponent } from './user-popup/user-popup.component';
+import { UserPopupBoxComponent } from './user-popup-box/user-popup-box.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { UserPopupComponent } from './user-popup/user-popup.component';
     GameOverComponent,
     MastermindWordCardComponent,
     ChatComponent,
-    UserPopupComponent
+    UserPopupComponent,
+    UserPopupBoxComponent
   ],
   imports: [
     BrowserModule,

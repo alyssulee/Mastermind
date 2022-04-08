@@ -5,7 +5,9 @@
     <app-rules-button></app-rules-button>
     <app-user-popup></app-user-popup>
   </div>
+  <app-user-popup-box></app-user-popup-box>
 </header>
+
 <app-game-status></app-game-status>
 <button (click)="updateGreenMastermind()">Join as Green Mastermind</button>
 <button (click)="updateGreenMinion()">Join as Green Minion</button>
@@ -13,10 +15,12 @@
 <button (click)="updatePurpleMinion()">Join as Purple Minion</button>
 <div class="main-content">
   <app-chat></app-chat>
-  <app-word-grid></app-word-grid>
+  <div class="centered-content">
+    <app-word-grid></app-word-grid>
 
-  <app-send-clue></app-send-clue>
-  <app-minion-clue></app-minion-clue>
+    <app-send-clue></app-send-clue>
+    <app-minion-clue></app-minion-clue>
+  </div>
 
   <app-game-over></app-game-over>
 </div>
