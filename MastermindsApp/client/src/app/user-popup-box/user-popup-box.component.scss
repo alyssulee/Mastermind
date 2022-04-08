@@ -1,0 +1,57 @@
+@import "../shared/variables";
+
+.Green {
+  background-color: $green-team;
+}
+.Purple {
+  background-color: $purple-team;
+}
+
+button {
+  text-align: center;
+  border-radius: 10px;
+  color: #fff;
+  padding: 10px 13px;
+  font-size: 20px;
+  background-color: #5f5f5f;
+  border: 1px solid $default;
+  margin-right: 0.5em;
+  font-weight: bold;
+  margin-left: 0.5em;
+  margin-bottom: 0.7em;
+}
+
+.leave-room {
+  padding: 0.5em 3.5em;
+  white-space: nowrap;
+}
+
+input {
+  border: 0;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  width: 9em;
+  padding: 9px;
+}
+
+.userPopUp {
+  text-align: center;
+  color: #000;
+  background-color: $orange;
+  position: absolute;
+  right: 0;
+  float: right;
+  max-width: 308px;
+  margin: 50px 11px;
+  overflow: hidden;
+  border-radius: 15px;
+  align-items: center;
+  padding-bottom: 3em;
+}
+h1 {
+  color: #000;
+  font-size: 1.1em;
+  font-weight: bold;
+}

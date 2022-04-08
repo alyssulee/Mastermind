@@ -1,18 +1,26 @@
-@import '../shared/variables';
+@import "../shared/variables";
 
 .game-status-bar {
-    border-radius: 20px;
-    text-align: center;
-    padding: 10px 0px;
+  border-radius: 20px;
+  text-align: center;
+  padding: 10px 0px;
+  display: flex;
+  width: 50%;
+  margin: 0 auto;
+  justify-content: center;
 }
 
-.Green { background-color: $green-team; }
-.Purple { background-color: $purple-team; } 
+.Green {
+  background-color: $green-team;
+}
+.Purple {
+  background-color: $purple-team;
+}
 
 @media (max-width: $mobile-width) {
-    .game-status-bar {
-        border-radius: 10px;
-        text-align: center;
-        padding: 0;
-    }
+  .game-status-bar {
+    border-radius: 10px;
+    text-align: center;
+    padding: 0;
+  }
 }
