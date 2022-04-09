@@ -1,0 +1,27 @@
+.container {
+  width: 285px;
+  background: #eaeaea;
+  margin: 50px 15px 0 15px;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.GameLog-Header {
+  color: black;
+  text-align: center;
+  background: #c4c4c4;
+
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  margin: 0;
+}
+.GameLog-Header h1 {
+  font-size: 1.1em;
+}
+.gameLog-msgs {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}

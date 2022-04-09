@@ -28,6 +28,7 @@ import { UserPopupComponent } from './user-popup/user-popup.component';
 import { UserPopupBoxComponent } from './user-popup-box/user-popup-box.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GameLogComponent } from './game-log/game-log.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ChatComponent,
     UserPopupComponent,
     UserPopupBoxComponent,
+    GameLogComponent,
   ],
   imports: [
     BrowserModule,
