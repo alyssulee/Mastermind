@@ -29,6 +29,7 @@ module.exports = (io, socket, roomService: RoomService) => {
 
     let rooms = socket.rooms;
     let socketRoomCode = [...rooms][1];
+
     io.to(socket.id).emit("room:joined-created-room", roomCode);
     io.to(socketRoomCode).emit("words:generated-set", wordSet);
     io.to(socketRoomCode).emit(

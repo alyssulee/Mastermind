@@ -1,66 +1,23 @@
-<!-- <ng-container *ngIf="!isMastermind"> -->
-<div class="container">
-  <header class="Chat-Header">
-    <h1>Private Chat</h1>
-  </header>
-  <!-- <div class="chat-msg">
-    <div class="message">
-      <h1 id="unameText" style="color: white">Humble</h1>
-      <p class="text">Yo</p>
-    </div>
-  </div> -->
-  <div class="chat-msg">
-    <!-- <div class="msg-container right">
-      <p class="msg">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-        neque est, viverra ac rhoncus et, cursus eu leo. Quisque in tristique
-        libero, sed rhoncus neque. Ut at enim id ligula consequat tempus in nec
-        magna. Donec vitae libero eget mi malesuada rutrum. Integer ornare ante
-        at ligula venenatis, quis blandit urna euismod.
-      </p>
-    </div>
-    <div class="msg-container left">
-      <p class="msg">
-        Integer ornare ante at ligula venenatis, quis blandit urna euismod.
-      </p>
-    </div>
-    <div class="msg-container right">
-      <p class="msg">
-        Integer ornare ante at ligula venenatis, quis blandit urna euismod.
-      </p>
-    </div>
-    <div class="msg-container left">
-      <p class="msg">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-        neque est, viverra ac rhoncus et, cursus eu leo. Quisque in tristique
-        libero, sed rhoncus neque. Ut at enim id ligula consequat tempus in nec
-        magna. Donec vitae libero eget mi malesuada rutrum. Integer ornare ante
-        at ligula venenatis, quis blandit urna euismod. ge
-      </p>
-    </div>
-    <div class="msg-container right">
-      <p class="msg">
-        Integer ornare ante at ligula venenatis, quis blandit urna euismod.
-      </p>
-    </div>
-    <div class="msg-container right">
-      <p class="msg">hello</p>
-    </div> -->
+<ng-container *ngIf="isMinion">
+  <div class="container">
+    <header class="Chat-Header">
+      <h1>Private Chat</h1>
+    </header>
+    <div class="chat-msg"></div>
+    <footer class="Chat-Footer">
+      <div class="form-container">
+        <form id="form" (submit)="sendMessage()">
+          <input
+            id="input"
+            type="text"
+            required
+            autocomplete="off"
+            [(ngModel)]="message"
+            [ngModelOptions]="{ standalone: true }"
+          />
+          <button class="sendbtn">Send</button>
+        </form>
+      </div>
+    </footer>
   </div>
-  <footer class="Chat-Footer">
-    <div class="form-container">
-      <form id="form" (submit)="sendMessage()">
-        <input
-          id="input"
-          type="text"
-          required
-          autocomplete="off"
-          [(ngModel)]="message"
-          [ngModelOptions]="{ standalone: true }"
-        />
-        <button class="sendbtn">Send</button>
-      </form>
-    </div>
-  </footer>
-</div>
-<!-- </ng-container> -->
+</ng-container>

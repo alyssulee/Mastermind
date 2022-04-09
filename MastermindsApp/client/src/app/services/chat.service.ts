@@ -24,8 +24,16 @@ export class ChatService {
   updated() {
     return new Observable<Message>((observer) => {
       this.socket.on('message:send-message', (msg) => {
-        console.log("Received: " + JSON.stringify(msg));
+        console.log('Received: ' + JSON.stringify(msg));
         observer.next(msg);
+      });
+    });
+  }
+
+  clientMessagesReceived() {
+    return new Observable<Message[]>((observer) => {
+      this.socket.on('message:client-messages', (clientMessages) => {
+        observer.next(clientMessages);
       });
     });
   }
