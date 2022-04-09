@@ -44,6 +44,14 @@ export class GameComponent implements OnInit {
     });
   }
 
+  onClickedOutside(e: Event) {
+    console.log('You Clicked Outside', e);
+    if (e.target == document.getElementById('userPopup')) {
+      e.stopPropagation();
+    }
+    this.gameService.clicked();
+  }
+
   update() {
     this.isClicked = this.gameService.isButtonClicked();
   }

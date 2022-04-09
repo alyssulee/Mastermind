@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RoomService } from '../services/room.service';
 import { GameStateService } from '../services/game-state.service';
 import * as $ from 'jquery';
+import { Clue, Role, Team, Message } from '../interfaces/GameLogicInterfaces';
 
 @Component({
   selector: 'app-create-game',
@@ -33,6 +34,7 @@ export class CreateGameComponent implements OnInit {
 
   update() {
     this.gameStateService.createdUsername(this.username);
+    this.gameStateService.setTeamAndRole(Team.None, Role.None);
   }
 
   createRoom() {

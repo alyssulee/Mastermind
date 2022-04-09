@@ -21,8 +21,8 @@ export class GameStateService {
   // TODO: Initialize these values proplery.
   user: User = {
     username: 'Hello',
-    team: Team.Green,
-    role: Role.Mastermind,
+    team: Team.None,
+    role: Role.None,
   };
 
   turn: Turn = { role: Role.Mastermind, team: Team.None };

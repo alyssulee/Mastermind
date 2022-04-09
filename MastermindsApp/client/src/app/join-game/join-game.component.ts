@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoomService } from '../services/room.service';
 import { GameStateService } from '../services/game-state.service';
+import { Clue, Role, Team, Message } from '../interfaces/GameLogicInterfaces';
 
 import * as $ from 'jquery';
 
@@ -24,6 +25,7 @@ export class JoinGameComponent implements OnInit {
     this.roomService.onJoinedRoom().subscribe((roomCode: string) => {
       this.router.navigate(['/game/' + roomCode]);
       this.gameStateService.setUsername(this.username);
+      this.gameStateService.setTeamAndRole(Team.None, Role.None);
     });
 
     this.roomService.onNicknameUsed().subscribe(() => {
