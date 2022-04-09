@@ -54,10 +54,12 @@ export class GameStateService {
     if (this.user.role != role) this.socket.emit('changed-role', role);
 
     if (this.user.team != team) this.socket.emit('changed-team', team);
+    this.socket.emit('message:send-messages');
   }
 
   setTeam(team: Team) {
     this.socket.emit('changed-team', team);
+    this.socket.emit('message:send-messages');
   }
 
   createdUsername(username: string) {

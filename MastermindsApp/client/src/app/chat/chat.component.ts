@@ -15,7 +15,7 @@ export class ChatComponent implements OnInit {
   isMastermind: boolean;
   username: string;
   team: Team;
-
+  isMinion: boolean;
   constructor(
     private chatService: ChatService,
     private gameState: GameStateService,
@@ -24,6 +24,7 @@ export class ChatComponent implements OnInit {
     this.isMastermind = gameState.user.role == Role.Mastermind;
     this.username = gameState.user.username;
     this.team = gameState.user.team;
+    this.isMinion = gameState.user.role == Role.Minion;
   }
 
   ngOnInit(): void {
@@ -33,9 +34,26 @@ export class ChatComponent implements OnInit {
         this.elementRef.nativeElement.querySelector('.chat-msg');
       chatMessages.scrollTop = chatMessages.scrollHeight;
     });
+    this.chatService.clientMessagesReceived().subscribe((msgs: Message[]) => {
+      const myNode = document.querySelector('.chat-msg');
+
+      myNode!.textContent = '';
+
+      for (var i = 0; i < msgs.length; i++) {
+        this.outputMessage(msgs[i]);
+        var chatMessages =
+          this.elementRef.nativeElement.querySelector('.chat-msg');
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    });
+
+    this.gameState.updated().subscribe(() => {
+      this.isMinion = this.gameState.user.role == Role.Minion;
+    });
   }
 
   sendMessage() {
+    if (this.message === '') return;
     let msg: Message = {
       username: this.gameState.user.username,
       msg: this.message,

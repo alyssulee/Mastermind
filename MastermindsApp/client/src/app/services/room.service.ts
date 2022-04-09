@@ -33,6 +33,7 @@ export class RoomService {
     return new Observable<string>((observer) => {
       this.socket.on('room:joined-room', (roomCode) => {
         this.roomcode = roomCode;
+        this.socket.emit('message:send-messages');
         observer.next(roomCode);
       });
     });
@@ -42,6 +43,7 @@ export class RoomService {
     return new Observable<string>((observer) => {
       this.socket.on('room:joined-created-room', (roomCode) => {
         this.roomcode = roomCode;
+        this.socket.emit('message:send-messages');
         observer.next(roomCode);
       });
     });
