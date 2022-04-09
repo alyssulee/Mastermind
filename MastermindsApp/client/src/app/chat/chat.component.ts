@@ -52,10 +52,22 @@ export class ChatComponent implements OnInit {
     //Add the class message to the div
     div.classList.add('msg-container');
     div.classList.add('right');
+
+    var msgColor: string;
+    if (msg.team == Team.Purple) {
+      msgColor = '#b264f2';
+    } else {
+      msgColor = '#4cc36d';
+    }
+
     if (msg.team == this.gameState.user.team) {
       if (msg.username == this.gameState.user.username) {
         div.innerHTML = `
-        <p class="msg" style = "max-width: 50%;border-radius: 10px;background-color: green;" >${msg.msg}</p>`;
+        <p class="msg" style = "border-radius: 10px;background-color: ${msgColor}; width: 11.5em;
+        margin-right: 5px;
+        overflow-wrap: break-word;
+        margin-bottom: 5px;
+        padding: 5px 5px 10px 5px;" ><strong>${msg.username}</strong> <br> ${msg.msg}</p>`;
         div.setAttribute(
           'style',
           ' width: 100%; display: flex;  justify-content: flex-end;'
@@ -63,7 +75,11 @@ export class ChatComponent implements OnInit {
         chatMessages.appendChild(div);
       } else {
         div.innerHTML = `
-        <p class="msg" style = "max-width: 50%;border-radius: 10px;background-color: grey;" >${msg.msg}</p>`;
+        <p class="msg" style = "border-radius: 10px;background-color: #a0a0a0;   width: 11.5em;
+        margin-left: 5px;
+        overflow-wrap: break-word;
+        margin-bottom: 5px; 
+        padding: 5px 5px 10px 5px;" > <strong>${msg.username}</strong> <br> ${msg.msg}</p>`;
         div.setAttribute(
           'style',
           ' width: 100%; display: flex;  justify-content: flex-start;'
