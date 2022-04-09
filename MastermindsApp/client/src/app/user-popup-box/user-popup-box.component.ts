@@ -16,6 +16,7 @@ export class UserPopupBoxComponent implements OnInit {
   username: string;
   oppositeColor: Team;
   valueUsername: string;
+  spectator: boolean;
 
   constructor(
     private router: Router,
@@ -31,6 +32,14 @@ export class UserPopupBoxComponent implements OnInit {
     } else {
       this.oppositeColor = Team.Green;
     }
+    if (
+      this.gameState.user.team == Team.None &&
+      this.gameState.user.role == Role.None
+    ) {
+      this.spectator = true;
+    } else {
+      this.spectator = false;
+    }
   }
 
   ngOnInit(): void {
@@ -43,6 +52,14 @@ export class UserPopupBoxComponent implements OnInit {
         this.oppositeColor = Team.Purple;
       } else {
         this.oppositeColor = Team.Green;
+      }
+      if (
+        this.gameState.user.team == Team.None &&
+        this.gameState.user.role == Role.None
+      ) {
+        this.spectator = true;
+      } else {
+        this.spectator = false;
       }
     });
 
@@ -59,24 +76,39 @@ export class UserPopupBoxComponent implements OnInit {
     } else {
       this.oppositeColor = Team.Green;
     }
+    if (
+      this.gameState.user.team == Team.None &&
+      this.gameState.user.role == Role.None
+    ) {
+      this.spectator = true;
+    } else {
+      this.spectator = false;
+    }
   }
 
   switchTeam() {
     this.gameState.setTeam(this.oppositeColor);
     console.log('this switch team clicked');
     console.log('value of opposite team is' + this.oppositeColor);
+    this.gameState.clicked();
   }
 
   onSubmit() {
     this.gameState.setUsername(this.valueUsername);
+    this.gameState.clicked();
   }
 
   leaveRoom() {
     this.roomService.onRequestToLeave();
   }
 
-  onClickedOutside(e: Event) {
-    console.log('You Clicked Outside', e);
+  // onClickedOutside(e: Event) {
+  //   console.log('You Clicked Outside', e);
+
+  //   this.gameState.clicked();
+  // }
+  becomeSpectator() {
+    this.gameState.setTeamAndRole(Team.None, Role.None);
     this.gameState.clicked();
   }
 }

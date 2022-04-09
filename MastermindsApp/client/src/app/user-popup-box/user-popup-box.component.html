@@ -1,4 +1,4 @@
-<div class="userPopUp" (clickOutside)="onClickedOutside($event)">
+<div class="userPopUp">
   <h1>Nickname</h1>
 
   <form (submit)="onSubmit()">
@@ -12,11 +12,11 @@
     <button>Save</button>
   </form>
 
-  <button (click)="switchTeam()" class="{{ oppositeColor }}">
+  <button *ngIf="!spectator" (click)="switchTeam()" class="{{ oppositeColor }}">
     Switch to <br />
     {{ oppositeColor }} Team
   </button>
-  <button>
+  <button *ngIf="!spectator" (click)="becomeSpectator()">
     Become <br />
     Spectator
   </button>

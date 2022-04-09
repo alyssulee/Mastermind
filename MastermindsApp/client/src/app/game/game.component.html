@@ -3,9 +3,12 @@
 
   <div class="right-header">
     <app-rules-button></app-rules-button>
-    <app-user-popup></app-user-popup>
+    <app-user-popup id="userPopup"></app-user-popup>
   </div>
-  <app-user-popup-box *ngIf="isClicked"></app-user-popup-box>
+  <app-user-popup-box
+    (clickOutside)="onClickedOutside($event)"
+    *ngIf="isClicked"
+  ></app-user-popup-box>
 </header>
 <div class="main-content">
   <div style="float: right">

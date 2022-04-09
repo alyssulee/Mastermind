@@ -28,6 +28,8 @@ export class UserPopupComponent implements OnInit {
     this.team = this.gameState.user.team;
   }
   openUserPopUp() {
-    this.gameState.clicked();
+    if (!this.gameState.isButtonClicked()) {
+      this.gameState.clicked();
+    }
   }
 }
