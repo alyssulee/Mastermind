@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Role, Team, Turn, User } from '../interfaces/GameLogicInterfaces';
 import { GameStateService } from '../services/game-state.service';
+import { RoomService } from '../services/room.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-popup-box',
@@ -13,7 +15,11 @@ export class UserPopupBoxComponent implements OnInit {
   oppositeColor: Team;
   valueUsername: string;
 
-  constructor(private gameState: GameStateService) {
+  constructor(
+    private router: Router,
+    private gameState: GameStateService,
+    private roomService: RoomService
+  ) {
     this.team = gameState.user.team;
     this.username = gameState.user.username;
     this.valueUsername = this.username;
@@ -37,6 +43,10 @@ export class UserPopupBoxComponent implements OnInit {
         this.oppositeColor = Team.Green;
       }
     });
+
+    this.roomService.onLeaveRoom().subscribe(() => {
+      this.router.navigate(['/login/']);
+    });
   }
 
   update() {
@@ -57,5 +67,9 @@ export class UserPopupBoxComponent implements OnInit {
 
   onSubmit() {
     this.gameState.setUsername(this.valueUsername);
+  }
+
+  leaveRoom() {
+    this.roomService.onRequestToLeave();
   }
 }

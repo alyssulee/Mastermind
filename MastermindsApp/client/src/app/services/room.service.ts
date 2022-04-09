@@ -86,4 +86,16 @@ export class RoomService {
       });
     });
   }
+
+  onRequestToLeave() {
+    this.socket.emit('room:leave');
+  }
+
+  onLeaveRoom() {
+    return new Observable<string>((observer) => {
+      this.socket.on('room: leave-room', () => {
+        observer.next();
+      });
+    });
+  }
 }

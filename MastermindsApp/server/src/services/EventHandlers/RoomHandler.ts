@@ -138,6 +138,7 @@ module.exports = (io, socket, roomService: RoomService) => {
     console.log("Removing user: " + socket.id);
     var roomCode = roomService.userRooms[socket.id];
     roomService.RemoveUser(socket.id);
+    io.to(socket.id).emit("room: leave-room");
 
     if (roomService.roomGameStates[roomCode]) {
       io.to(roomCode).emit(
