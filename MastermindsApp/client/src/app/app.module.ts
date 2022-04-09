@@ -29,7 +29,7 @@ import { UserPopupBoxComponent } from './user-popup-box/user-popup-box.component
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GameLogComponent } from './game-log/game-log.component';
-
+import { ClickOutsideModule } from 'ng-click-outside';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +59,7 @@ import { GameLogComponent } from './game-log/game-log.component';
     ButtonModule,
     FormsModule,
     ReactiveFormsModule,
+    ClickOutsideModule,
   ],
   providers: [GameService, GameStateService, ChatService],
   bootstrap: [AppComponent],
