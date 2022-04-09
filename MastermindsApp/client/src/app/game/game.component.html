@@ -7,14 +7,17 @@
   </div>
   <app-user-popup-box *ngIf="isClicked"></app-user-popup-box>
 </header>
-
-<app-game-status></app-game-status>
-<button (click)="updateGreenMastermind()">Join as Green Mastermind</button>
-<button (click)="updateGreenMinion()">Join as Green Minion</button>
-<button (click)="updatePurpleMastermind()">Join as Purple Mastermind</button>
-<button (click)="updatePurpleMinion()">Join as Purple Minion</button>
 <div class="main-content">
-  <app-chat></app-chat>
+  <div style="float: right">
+    <app-game-log></app-game-log>
+    <app-chat></app-chat>
+  </div>
+  <app-game-status></app-game-status>
+  <button (click)="updateGreenMastermind()">Join as Green Mastermind</button>
+  <button (click)="updateGreenMinion()">Join as Green Minion</button>
+  <button (click)="updatePurpleMastermind()">Join as Purple Mastermind</button>
+  <button (click)="updatePurpleMinion()">Join as Purple Minion</button>
+
   <div class="centered-content">
     <app-word-grid></app-word-grid>
 
