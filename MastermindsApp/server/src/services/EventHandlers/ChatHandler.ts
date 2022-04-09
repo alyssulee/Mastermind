@@ -17,8 +17,9 @@ module.exports = (
   socket,
   roomGameStates: { [roomCode: string]: GameStateService }
 ) => {
+  
   socket.on("message:new-message", (msg: Message) => {
-    console.log("I got it!");
+    console.log("Received Message", msg);
     let roomCode = [...socket.rooms][1];
     io.to(roomCode).emit("message:send-message", msg);
 

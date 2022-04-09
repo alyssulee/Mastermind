@@ -67,6 +67,7 @@ module.exports = (io, socket, roomService: RoomService) => {
 
     socket.join(roomCode);
     registerGuessHandler(io, socket, roomService.roomGameStates);
+    registerChatHandler(io, socket, roomService.roomGameStates);
 
     var wordSet = roomService.roomGameStates[roomCode].words;
 
