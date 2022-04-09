@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+/**How to use clickOutside: https://www.npmjs.com/package/ng-click-outside */
+
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { Role, Team, Turn, User } from '../interfaces/GameLogicInterfaces';
 import { GameStateService } from '../services/game-state.service';
 import { RoomService } from '../services/room.service';
@@ -71,5 +73,10 @@ export class UserPopupBoxComponent implements OnInit {
 
   leaveRoom() {
     this.roomService.onRequestToLeave();
+  }
+
+  onClickedOutside(e: Event) {
+    console.log('You Clicked Outside', e);
+    this.gameState.clicked();
   }
 }
