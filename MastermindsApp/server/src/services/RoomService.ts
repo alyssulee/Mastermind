@@ -68,8 +68,7 @@ export class RoomService {
     var nickname = this.userNames[socketId];
     var roomCode = this.userRooms[socketId];
 
-    // TODO: When username is actually integrated in the front end, user username instead of socketID.
-    this.roomGameStates[roomCode].RemoveUserFromSuggestedWords(socketId);
+    this.roomGameStates[roomCode].RemoveUserFromSuggestedWords(nickname);
 
     if (
       this.rooms[roomCode] != null &&
