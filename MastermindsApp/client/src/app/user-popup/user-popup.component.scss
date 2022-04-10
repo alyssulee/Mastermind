@@ -21,3 +21,13 @@ button {
   margin-left: 1em;
   margin-right: 0.5em;
 }
+
+@media (max-width: $mobile-width) {
+  button {
+    margin-bottom: 5px;
+    width: auto;
+    height: auto;
+    font-size: medium;
+    padding: 5px 10px;
+  }
+}

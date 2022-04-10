@@ -56,3 +56,9 @@ h1 {
   font-size: 1.1em;
   font-weight: bold;
 }
+
+@media (max-width: $mobile-width) {
+  .userPopUp {
+    margin: 0.5em;
+  }
+}

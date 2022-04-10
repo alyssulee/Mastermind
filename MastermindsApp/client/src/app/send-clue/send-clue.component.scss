@@ -115,3 +115,22 @@ input[type="radio"] {
     background-color: $green-team;
   }
 }
+
+@media (max-width: $mobile-width) {
+  button {
+    font-size: larger;
+  }
+
+  .container {
+    padding: 5px;
+  }
+
+  .clue-container {
+    margin-bottom: 0;
+  }
+
+  #clue-field {
+    font-size: larger;
+    padding: 2px 20px;
+  }
+}
