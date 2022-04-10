@@ -1,8 +1,15 @@
-<div class="container">
-  <header class="GameLog-Header">
-    <h1>Game Log</h1>
-  </header>
 
-  <div class="gameLog-msgs" *ngIf="!isMinion" style="height: 672px"></div>
-  <div class="gameLog-msgs" *ngIf="isMinion" style="height: 300px"></div>
+<div class="mobile-overlay-log" #mobileOverlayLog>
+  <div class="container game-log" >
+    <header class="GameLog-Header">
+      <h1>Game Log</h1>
+    </header>
+  
+    <div class="gameLog-msgs" *ngIf="!isMinion" style="height: 672px"></div>
+    <div class="gameLog-msgs" *ngIf="isMinion" style="height: 300px"></div>
+  </div>
 </div>
+
+<button class="mobile-gameLog-btn" (click)="MobileOpenGameLog()">
+  Game Log
+</button>
