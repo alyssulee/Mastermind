@@ -1,3 +1,5 @@
+@import '../shared/variables';
+
 .container {
   width: 285px;
   background: #eaeaea;
@@ -24,4 +26,58 @@
 .gameLog-msgs {
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+
+button {
+  font-size: 25px;
+  font-weight: bold;
+  border: none;
+}
+
+.mobile-gameLog-btn {
+  display: none;
+  margin-left: 10px;
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+  background: $orange;
+  color: white;
+  font-size: small;
+
+  &:active {
+    background-color: $orange-hover;
+  }
+}
+
+@media (max-width: $mobile-width){
+  .mobile-gameLog-btn {
+    display: block;
+  }
+
+  .game-log {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    width: auto;
+    height: auto;  
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 3rem 1.5rem;
+  }
+
+  .mobile-overlay-log {
+    display: none;;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #00000060;
+    z-index: 9;
+  }
+
+
 }

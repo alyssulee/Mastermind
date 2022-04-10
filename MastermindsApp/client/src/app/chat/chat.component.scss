@@ -126,3 +126,69 @@
   max-width: 50%;
   border-radius: 10px;
 }
+
+/* Mobile */
+button {
+  font-size: 25px;
+  font-weight: bold;
+  border: none;
+}
+
+.mobile-chat-btn {
+  display: none;
+  background-color: transparent;
+  margin-top: 1em;
+}
+  .mobile-chat-btn.Green {
+    color: $green-team;
+    &:active
+    {
+      color: $green-hover;
+    }
+  }
+  .mobile-chat-btn.Purple {
+    color: $purple-team;
+    &:active
+    {
+      color: $purple-hover;
+    }
+  }
+
+  @media (max-width: $mobile-width){
+    .mobile-chat-btn {
+      display: block;
+    }
+
+    .mobile-overlay {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #00000060;
+      z-index: 9;
+    }
+
+    .chat {
+      display: none;
+      position: relative;
+      z-index: 10;
+      width: auto;
+      height: auto;  
+      max-width: 100vw;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: 3rem 1.5rem;
+    }
+
+    .chat-msg {
+      height: 75vh;
+    }
+
+    .Chat-Footer {
+      display: block;
+    }
+  }
