@@ -11,8 +11,11 @@ header {
 
 .centered-content {
   margin: 0 10px;
+  display: flex;
   justify-content: center;
   flex-grow: 1;
+  align-items: stretch;
+  flex-direction: column;
 }
 
 .left-content {
