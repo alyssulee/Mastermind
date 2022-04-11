@@ -18,9 +18,7 @@ export class TeamBoardComponent implements OnInit {
   constructor(
     private gameStateService: GameStateService,
     private roomService: RoomService
-  ) {
-    // TODO: Check if mastermind is taken on both teams
-  }
+  ) {}
 
   ngOnInit(): void {}
 

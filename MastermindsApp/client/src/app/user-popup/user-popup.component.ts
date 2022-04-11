@@ -24,6 +24,7 @@ export class UserPopupComponent implements OnInit {
   }
 
   update() {
+    console.log('update in upser popup');
     this.username = this.gameState.user.username;
     this.team = this.gameState.user.team;
   }
