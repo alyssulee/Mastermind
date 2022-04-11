@@ -12,6 +12,9 @@ import { RoomService } from '../services/room.service';
 export class TeamBoardComponent implements OnInit {
   @Input()
   team: Team = Team.None;
+  
+  @Input()
+  isMobile: boolean = false;
 
   mastermind: Role = Role.Mastermind;
   minion: Role = Role.Minion;

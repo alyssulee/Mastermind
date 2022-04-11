@@ -37,6 +37,20 @@ header {
   align-items: center;
 }
 
+// Mobile
+.mobile-team-btn {
+  display: none;
+  border-radius: 2em;
+  background: $orange;
+  padding: 1em .5em;
+  color: white;
+  font-size: small;
+
+  &:active {
+    background-color: $orange-hover;
+  }
+}
+
 @media (max-width: $mobile-width) {
   .top-buttons {
     flex-direction: column;
@@ -44,5 +58,9 @@ header {
   .right-content {
     max-width: 5em;
     min-width: auto;
+  }
+
+  .mobile-team-btn {
+    display: block;
   }
 }
