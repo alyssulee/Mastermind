@@ -66,6 +66,16 @@ export class GameStateService
         this.words[guess.gameWord.word].suggested = this.words[guess.gameWord.word].suggested.filter(user => user.username !== guess.user.username);
     }
 
+    UpdateUsernameSuggestWords(oldUsername: string, newUsername: string) : void {
+        Object.values(this.words).forEach(word => {
+            if(word.suggested.some(user => user.username == oldUsername))
+            {
+                var index = word.suggested.map(function(user) { return user.username; }).indexOf(oldUsername);
+                word.suggested[index].username = newUsername;
+            }
+        });
+    }
+
     ResetSuggestedWords() : void {
         Object.values(this.words).forEach(word => {
             word.suggested = [];

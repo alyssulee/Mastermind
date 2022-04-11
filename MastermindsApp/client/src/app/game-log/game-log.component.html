@@ -2,17 +2,19 @@
   <div class="container game-log">
     <header class="GameLog-Header">
       <h1>Game Log</h1>
+      <ng-container *ngIf="IsMobile()">
+        <button type="button" pripple="" style="margin-left: auto; margin-right: 10px; outline:none; box-shadow: none" class="p-ripple p-element ng-tns-c16-3 p-dialog-header-icon p-dialog-header-close p-link ng-star-inserted" ng-reflect-ng-class="[object Object]" tabindex="-1"><span class="p-dialog-header-close-icon ng-tns-c16-3 pi pi-times" ng-reflect-ng-class="pi pi-times" (click)="MobileOpenGameLog()"></span><span class="p-ink"></span></button>
+        </ng-container>
     </header>
-
     <div
       class="gameLog-msgs"
       [ngStyle]="{ display: isMinion ? 'none' : '' }"
-      style="height: 672px"
+      style="height: 75vh"
     ></div>
     <div
       class="gameLog-msgs"
       [ngStyle]="{ display: !isMinion ? 'none' : '' }"
-      style="height: 300px"
+      style="height: 30vh"
     ></div>
   </div>
 </div>

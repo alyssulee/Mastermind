@@ -12,6 +12,9 @@ import { RoomService } from '../services/room.service';
 export class TeamBoardComponent implements OnInit {
   @Input()
   team: Team = Team.None;
+  
+  @Input()
+  isMobile: boolean = false;
 
   mastermind: Role = Role.Mastermind;
   minion: Role = Role.Minion;
@@ -27,7 +30,8 @@ export class TeamBoardComponent implements OnInit {
   ngOnInit(): void {
     this.gameStateService.updated().subscribe(() => {
       let newGuessed = 0;
-      let newRemaining = 7;
+      let newRemaining = 0;
+
 
       for (let word of Object.values(this.gameStateService.gameWordSet)) {
         if (word.category.toString() == this.team.toString()) {

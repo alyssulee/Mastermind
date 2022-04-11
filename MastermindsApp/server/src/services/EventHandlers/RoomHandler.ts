@@ -118,6 +118,9 @@ module.exports = (io, socket, roomService: RoomService) => {
 
   socket.on("changed-username", (username) => {
     var user = roomService.GetUser(socket.id);
+    roomService.roomGameStates[user.room].UpdateUsernameSuggestWords(user.username, username);
+
+    io.to(user.room).emit("game:update-words", roomService.roomGameStates[user.room].words)
 
     io.to(user.room).emit("username-updated", {
       oldUsername: user.username,

@@ -55,6 +55,17 @@ export class SendClueComponent implements OnInit {
     if (!this.isMyTurn) {
       this.clue.number = 1;
     }
+
+    let newRemaining = 0;
+    for (let word of Object.values(this.gameStateService.gameWordSet)) {
+      if (word.category.toString() == this.team.toString()) {
+        if (!word.guessed) newRemaining++;
+      }
+    }
+    this.remainingCards = newRemaining;
+    this.numberArray = Array(this.remainingCards)
+    .fill(1)
+    .map((x, i) => i + 1);
   }
 
   onClueNumberChange(value: number): void {

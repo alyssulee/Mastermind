@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Role, Team } from '../interfaces/GameLogicInterfaces';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import MobileSize, { Role, Team } from '../interfaces/GameLogicInterfaces';
 import { GameStateService } from '../services/game-state.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import * as $ from 'jquery';  
 
 @Component({
   selector: 'app-game',
@@ -45,8 +46,19 @@ export class GameComponent implements OnInit {
     }
     this.gameService.clicked();
   }
-
+  
   update() {
     this.isClicked = this.gameService.isButtonClicked();
+  }
+
+  /* Mobile for Teams */
+  displayTeamMobile = false;
+  
+  public IsMobile(): boolean {
+    return window.innerWidth <= MobileSize;
+  }
+
+  MobileOpenTeam() : void {
+    this.displayTeamMobile = true;
   }
 }

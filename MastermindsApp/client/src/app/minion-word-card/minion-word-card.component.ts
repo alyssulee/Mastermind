@@ -31,7 +31,6 @@ export class MinionWordCardComponent implements OnInit
 
   onMinionCardClick(): void 
   {
-    let suggestName = $(`#${this.gameWord.word}-card .suggest-name.self`);
     let guess: Guess = {gameWord: this.gameWord, user: this.user}
 
     if(this.gameWord.suggested.some(e => e.username === this.user.username))

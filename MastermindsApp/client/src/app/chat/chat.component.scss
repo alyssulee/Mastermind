@@ -3,7 +3,7 @@
 .container {
   max-width: 285px;
   background: #eaeaea;
-  margin: 10px 15px;
+  margin-top: 1em;
   overflow: hidden;
   border-radius: 15px;
 }
@@ -45,15 +45,12 @@
 }
 
 .form-container input[type="text"] {
-  font-size: 16px;
-  width: 215px;
-  padding: 1px;
-  margin-bottom: 10px;
-  padding-right: 0px;
-  height: 30px;
-  flex: 1;
-  border-radius: 10px;
-  border: 0;
+    padding: 0.5em;
+    margin-bottom: 10px;
+    height: 30px;
+    flex: 1;
+    border-radius: 10px;
+    border: 0;
 }
 
 .sendbtn {
@@ -77,7 +74,7 @@
 .chat-msg {
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 275px;
+  height: 30vh;
 }
 
 .chat-msg .message {
@@ -190,5 +187,9 @@ button {
 
     .Chat-Footer {
       display: block;
+    }
+
+    h1 {
+      margin-left: auto;
     }
   }

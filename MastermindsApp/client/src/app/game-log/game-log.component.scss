@@ -1,10 +1,9 @@
 @import "../shared/variables";
 
 .container {
-  width: 285px;
   background: #eaeaea;
-  margin: 50px 15px 0 15px;
   overflow: hidden;
+  margin-top: 1em;
   border-radius: 15px;
 }
 
@@ -77,5 +76,8 @@ button {
     height: 100vh;
     background: #00000060;
     z-index: 9;
+  }
+  h1 {
+    margin-left: auto;
   }
 }

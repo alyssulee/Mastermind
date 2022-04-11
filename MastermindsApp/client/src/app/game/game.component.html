@@ -2,9 +2,21 @@
   <!-- Left -->
   <div class="left-content col-2">
     <app-roomcode></app-roomcode>
-    <app-team-board [team]="greenTeam" style="height: 100%"></app-team-board>
+    <app-team-board [team]="greenTeam" [isMobile]="IsMobile()" style="height: 100%"></app-team-board>
     <div style="margin-top: 3rem"></div>
-    <app-team-board [team]="purpleTeam" style="height: 100%"></app-team-board>
+    <app-team-board [team]="purpleTeam" [isMobile]="IsMobile()" style="height: 100%"></app-team-board>
+    
+    <!-- Mobile TeamBoard Popup  -->
+    <p-dialog class="background" [(visible)]="displayTeamMobile" [modal]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false" [dismissableMask]="true" [header]="'Team Details'">
+      <div class="flex align-items-stretch" style="color: white">
+        <app-team-board [team]="greenTeam" [isMobile]="false"></app-team-board>
+        <div style="margin-top: 3rem"></div>
+        <app-team-board [team]="purpleTeam" [isMobile]="false"></app-team-board>
+      </div>
+    </p-dialog>
+    <button class="mobile-team-btn" (click)="MobileOpenTeam()">
+       Show Team Details
+    </button>
   </div>
 
   <!-- Center  -->
@@ -34,22 +46,3 @@
     </div>
   </div>
 </div>
-
-<!-- 
-<div class="main-content">
-  <div style="float: right">
-    <app-game-log></app-game-log>
-    <app-chat></app-chat>
-  </div>
-  <app-game-status></app-game-status>
-
-  <div class="centered-content">
-    <app-team-options *ngIf="!hasTeam()"></app-team-options>
-    <app-word-grid *ngIf="hasTeam()"></app-word-grid>
-
-    <app-send-clue></app-send-clue>
-    <app-minion-clue></app-minion-clue>
-  </div>
-
-  <app-game-over></app-game-over>
-</div> -->

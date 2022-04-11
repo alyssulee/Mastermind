@@ -10,9 +10,11 @@ header {
 @import "../shared/variables";
 
 .centered-content {
-  margin: 0 10px;
+  display: flex;
   justify-content: center;
   flex-grow: 1;
+  align-items: stretch;
+  flex-direction: column;
 }
 
 .left-content {
@@ -25,6 +27,7 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 18em;
 }
 
 .top-buttons {
@@ -34,11 +37,30 @@ header {
   align-items: center;
 }
 
+// Mobile
+.mobile-team-btn {
+  display: none;
+  border-radius: 2em;
+  background: $orange;
+  padding: 1em .5em;
+  color: white;
+  font-size: small;
+
+  &:active {
+    background-color: $orange-hover;
+  }
+}
+
 @media (max-width: $mobile-width) {
   .top-buttons {
     flex-direction: column;
   }
   .right-content {
     max-width: 5em;
+    min-width: auto;
+  }
+
+  .mobile-team-btn {
+    display: block;
   }
 }

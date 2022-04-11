@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { Clue, Role, Team, Message } from '../interfaces/GameLogicInterfaces';
+import MobileSize, { Clue, Role, Team, Message } from '../interfaces/GameLogicInterfaces';
 import { GameStateService } from '../services/game-state.service';
 import { ChatService } from '../services/chat.service';
 import { ElementRef } from '@angular/core';
@@ -123,7 +123,7 @@ export class ChatComponent implements OnInit {
     }  }
 
   IsMobile() : boolean {
-    return ( ( window.innerWidth <= 800 ));
+    return ( ( window.innerWidth <= MobileSize ));
   }
 
   @ViewChild('mobileOverlay') mobileOverlay!: ElementRef;
