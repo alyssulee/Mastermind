@@ -34,6 +34,18 @@ export class GameStateService {
   isClicked: boolean = false;
 
   private stateUpdated = new BehaviorSubject<boolean>(true);
+  private clueObservable = new BehaviorSubject<Clue | undefined>(undefined);
+  private endGuessingSubject = new BehaviorSubject(undefined);
+  private suggestWordSubject = new BehaviorSubject<Guess | undefined>(
+    undefined
+  );
+  private unsuggestWordSubject = new BehaviorSubject<Guess | undefined>(
+    undefined
+  );
+  private guessWordSubject = new BehaviorSubject<Guess | undefined>(undefined);
+  private generatedWordSetSubject = new BehaviorSubject<GameWord[] | undefined>(
+    undefined
+  );
 
   constructor(private gameService: GameService) {
     this.socket = this.gameService.socket;
@@ -107,6 +119,32 @@ export class GameStateService {
     this.socket.on('game:update-words', (wordSet) => {
       this.gameWordSet = wordSet;
       this.stateUpdated.next(true);
+    });
+
+    this.socket.on('clue:send-clue', (clue) => {
+      this.clueObservable.next(clue);
+    });
+
+    this.socket.on('guess:end-guessing', () => {
+      console.log('end-guessing');
+      this.endGuessingSubject.next(undefined);
+    });
+
+    this.socket.on('guess:suggest-word', (guess) => {
+      this.suggestWordSubject.next(guess);
+    });
+
+    this.socket.on('guess:unsuggest-word', (guess) => {
+      this.unsuggestWordSubject.next(guess);
+    });
+
+    this.socket.on('guess:guess-word', (guess) => {
+      this.guessWordSubject.next(guess);
+    });
+
+    this.socket.on('words:generated-set', (wordSet) => {
+      this.setWords(wordSet);
+      this.generatedWordSetSubject.next(wordSet);
     });
   }
 
@@ -182,11 +220,7 @@ export class GameStateService {
   }
 
   onSendClueEvent() {
-    return new Observable<Clue>((observer) => {
-      this.socket.on('clue:send-clue', (clue) => {
-        observer.next(clue);
-      });
-    });
+    return this.clueObservable;
   }
 
   /* Guess Events */
@@ -210,48 +244,27 @@ export class GameStateService {
   }
 
   onSuggestEvent() {
-    return new Observable<Guess>((observer) => {
-      this.socket.on('guess:suggest-word', (guess) => {
-        observer.next(guess);
-      });
-    });
+    return this.suggestWordSubject;
   }
 
   onUnsuggestEvent() {
-    return new Observable<Guess>((observer) => {
-      this.socket.on('guess:unsuggest-word', (guess) => {
-        observer.next(guess);
-      });
-    });
+    return this.unsuggestWordSubject;
   }
 
   onGuessEvent() {
-    return new Observable<Guess>((observer) => {
-      this.socket.on('guess:guess-word', (guess) => {
-        observer.next(guess);
-      });
-    });
+    return this.guessWordSubject;
+  }
+
+  onGeneratedWordSet() {
+    return this.generatedWordSetSubject;
   }
 
   onEndGuessingEvent() {
-    return new Observable((observer) => {
-      this.socket.on('guess:end-guessing', () => {
-        console.log('end-guessing');
-      });
-    });
+    return this.endGuessingSubject;
   }
 
   // /* Word Events */
   // sendGenerateWordEvent() {
   //   this.socket.emit('words:generate-set');
   // }
-
-  onGeneratedWordSet() {
-    return new Observable<GameWord[]>((observer) => {
-      this.socket.on('words:generated-set', (wordSet) => {
-        this.setWords(wordSet);
-        observer.next(wordSet);
-      });
-    });
-  }
 }
