@@ -129,8 +129,6 @@ module.exports = (io, socket, roomService: RoomService) => {
       }
     }
 
-    console.log("sending mastermind-taken", data);
-
     return data;
   });
 
