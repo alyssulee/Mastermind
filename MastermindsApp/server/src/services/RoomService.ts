@@ -78,12 +78,11 @@ export class RoomService {
     var nickname = user.username;
     var roomCode = user.room;
 
-    this.roomGameStates[roomCode]?.RemoveUserFromSuggestedWords(nickname);
-
     if (
       this.rooms[roomCode] != null &&
       this.rooms[roomCode].includes(nickname)
     ) {
+      this.roomGameStates[roomCode].RemoveUserFromSuggestedWords(nickname);
       const index = this.rooms[roomCode].indexOf(nickname, 0);
       if (index > -1) {
         this.rooms[roomCode].splice(index, 1);

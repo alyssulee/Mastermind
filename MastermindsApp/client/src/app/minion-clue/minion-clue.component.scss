@@ -64,3 +64,36 @@ button {
         background: $orange-hover;
     }
 }
+
+@media (max-width: $mobile-width) {
+
+    .container {
+        padding: 0;
+        margin: 5px;
+    }
+
+    .clue-container {
+        margin-bottom: 3px;
+    }
+
+    .clue-word {
+        font-size: large;
+        padding: 2px 20px;
+    }
+
+    .clue-number {
+        font-size: large;
+        width: 30px;
+        height: 30px;
+    }
+
+    button {
+        font-size: large;
+    }
+
+    .suggest-name {
+        padding: 0 3px;
+        margin: 2px;
+        border: none;
+    }
+}

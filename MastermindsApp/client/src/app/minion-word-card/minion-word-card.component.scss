@@ -72,3 +72,16 @@
 .suggest-name.Green {
     background-color: $green-team;
 }
+
+@media (max-width: $mobile-width) {
+    .guess-button {
+        font-size: 13px;
+        top: -2px;
+        right: 2px;
+        border-radius: 2px;
+        padding: 2px;
+        border: none;
+        width: auto;
+        height: auto;
+    }
+}

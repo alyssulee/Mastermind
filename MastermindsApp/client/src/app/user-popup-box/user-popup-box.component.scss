@@ -49,9 +49,16 @@ input {
   border-radius: 15px;
   align-items: center;
   padding-bottom: 3em;
+  z-index:10;
 }
 h1 {
   color: #000;
   font-size: 1.1em;
   font-weight: bold;
+}
+
+@media (max-width: $mobile-width) {
+  .userPopUp {
+    margin: 0.5em;
+  }
 }

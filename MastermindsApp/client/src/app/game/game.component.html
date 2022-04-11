@@ -1,15 +1,45 @@
-<header>
-  <app-roomcode></app-roomcode>
+<div>
+  <!-- TODO: Remove buttons when team component is done -->
+  <button (click)="updateGreenMastermind()">Join as Green Mastermind</button>
+  <button (click)="updateGreenMinion()">Join as Green Minion</button>
+  <button (click)="updatePurpleMastermind()">Join as Purple Mastermind</button>
+  <button (click)="updatePurpleMinion()">Join as Purple Minion</button>
+</div>
 
-  <div class="right-header">
-    <app-rules-button></app-rules-button>
-    <app-user-popup id="userPopup"></app-user-popup>
+<div class="main-content">
+  
+  <!-- Left -->
+  <div class="left-content">
+    <app-roomcode></app-roomcode>
+    <!-- TODO: Add team component -->
   </div>
-  <app-user-popup-box
-    (clickOutside)="onClickedOutside($event)"
-    *ngIf="isClicked"
-  ></app-user-popup-box>
-</header>
+
+  <!-- Center  -->
+  <div class="centered-content">
+    <app-game-status></app-game-status>
+    <app-word-grid></app-word-grid>
+    <app-send-clue></app-send-clue>
+    <app-minion-clue></app-minion-clue>
+    <app-game-over></app-game-over>
+  </div>
+
+  <!-- Right -->
+  <div class="right-content">
+    <div class="top-buttons">
+      <app-rules-button></app-rules-button>
+      <app-user-popup id="userPopup"></app-user-popup>
+      <app-user-popup-box (clickOutside)="onClickedOutside($event)" *ngIf="isClicked"></app-user-popup-box>
+    </div>
+    <div class="bottom-content">
+      <app-game-log></app-game-log>
+      <app-chat></app-chat>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- 
 <div class="main-content">
   <div style="float: right">
     <app-game-log></app-game-log>
@@ -26,4 +56,4 @@
   </div>
 
   <app-game-over></app-game-over>
-</div>
+</div> -->

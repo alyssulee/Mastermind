@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Clue, Role, Team, Message } from '../interfaces/GameLogicInterfaces';
 import { GameStateService } from '../services/game-state.service';
 import { ChatService } from '../services/chat.service';
-import { ViewChild } from '@angular/core';
 import { ElementRef } from '@angular/core';
+import * as $ from 'jquery'; 
 
 @Component({
   selector: 'app-chat',
@@ -36,8 +36,11 @@ export class ChatComponent implements OnInit {
     });
     this.chatService.clientMessagesReceived().subscribe((msgs: Message[]) => {
       const myNode = document.querySelector('.chat-msg');
-
-      myNode!.textContent = '';
+      
+      if(myNode)
+      {
+        myNode!.textContent = '';
+      }
 
       for (var i = 0; i < msgs.length; i++) {
         this.outputMessage(msgs[i]);
@@ -49,6 +52,7 @@ export class ChatComponent implements OnInit {
 
     this.gameState.updated().subscribe(() => {
       this.isMinion = this.gameState.user.role == Role.Minion;
+      this.team = this.gameState.user.team;
     });
   }
 
@@ -104,6 +108,45 @@ export class ChatComponent implements OnInit {
         );
         chatMessages.appendChild(div);
       }
+    }
+  }
+
+  /* Mobile Chat Popup */
+  MobileOpenChat() : void {
+    if($('.chat').is(":visible")) {
+      $('.chat').hide();
+      $('.mobile-overlay').hide();
+    }
+    else {
+      $('.chat').show();
+      $('.mobile-overlay').show();
+    }  }
+
+  IsMobile() : boolean {
+    return ( ( window.innerWidth <= 800 ));
+  }
+
+  @ViewChild('mobileOverlay') mobileOverlay!: ElementRef;
+
+  @HostListener('document:click', ['$event'])
+  public onGlobalClick(event: any) {
+    if(this.IsMobile() && this.mobileOverlay && this.mobileOverlay.nativeElement == event.target )
+    {
+      $('.chat').hide();
+      $('.mobile-overlay').hide();
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    if(!this.IsMobile())
+    {
+      $('.chat').show();
+      $('.mobile-overlay').show();
+    }
+    else {
+      $('.chat').hide();
+      $('.mobile-overlay').hide();
     }
   }
 }

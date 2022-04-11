@@ -1,4 +1,4 @@
-import { Role, Team, Turn, Guess, Clue } from "../interfaces/GameLogicInterfaces";
+import { Role, Team, Turn, Guess, Clue, Message } from "../interfaces/GameLogicInterfaces";
 import { GameWord, WordCategory } from "../interfaces/GameWord";
 
 export enum GuessResult {
@@ -18,6 +18,7 @@ export class GameStateService
     currentClue: Clue;
     currentAmountOfGuesses: number;
     startingTeam: Team;
+    clientMessages : Message[] = []
 
     constructor() {
     }

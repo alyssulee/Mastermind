@@ -2,12 +2,38 @@ header {
   display: flex;
 }
 
-.right-header {
-  right: 0;
-  position: absolute;
+.main-content {
+  display: flex;
+  flex-direction: row;
 }
 
+@import "../shared/variables";
+
 .centered-content {
-  margin: 0 auto;
+  margin: 0 10px;
   justify-content: center;
+  flex-grow: 1;
+}
+
+.right-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.top-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@media (max-width: $mobile-width) {
+  .top-buttons {
+    flex-direction: column;
+  }
+  .right-content
+  {
+    max-width: 5em;
+  }
 }
