@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { GameWord } from '../interfaces/GameWord';
 import { GameService } from './game-service.service';
 import {
@@ -12,6 +12,7 @@ import {
   User,
 } from '../interfaces/GameLogicInterfaces';
 import { BehaviorSubject } from 'rxjs';
+import { GameLogService, LogType } from './game-log.service';
 
 @Injectable({
   providedIn: 'root',
@@ -34,20 +35,19 @@ export class GameStateService {
   isClicked: boolean = false;
 
   private stateUpdated = new BehaviorSubject<boolean>(true);
-  private clueObservable = new BehaviorSubject<Clue | undefined>(undefined);
-  private endGuessingSubject = new BehaviorSubject(undefined);
-  private suggestWordSubject = new BehaviorSubject<Guess | undefined>(
-    undefined
-  );
-  private unsuggestWordSubject = new BehaviorSubject<Guess | undefined>(
-    undefined
-  );
-  private guessWordSubject = new BehaviorSubject<Guess | undefined>(undefined);
+  private clueObservable = new ReplaySubject<Clue>();
+  private endGuessingSubject = new ReplaySubject<User>();
+  private suggestWordSubject = new Subject<Guess>();
+  private unsuggestWordSubject = new Subject<Guess>();
+  private guessWordSubject = new ReplaySubject<Guess>();
   private generatedWordSetSubject = new BehaviorSubject<GameWord[] | undefined>(
     undefined
   );
 
-  constructor(private gameService: GameService) {
+  constructor(
+    private gameService: GameService,
+    private logService: GameLogService
+  ) {
     this.socket = this.gameService.socket;
     this.user.username = this.socket.id;
     this.isMyTurn =
@@ -121,13 +121,20 @@ export class GameStateService {
       this.stateUpdated.next(true);
     });
 
-    this.socket.on('clue:send-clue', (clue) => {
+    this.socket.on('server:clue-registered', (clue) => {
       this.clueObservable.next(clue);
+
+      this.logService.log({
+        logType: LogType.Clue,
+        clue: clue,
+        user: clue.user,
+      });
     });
 
-    this.socket.on('guess:end-guessing', () => {
+    this.socket.on('server:end-guessing', (user) => {
       console.log('end-guessing');
-      this.endGuessingSubject.next(undefined);
+      this.endGuessingSubject.next(user);
+      this.logService.log({ logType: LogType.EndGuessing, user });
     });
 
     this.socket.on('guess:suggest-word', (guess) => {
@@ -138,8 +145,9 @@ export class GameStateService {
       this.unsuggestWordSubject.next(guess);
     });
 
-    this.socket.on('guess:guess-word', (guess) => {
+    this.socket.on('server:word-guess-registered', (guess) => {
       this.guessWordSubject.next(guess);
+      this.logService.log({ logType: LogType.Guess, guess });
     });
 
     this.socket.on('words:generated-set', (wordSet) => {
@@ -240,7 +248,7 @@ export class GameStateService {
   }
 
   endGuessingEvent() {
-    this.socket.emit('guess:end-guessing');
+    this.socket.emit('guess:end-guessing', this.user);
   }
 
   onSuggestEvent() {
