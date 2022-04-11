@@ -1,4 +1,4 @@
-@import '../shared/variables';
+@import "../shared/variables";
 
 .container {
   width: 285px;
@@ -26,8 +26,8 @@
 .gameLog-msgs {
   overflow-y: scroll;
   overflow-x: hidden;
+  padding: 0.5rem;
 }
-
 
 button {
   font-size: 25px;
@@ -50,7 +50,7 @@ button {
   }
 }
 
-@media (max-width: $mobile-width){
+@media (max-width: $mobile-width) {
   .mobile-gameLog-btn {
     display: block;
   }
@@ -60,7 +60,7 @@ button {
     position: absolute;
     z-index: 10;
     width: auto;
-    height: auto;  
+    height: auto;
     left: 0;
     right: 0;
     top: 0;
@@ -69,7 +69,7 @@ button {
   }
 
   .mobile-overlay-log {
-    display: none;;
+    display: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -78,6 +78,4 @@ button {
     background: #00000060;
     z-index: 9;
   }
-
-
 }

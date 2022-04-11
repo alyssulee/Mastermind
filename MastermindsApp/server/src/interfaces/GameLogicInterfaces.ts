@@ -21,6 +21,7 @@ export interface Turn {
 export interface Clue {
   word: string;
   number: number;
+  user: User;
 }
 
 export interface Guess {
