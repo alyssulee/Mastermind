@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import {
+import MobileSize, {
   Clue,
   Role,
   Team,
@@ -134,7 +134,7 @@ export class GameLogComponent implements OnInit {
   }
 
   IsMobile(): boolean {
-    return window.innerWidth <= 800;
+    return window.innerWidth <= MobileSize;
   }
 
   @ViewChild('mobileOverlayLog') mobileOverlay!: ElementRef;

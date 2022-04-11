@@ -45,7 +45,7 @@ export class GameComponent implements OnInit {
     }
     this.gameService.clicked();
   }
-
+  
   update() {
     this.isClicked = this.gameService.isButtonClicked();
   }

@@ -1,6 +1,9 @@
 import { getLocaleDateFormat } from '@angular/common';
 import { GameWord, WordCategory } from './GameWord';
 
+const MobileSize = 800;
+export default MobileSize;
+
 export class HelperMethods {
   public static getColorByTeam(team: Team): string {
     if (team == Team.Purple) return '#b264f2';

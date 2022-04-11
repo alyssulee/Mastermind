@@ -10,7 +10,6 @@ header {
 @import "../shared/variables";
 
 .centered-content {
-  margin: 0 10px;
   display: flex;
   justify-content: center;
   flex-grow: 1;
@@ -28,6 +27,7 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 18em;
 }
 
 .top-buttons {
@@ -43,5 +43,6 @@ header {
   }
   .right-content {
     max-width: 5em;
+    min-width: auto;
   }
 }
