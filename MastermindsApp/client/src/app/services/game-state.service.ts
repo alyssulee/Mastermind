@@ -11,7 +11,7 @@ import {
   Turn,
   User,
 } from '../interfaces/GameLogicInterfaces';
-import { RoomService } from './room.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -33,11 +33,81 @@ export class GameStateService {
   gameWordSet: { [word: string]: GameWord } = {};
   isClicked: boolean = false;
 
+  private stateUpdated = new BehaviorSubject<boolean>(true);
+
   constructor(private gameService: GameService) {
     this.socket = this.gameService.socket;
     this.user.username = this.socket.id;
     this.isMyTurn =
       this.turn.role == this.user.role && this.turn.team == this.user.team;
+
+    this.socket.on('username-created', (username) => {
+      console.log('username created', username);
+      this.user.username = username;
+      this.stateUpdated.next(true);
+    });
+
+    this.socket.on('team-updated', (updatedUser: User) => {
+      if (updatedUser.username == this.user.username) {
+        this.user.team = updatedUser.team;
+        this.isMyTurn =
+          this.turn.role == this.user.role && this.turn.team == this.user.team;
+        this.stateUpdated.next(true);
+      }
+    });
+
+    this.socket.on('role-updated', (updatedUser: User) => {
+      if (updatedUser.username == this.user.username) {
+        this.user.role = updatedUser.role;
+        this.isMyTurn =
+          this.turn.role == this.user.role && this.turn.team == this.user.team;
+        this.stateUpdated.next(true);
+      }
+    });
+
+    this.socket.on('username-updated', (updatedUsername: any) => {
+      if (updatedUsername.oldUsername == this.user.username) {
+        this.user.username = updatedUsername.username;
+        this.stateUpdated.next(true);
+      }
+    });
+
+    this.socket.on('clicked-user-popup', () => {
+      this.stateUpdated.next(true);
+    });
+
+    this.socket.on('turn:updated', (turn) => {
+      this.turn = turn;
+      this.isMyTurn =
+        this.turn.role == this.user.role && this.turn.team == this.user.team;
+      this.stateUpdated.next(true);
+    });
+
+    this.socket.on('game:end', (winner) => {
+      this.endOfGame = true;
+      this.winningTeam = winner;
+      this.isMyTurn = false;
+      this.turn = { role: Role.None, team: Team.None };
+      this.stateUpdated.next(true);
+    });
+
+    this.socket.on('team:starting-team', (team) => {
+      this.turn = { role: Role.Mastermind, team: team };
+      this.isMyTurn =
+        this.turn.role == this.user.role && this.turn.team == this.user.team;
+      this.stateUpdated.next(true);
+    });
+
+    this.socket.on('game:restart-game', () => {
+      this.winningTeam = Team.None;
+      this.endOfGame = false;
+      this.stateUpdated.next(true);
+    });
+
+    this.socket.on('game:update-words', (wordSet) => {
+      this.gameWordSet = wordSet;
+      this.stateUpdated.next(true);
+    });
   }
 
   clicked() {
@@ -77,77 +147,7 @@ export class GameStateService {
   }
 
   updated() {
-    return new Observable<GameStateService>((observer) => {
-      this.socket.on('team-updated', (updatedUser: User) => {
-        if (updatedUser.username == this.user.username) {
-          this.user.team = updatedUser.team;
-          this.isMyTurn =
-            this.turn.role == this.user.role &&
-            this.turn.team == this.user.team;
-          observer.next();
-        }
-      });
-
-      this.socket.on('role-updated', (updatedUser: User) => {
-        if (updatedUser.username == this.user.username) {
-          this.user.role = updatedUser.role;
-          this.isMyTurn =
-            this.turn.role == this.user.role &&
-            this.turn.team == this.user.team;
-          observer.next();
-        }
-      });
-
-      this.socket.on('username-updated', (updatedUsername: any) => {
-        if (updatedUsername.oldUsername == this.user.username) {
-          this.user.username = updatedUsername.username;
-          observer.next();
-        }
-      });
-
-      this.socket.on('username-created', (username) => {
-        this.user.username = username;
-        console.log('username created');
-        observer.next();
-      });
-
-      this.socket.on('clicked-user-popup', () => {
-        observer.next();
-      });
-
-      this.socket.on('turn:updated', (turn) => {
-        this.turn = turn;
-        this.isMyTurn =
-          this.turn.role == this.user.role && this.turn.team == this.user.team;
-        observer.next();
-      });
-
-      this.socket.on('game:end', (winner) => {
-        this.endOfGame = true;
-        this.winningTeam = winner;
-        this.isMyTurn = false;
-        this.turn = { role: Role.None, team: Team.None };
-        observer.next();
-      });
-
-      this.socket.on('team:starting-team', (team) => {
-        this.turn = { role: Role.Mastermind, team: team };
-        this.isMyTurn =
-          this.turn.role == this.user.role && this.turn.team == this.user.team;
-        observer.next();
-      });
-
-      this.socket.on('game:restart-game', () => {
-        this.winningTeam = Team.None;
-        this.endOfGame = false;
-        observer.next();
-      });
-
-      this.socket.on('game:update-words', (wordSet) => {
-        this.gameWordSet = wordSet;
-        observer.next();
-      });
-    });
+    return this.stateUpdated;
   }
 
   updateGuessedWord(word: GameWord) {
