@@ -244,27 +244,19 @@ export class GameStateService {
   }
 
   onSuggestEvent() {
-    return new Observable<Guess>((observer) => {
-      this.socket.on('guess:suggest-word', (guess) => {
-        observer.next(guess);
-      });
-    });
+    return this.suggestWordSubject;
   }
 
   onUnsuggestEvent() {
-    return new Observable<Guess>((observer) => {
-      this.socket.on('guess:unsuggest-word', (guess) => {
-        observer.next(guess);
-      });
-    });
+    return this.unsuggestWordSubject;
   }
 
   onGuessEvent() {
-    return new Observable<Guess>((observer) => {
-      this.socket.on('guess:guess-word', (guess) => {
-        observer.next(guess);
-      });
-    });
+    return this.guessWordSubject;
+  }
+
+  onGeneratedWordSet() {
+    return this.generatedWordSetSubject;
   }
 
   onEndGuessingEvent() {
@@ -275,20 +267,4 @@ export class GameStateService {
   // sendGenerateWordEvent() {
   //   this.socket.emit('words:generate-set');
   // }
-
-  onSuggestWordEvent() {
-    return this.suggestWordSubject;
-  }
-
-  onUnsuggestWordEvent() {
-    return this.unsuggestWordSubject;
-  }
-
-  onGuessWordEvent() {
-    return this.guessWordSubject;
-  }
-
-  onGeneratedWordSet() {
-    return this.generatedWordSetSubject;
-  }
 }
