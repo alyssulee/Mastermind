@@ -30,6 +30,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GameLogComponent } from './game-log/game-log.component';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { TeamOptionsComponent } from './team-options/team-options.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +51,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     UserPopupComponent,
     UserPopupBoxComponent,
     GameLogComponent,
+    TeamOptionsComponent,
   ],
   imports: [
     BrowserModule,

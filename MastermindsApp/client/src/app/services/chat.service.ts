@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { GameService } from './game-service.service';
-import { joinRequest } from '../interfaces/JoinRequest';
+import { JoinRequest } from '../interfaces/JoinRequest';
 import { Clue, Role, Team, Message } from '../interfaces/GameLogicInterfaces';
 
 @Injectable({

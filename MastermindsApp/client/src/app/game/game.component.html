@@ -46,13 +46,10 @@
     <app-chat></app-chat>
   </div>
   <app-game-status></app-game-status>
-  <button (click)="updateGreenMastermind()">Join as Green Mastermind</button>
-  <button (click)="updateGreenMinion()">Join as Green Minion</button>
-  <button (click)="updatePurpleMastermind()">Join as Purple Mastermind</button>
-  <button (click)="updatePurpleMinion()">Join as Purple Minion</button>
 
   <div class="centered-content">
-    <app-word-grid></app-word-grid>
+    <app-team-options *ngIf="!hasTeam()"></app-team-options>
+    <app-word-grid *ngIf="hasTeam()"></app-word-grid>
 
     <app-send-clue></app-send-clue>
     <app-minion-clue></app-minion-clue>

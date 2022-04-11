@@ -1,3 +1,4 @@
+import { Role, Team, User } from "../interfaces/GameLogicInterfaces";
 import { GameWord } from "../interfaces/GameWord";
 import { GameRetrieverService } from "./GameRetrieverService";
 import { GameStateService } from "./GameStateService";
@@ -7,8 +8,7 @@ export class RoomService {
   roomCodes: string[] = [];
   rooms: { [roomCode: string]: string[] } = {};
   roomGameStates: { [roomCode: string]: GameStateService } = {};
-  userNames: { [socketId: string]: string } = {};
-  userRooms: { [socketId: string]: string } = {};
+  users: User[] = [];
   roomCodeLength = 8;
 
   constructor(private wordService: WordService) {
@@ -55,18 +55,28 @@ export class RoomService {
     return this.roomCodes.includes(roomCode);
   }
 
+  GetUser(socketId: string) {
+    return this.users.filter((user) => user.socketId === socketId)[0];
+  }
+
+  GetUsers(room: string) {
+    return this.users.filter((user) => user.room === room);
+  }
+
   AddUser(socketId: string, nickname: string, roomCode: string): boolean {
     if (this.rooms[roomCode].includes(nickname)) return false;
 
-    this.userNames[socketId] = nickname;
-    this.userRooms[socketId] = roomCode;
+    this.users.push({ socketId, username: nickname, room: roomCode });
     this.rooms[roomCode].push(nickname);
     return true;
   }
 
-  RemoveUser(socketId: string) {
-    var nickname = this.userNames[socketId];
-    var roomCode = this.userRooms[socketId];
+  RemoveUser(socketId: string): User {
+    var user: User = this.GetUser(socketId);
+    if (user == null) return;
+
+    var nickname = user.username;
+    var roomCode = user.room;
 
     if (
       this.rooms[roomCode] != null &&
@@ -79,12 +89,8 @@ export class RoomService {
       }
     }
 
-    if (Object.keys(this.userNames).includes(socketId)) {
-      delete this.userNames[socketId];
-    }
+    this.users.splice(this.users.indexOf(user), 1);
 
-    if (Object.keys(this.userRooms).includes(socketId)) {
-      delete this.userRooms[socketId];
-    }
+    return user;
   }
 }

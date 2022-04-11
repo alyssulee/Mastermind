@@ -23,17 +23,8 @@ export class GameComponent implements OnInit {
     });
   }
 
-  updateGreenMastermind(): void {
-    this.gameService.setTeamAndRole(Team.Green, Role.Mastermind);
-  }
-  updateGreenMinion(): void {
-    this.gameService.setTeamAndRole(Team.Green, Role.Minion);
-  }
-  updatePurpleMastermind(): void {
-    this.gameService.setTeamAndRole(Team.Purple, Role.Mastermind);
-  }
-  updatePurpleMinion(): void {
-    this.gameService.setTeamAndRole(Team.Purple, Role.Minion);
+  hasTeam(): boolean {
+    return this.gameService.user.team != Team.None;
   }
 
   onLoginRedirect() {

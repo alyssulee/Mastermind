@@ -1,3 +1,4 @@
+import { Role, Team, User } from "../../interfaces/GameLogicInterfaces";
 import { joinRequest } from "../../interfaces/JoinRequest";
 import { GameStateService } from "../GameStateService";
 import { RoomService } from "../RoomService";
@@ -80,15 +81,33 @@ module.exports = (io, socket, roomService: RoomService) => {
     );
   });
 
-  socket.on("changed-role", (role) => {
+  socket.on("changed-role", (role: Role) => {
+    var user = roomService.GetUser(socket.id);
+    user.role = role;
     io.to(socket.id).emit("role-updated", role);
+
+    if (
+      user.role == Role.Mastermind &&
+      user.team != null &&
+      user.team != Team.None
+    ) {
+      io.to(user.room).emit("mastermind-set", user.team);
+    }
   });
 
-  socket.on("changed-team", (team) => {
+  socket.on("changed-team", (team: Team) => {
+    var user = roomService.GetUser(socket.id);
+    user.team = team;
     io.to(socket.id).emit("team-updated", team);
+
+    if (user.role == Role.Mastermind) {
+      io.to(user.room).emit("mastermind-set", team);
+    }
   });
 
   socket.on("changed-username", (username) => {
+    var user = roomService.GetUser(socket.id);
+    user.username = username;
     io.to(socket.id).emit("username-updated", username);
   });
 
@@ -98,6 +117,21 @@ module.exports = (io, socket, roomService: RoomService) => {
 
   socket.on("clicked-userpopup", () => {
     io.to(socket.id).emit("clicked-user-popup");
+  });
+
+  socket.on("room:check-mastermind-taken", (roomCode) => {
+    let data = { purple: false, green: false };
+
+    for (let user of roomService.GetUsers(roomCode)) {
+      if (user.role == Role.Mastermind) {
+        if (user.team == Team.Green) data.green = true;
+        if (user.team == Team.Purple) data.purple = true;
+      }
+    }
+
+    console.log("sending mastermind-taken", data);
+
+    return data;
   });
 
   socket.on("game:restart-game", () => {
@@ -124,8 +158,10 @@ module.exports = (io, socket, roomService: RoomService) => {
 
   socket.on("disconnect", () => {
     console.log("Removing user: " + socket.id);
-    var roomCode = roomService.userRooms[socket.id];
-    roomService.RemoveUser(socket.id);
+    var user: User = roomService.RemoveUser(socket.id);
+    if (user == null) return;
+
+    var roomCode = user.room;
 
     if (roomService.roomGameStates[roomCode]) {
       io.to(roomCode).emit(
@@ -133,12 +169,22 @@ module.exports = (io, socket, roomService: RoomService) => {
         roomService.roomGameStates[roomCode].words
       );
     }
+
+    if (
+      user.role == Role.Mastermind &&
+      user.team != null &&
+      user.team != Team.None
+    ) {
+      io.to(roomCode).emit("mastermind-unset", user.team);
+    }
   });
 
   socket.on("room:leave", () => {
     console.log("Removing user: " + socket.id);
-    var roomCode = roomService.userRooms[socket.id];
-    roomService.RemoveUser(socket.id);
+    var user: User = roomService.RemoveUser(socket.id);
+    if (user == null) return;
+
+    var roomCode = user.room;
     io.to(socket.id).emit("room: leave-room");
 
     if (roomService.roomGameStates[roomCode]) {
@@ -146,6 +192,14 @@ module.exports = (io, socket, roomService: RoomService) => {
         "game:update-words",
         roomService.roomGameStates[roomCode].words
       );
+    }
+
+    if (
+      user.role == Role.Mastermind &&
+      user.team != null &&
+      user.team != Team.None
+    ) {
+      io.to(roomCode).emit("mastermind-unset", user.team);
     }
   });
 };
