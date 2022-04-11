@@ -10,6 +10,7 @@ export enum Team {
   Purple = "Purple",
   Green = "Green",
   Minion = "Minion",
+  None = "None",
 }
 
 export interface Turn {
@@ -28,9 +29,11 @@ export interface Guess {
 }
 
 export interface User {
+  socketId?: string;
   username: string;
-  team: Team;
-  role: Role;
+  room?: string;
+  team?: Team;
+  role?: Role;
 }
 
 export interface Message {

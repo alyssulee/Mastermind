@@ -1,39 +1,38 @@
-@import '../shared/variables';
-@import '../shared/word-card';
+@import "../shared/variables.scss";
+@import "../shared/word-card.scss";
 
 .mastermind-card {
-    position: relative;
+  position: relative;
 }
 
 .suggest-name {
-    position: absolute;
-    padding: 3px;
-    margin: 5px;
-    font-size: 13px;
-    border-radius: 5px;
-    border: white solid 2px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+  position: absolute;
+  padding: 3px;
+  margin: 5px;
+  font-size: 13px;
+  border-radius: 5px;
+  border: white solid 2px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .suggest-name.minion1 {
-    max-width: 50%;
-    top: 0;
-    left: 0;
+  max-width: 50%;
+  top: 0;
+  left: 0;
 }
 
 .suggest-name.minion2 {
-    max-width: 75%;
-    bottom: 0;
-    left: 0;
-
+  max-width: 75%;
+  bottom: 0;
+  left: 0;
 }
 
 .suggest-name.Purple {
-    background-color: $purple-team;
+  background-color: $purple-team;
 }
 
 .suggest-name.Green {
-    background-color: $green-team;
+  background-color: $green-team;
 }
