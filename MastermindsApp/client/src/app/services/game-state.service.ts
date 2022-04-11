@@ -11,6 +11,7 @@ import {
   Turn,
   User,
 } from '../interfaces/GameLogicInterfaces';
+import { RoomService } from './room.service';
 
 @Injectable({
   providedIn: 'root',
@@ -77,23 +78,31 @@ export class GameStateService {
 
   updated() {
     return new Observable<GameStateService>((observer) => {
-      this.socket.on('team-updated', (team) => {
-        this.user.team = team;
-        this.isMyTurn =
-          this.turn.role == this.user.role && this.turn.team == this.user.team;
-        observer.next();
+      this.socket.on('team-updated', (updatedUser: User) => {
+        if (updatedUser.username == this.user.username) {
+          this.user.team = updatedUser.team;
+          this.isMyTurn =
+            this.turn.role == this.user.role &&
+            this.turn.team == this.user.team;
+          observer.next();
+        }
       });
 
-      this.socket.on('role-updated', (role) => {
-        this.user.role = role;
-        this.isMyTurn =
-          this.turn.role == this.user.role && this.turn.team == this.user.team;
-        observer.next();
+      this.socket.on('role-updated', (updatedUser: User) => {
+        if (updatedUser.username == this.user.username) {
+          this.user.role = updatedUser.role;
+          this.isMyTurn =
+            this.turn.role == this.user.role &&
+            this.turn.team == this.user.team;
+          observer.next();
+        }
       });
 
-      this.socket.on('username-updated', (username) => {
-        this.user.username = username;
-        observer.next();
+      this.socket.on('username-updated', (updatedUsername: any) => {
+        if (updatedUsername.oldUsername == this.user.username) {
+          this.user.username = updatedUsername.username;
+          observer.next();
+        }
       });
 
       this.socket.on('username-created', (username) => {

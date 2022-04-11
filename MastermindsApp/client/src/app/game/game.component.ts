@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit {
+  public greenTeam: Team = Team.Green;
+  public purpleTeam: Team = Team.Purple;
+
   isClicked: boolean = false;
 
   constructor(private router: Router, private gameService: GameStateService) {}

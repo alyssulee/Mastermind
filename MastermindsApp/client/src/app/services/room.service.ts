@@ -3,7 +3,7 @@ import { Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { GameService } from './game-service.service';
 import { JoinRequest } from '../interfaces/JoinRequest';
-import { Team } from '../interfaces/GameLogicInterfaces';
+import { Role, Team, User } from '../interfaces/GameLogicInterfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +11,8 @@ import { Team } from '../interfaces/GameLogicInterfaces';
 export class RoomService {
   private socket: Socket;
   roomcode: string;
+
+  public users: User[] = [];
 
   mastermindTaken: { green: boolean; purple: boolean } = {
     green: false,
@@ -34,6 +36,50 @@ export class RoomService {
     this.socket.on('mastermind-taken', (data) => {
       this.mastermindTaken = data;
     });
+
+    this.socket.on('all-users', (users: User[]) => {
+      this.users = users;
+      console.log('got users:', this.users);
+    });
+
+    this.socket.on('room:add-user', (user: User) => {
+      console.log('user role:', user.role);
+      if (
+        !this.users.find((otherUser) => otherUser.username == user.username)
+      ) {
+        this.users.push(user);
+        console.log('add user:', user);
+        console.log('user role 2:', user.role);
+      }
+    });
+
+    this.socket.on('room:remove-user', (removeUser: User) => {
+      this.users.splice(
+        this.users.findIndex((user) => user.username == removeUser.username),
+        1
+      );
+      console.log('remove user:', removeUser);
+    });
+
+    this.socket.on('role-updated', (updatedUser: User) => {
+      this.users.find((user) => user.username == updatedUser.username)!.role =
+        updatedUser.role;
+    });
+
+    this.socket.on('team-updated', (updatedUser: User) => {
+      this.users.find((user) => user.username == updatedUser.username)!.team =
+        updatedUser.team;
+    });
+
+    this.socket.on('username-updated', (updatedUsername: any) => {
+      this.users.find(
+        (user) => user.username === updatedUsername.oldUsername
+      )!.role = updatedUsername.username;
+    });
+  }
+
+  getUsers(team: Team, role: Role) {
+    return this.users.filter((user) => user.team == team && user.role == role);
   }
 
   onNewRoomRequested(nickname: string) {
@@ -56,6 +102,7 @@ export class RoomService {
         console.log('emitting room:check');
         this.socket.emit('room:check-mastermind-taken');
         this.socket.emit('message:send-messages');
+        this.socket.emit('load-users', roomCode);
         observer.next(roomCode);
       });
     });
