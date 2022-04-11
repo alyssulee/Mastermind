@@ -20,7 +20,7 @@ export class GameStateService {
   socket: Socket;
 
   user: User = {
-    username: 'Hello',
+    username: '',
     team: Team.None,
     role: Role.None,
   };
@@ -107,6 +107,7 @@ export class GameStateService {
 
       this.socket.on('username-created', (username) => {
         this.user.username = username;
+        console.log('username created');
         observer.next();
       });
 

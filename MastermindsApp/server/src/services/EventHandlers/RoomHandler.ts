@@ -31,6 +31,7 @@ module.exports = (io, socket, roomService: RoomService) => {
     let rooms = socket.rooms;
     let socketRoomCode = [...rooms][1];
 
+    io.to(socket.id).emit("username-created", user.username);
     io.to(socket.id).emit("room:joined-created-room", roomCode);
     io.to(socketRoomCode).emit("words:generated-set", wordSet);
     io.to(socketRoomCode).emit(
@@ -75,6 +76,7 @@ module.exports = (io, socket, roomService: RoomService) => {
 
     var wordSet = roomService.roomGameStates[roomCode].words;
 
+    io.to(socket.id).emit("username-created", userAdded.username);
     io.to(socket.id).emit("room:joined-room", roomCode);
     io.to(socket.id).emit("words:generated-set", wordSet);
     io.to(socket.id).emit(

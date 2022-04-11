@@ -43,13 +43,11 @@ export class RoomService {
     });
 
     this.socket.on('room:add-user', (user: User) => {
-      console.log('user role:', user.role);
       if (
         !this.users.find((otherUser) => otherUser.username == user.username)
       ) {
         this.users.push(user);
         console.log('add user:', user);
-        console.log('user role 2:', user.role);
       }
     });
 
@@ -72,9 +70,11 @@ export class RoomService {
     });
 
     this.socket.on('username-updated', (updatedUsername: any) => {
-      this.users.find(
-        (user) => user.username === updatedUsername.oldUsername
-      )!.role = updatedUsername.username;
+      let user = this.users.find(
+        (user) => user.username == updatedUsername.oldUsername
+      );
+
+      if (user) user.username = updatedUsername.username;
     });
   }
 
