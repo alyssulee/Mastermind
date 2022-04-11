@@ -37,6 +37,10 @@ header {
   align-items: center;
 }
 
+.spacer {
+  margin-top: 3rem
+}
+
 // Mobile
 .mobile-team-btn {
   display: none;
@@ -62,5 +66,9 @@ header {
 
   .mobile-team-btn {
     display: block;
+  }
+
+  .spacer {
+    margin-top: 0;
   }
 }
