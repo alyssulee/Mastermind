@@ -18,7 +18,6 @@ import {
 export class GameStateService {
   socket: Socket;
 
-  // TODO: Initialize these values proplery.
   user: User = {
     username: 'Hello',
     team: Team.None,
@@ -54,10 +53,15 @@ export class GameStateService {
     if (this.user.role != role) this.socket.emit('changed-role', role);
 
     if (this.user.team != team) this.socket.emit('changed-team', team);
+
+    this.user.role = role;
+    this.user.team = team;
     this.socket.emit('message:send-messages');
   }
 
   setTeam(team: Team) {
+    this.user.team = team;
+
     this.socket.emit('changed-team', team);
     this.socket.emit('message:send-messages');
   }
