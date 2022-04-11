@@ -27,7 +27,8 @@ export class TeamBoardComponent implements OnInit {
   ngOnInit(): void {
     this.gameStateService.updated().subscribe(() => {
       let newGuessed = 0;
-      let newRemaining = 7;
+      let newRemaining = 0;
+
 
       for (let word of Object.values(this.gameStateService.gameWordSet)) {
         if (word.category.toString() == this.team.toString()) {
