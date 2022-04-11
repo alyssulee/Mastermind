@@ -1,0 +1,53 @@
+<div class="h-full card p-2">
+  <div
+    class="shadow-2 h-full p-2"
+    [ngClass]="{ Purple: team == 'Purple', Green: team == 'Green' }"
+  >
+    <div class="flex">
+      <div
+        class="flex flex-wrap number-box justify-content-center align-content-center"
+      >
+        <div class="flex w-full"><h1>0</h1></div>
+        <div class="flex w-full justify-content-center"><p>guessed</p></div>
+      </div>
+      <p-divider layout="vertical"></p-divider>
+      <div
+        class="flex flex-wrap number-box justify-content-center align-content-center"
+      >
+        <div class="flex w-full"><h1>7</h1></div>
+        <div class="flex w-full justify-content-center"><p>remaining</p></div>
+      </div>
+    </div>
+    <p-divider></p-divider>
+    <div class="flex flex-wrap">
+      <div class="flex w-full">
+        <h2 class="w-full" style="margin-top: 0px">Mastermind</h2>
+        <button
+          *ngIf="!hasTeam() && !mastermindTaken()"
+          class="join-button"
+          (click)="joinMastermind()"
+        >
+          Join
+        </button>
+      </div>
+      <div class="flex flex-wrap w-full">
+        <p *ngFor="let user of getUsers(mastermind)">{{ user.username }}</p>
+      </div>
+      <div
+        *ngIf="getUsers(mastermind).length == 0"
+        style="margin-top: 1rem"
+      ></div>
+      <div class="flex w-full">
+        <h2 class="w-full" style="margin-top: 0px">Minions</h2>
+        <button *ngIf="!hasTeam()" class="join-button" (click)="joinMinion()">
+          Join
+        </button>
+      </div>
+      <div class="flex flex-wrap w-full">
+        <div class="col-1" *ngFor="let user of getUsers(minion)">
+          <p>{{ user.username }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

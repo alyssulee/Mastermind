@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
+import { DividerModule } from 'primeng/divider';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,7 +31,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GameLogComponent } from './game-log/game-log.component';
 import { ClickOutsideModule } from 'ng-click-outside';
-import { TeamOptionsComponent } from './team-options/team-options.component';
+import { TeamBoardComponent } from './team-board/team-board.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +52,7 @@ import { TeamOptionsComponent } from './team-options/team-options.component';
     UserPopupComponent,
     UserPopupBoxComponent,
     GameLogComponent,
-    TeamOptionsComponent,
+    TeamBoardComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +63,7 @@ import { TeamOptionsComponent } from './team-options/team-options.component';
     FormsModule,
     ReactiveFormsModule,
     ClickOutsideModule,
+    DividerModule,
   ],
   providers: [GameService, GameStateService, ChatService],
   bootstrap: [AppComponent],

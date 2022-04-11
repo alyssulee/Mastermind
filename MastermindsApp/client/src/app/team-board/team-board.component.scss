@@ -1,0 +1,50 @@
+@import "../shared/variables.scss";
+@import "../shared/word-card.scss";
+
+.shadow-2 {
+  border-radius: 5px;
+}
+
+h1 {
+  margin: 0 auto;
+  float: left;
+}
+
+.number-box {
+  width: 50%;
+}
+
+p-divider ::ng-deep {
+  .p-divider {
+    margin-top: 0px !important;
+  }
+}
+
+p {
+  margin: 0px;
+  margin-bottom: 0.5rem;
+}
+
+.team-title {
+  margin-top: 0px;
+}
+
+.join-button {
+  background-color: $orange;
+}
+
+.join-button {
+  background-color: $orange;
+  border-radius: 10px;
+  color: white;
+  padding: 5px;
+  font-size: 16px;
+  width: 100px;
+  border: 1px solid $orange;
+  font-weight: bold;
+}
+
+.join-button:hover {
+  background-color: $orange-hover;
+  border: 1px solid $orange-hover;
+}

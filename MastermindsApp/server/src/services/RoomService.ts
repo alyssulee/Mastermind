@@ -63,12 +63,19 @@ export class RoomService {
     return this.users.filter((user) => user.room === room);
   }
 
-  AddUser(socketId: string, nickname: string, roomCode: string): boolean {
-    if (this.rooms[roomCode].includes(nickname)) return false;
+  AddUser(socketId: string, nickname: string, roomCode: string): User {
+    if (this.rooms[roomCode].includes(nickname)) return null;
 
-    this.users.push({ socketId, username: nickname, room: roomCode });
+    let user = {
+      socketId,
+      username: nickname,
+      room: roomCode,
+      role: Role.None,
+      team: Team.None,
+    };
+    this.users.push(user);
     this.rooms[roomCode].push(nickname);
-    return true;
+    return user;
   }
 
   RemoveUser(socketId: string): User {

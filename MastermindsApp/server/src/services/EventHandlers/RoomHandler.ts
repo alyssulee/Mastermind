@@ -24,7 +24,7 @@ module.exports = (io, socket, roomService: RoomService) => {
       return;
     }
 
-    roomService.AddUser(socket.id, nickname, roomCode);
+    let user = roomService.AddUser(socket.id, nickname, roomCode);
 
     socket.join(roomCode);
 
@@ -38,6 +38,8 @@ module.exports = (io, socket, roomService: RoomService) => {
       roomService.roomGameStates[roomCode].startingTeam
     );
     saveGameService.SaveGames(roomService.roomGameStates);
+
+    io.to(roomCode).emit("room:add-user", user);
   });
 
   socket.on("room:request-to-join", (msg) => {
@@ -79,12 +81,14 @@ module.exports = (io, socket, roomService: RoomService) => {
       "turn:updated",
       roomService.roomGameStates[roomCode].gameTurn
     );
+
+    io.to(roomCode).emit("room:add-user", userAdded);
   });
 
   socket.on("changed-role", (role: Role) => {
     var user = roomService.GetUser(socket.id);
     user.role = role;
-    io.to(socket.id).emit("role-updated", role);
+    io.to(user.room).emit("role-updated", user);
 
     if (
       user.role == Role.Mastermind &&
@@ -98,7 +102,7 @@ module.exports = (io, socket, roomService: RoomService) => {
   socket.on("changed-team", (team: Team) => {
     var user = roomService.GetUser(socket.id);
     user.team = team;
-    io.to(socket.id).emit("team-updated", team);
+    io.to(user.room).emit("team-updated", user);
 
     if (user.role == Role.Mastermind) {
       io.to(user.room).emit("mastermind-set", team);
@@ -107,8 +111,13 @@ module.exports = (io, socket, roomService: RoomService) => {
 
   socket.on("changed-username", (username) => {
     var user = roomService.GetUser(socket.id);
+
+    io.to(user.room).emit("username-updated", {
+      oldUsername: user.username,
+      username: username,
+    });
+
     user.username = username;
-    io.to(socket.id).emit("username-updated", username);
   });
 
   socket.on("created-username", (username) => {
@@ -129,7 +138,11 @@ module.exports = (io, socket, roomService: RoomService) => {
       }
     }
 
-    return data;
+    socket.to(roomCode).emit("mastermind-taken", data);
+  });
+
+  socket.on("load-users", (roomCode) => {
+    socket.emit("all-users", roomService.GetUsers(roomCode));
   });
 
   socket.on("game:restart-game", () => {
@@ -175,6 +188,8 @@ module.exports = (io, socket, roomService: RoomService) => {
     ) {
       io.to(roomCode).emit("mastermind-unset", user.team);
     }
+
+    io.to(roomCode).emit("room:remove-user", user);
   });
 
   socket.on("room:leave", () => {
@@ -199,5 +214,7 @@ module.exports = (io, socket, roomService: RoomService) => {
     ) {
       io.to(roomCode).emit("mastermind-unset", user.team);
     }
+
+    io.to(roomCode).emit("room:remove-user", user);
   });
 };
