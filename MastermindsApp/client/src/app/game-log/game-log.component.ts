@@ -39,6 +39,7 @@ export class GameLogComponent implements OnInit {
     });
 
     this.logService.getLogSubject().subscribe((logInfo: LogInfo) => {
+      console.log('game log comp got log:', logInfo);
       if (logInfo.logType == LogType.Clue) {
         let clue = logInfo.clue;
         if (!clue) return;
@@ -111,14 +112,17 @@ export class GameLogComponent implements OnInit {
     let logs: HTMLCollectionOf<Element> =
       document.getElementsByClassName('gameLog-msgs');
 
-    var item = document.createElement('div');
-    item.innerHTML = html;
-
     // add to both mobile log and screen log
-    for (let index = 0; index < logs.length; index++) {
+    for (var index = 0; index < logs.length; index++) {
       let log: Element | null = logs.item(index);
 
-      if (log) log.appendChild(item);
+      if (log) {
+        // We must create a new item for each log (Elements may not be re-used)
+        var item = document.createElement('div');
+        item.innerHTML = html;
+
+        log.appendChild(item);
+      }
     }
   }
 

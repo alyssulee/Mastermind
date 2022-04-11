@@ -42,3 +42,17 @@ export interface Message {
   msg: string;
   team: Team;
 }
+
+export enum LogType {
+  Clue,
+  Guess,
+  EndGuessing,
+}
+
+export interface LogInfo {
+  logType: LogType;
+  user?: User;
+  clue?: Clue;
+  guess?: Guess;
+  roomCode?: string;
+}

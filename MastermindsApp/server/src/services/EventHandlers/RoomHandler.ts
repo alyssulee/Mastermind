@@ -1,4 +1,9 @@
-import { Role, Team, User } from "../../interfaces/GameLogicInterfaces";
+import {
+  LogInfo,
+  Role,
+  Team,
+  User,
+} from "../../interfaces/GameLogicInterfaces";
 import { joinRequest } from "../../interfaces/JoinRequest";
 import { GameStateService } from "../GameStateService";
 import { RoomService } from "../RoomService";
@@ -144,7 +149,15 @@ module.exports = (io, socket, roomService: RoomService) => {
   });
 
   socket.on("load-users", (roomCode) => {
-    socket.emit("all-users", roomService.GetUsers(roomCode));
+    io.to(socket.id).emit("all-users", roomService.GetUsers(roomCode));
+  });
+
+  socket.on("load-game-log", (roomCode) => {
+    io.to(socket.id).emit("full-game-log", roomService.GetGameLogs(roomCode));
+  });
+
+  socket.on("add-game-log", (log: LogInfo) => {
+    roomService.GetGameLogs(log.roomCode).push(log);
   });
 
   socket.on("game:restart-game", () => {
