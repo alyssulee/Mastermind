@@ -103,6 +103,7 @@ export class RoomService {
         this.socket.emit('room:check-mastermind-taken');
         this.socket.emit('message:send-messages');
         this.socket.emit('load-users', roomCode);
+        this.socket.emit('load-game-log', roomCode);
         observer.next(roomCode);
       });
     });

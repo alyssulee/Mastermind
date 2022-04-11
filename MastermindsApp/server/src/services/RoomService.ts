@@ -1,4 +1,4 @@
-import { Role, Team, User } from "../interfaces/GameLogicInterfaces";
+import { LogInfo, Role, Team, User } from "../interfaces/GameLogicInterfaces";
 import { GameWord } from "../interfaces/GameWord";
 import { GameRetrieverService } from "./GameRetrieverService";
 import { GameStateService } from "./GameStateService";
@@ -10,6 +10,7 @@ export class RoomService {
   roomGameStates: { [roomCode: string]: GameStateService } = {};
   users: User[] = [];
   roomCodeLength = 8;
+  gameLogs: { [roomCode: string]: LogInfo[] } = {};
 
   constructor(private wordService: WordService) {
     var gameRetrieverService = new GameRetrieverService();
@@ -49,6 +50,12 @@ export class RoomService {
     return Array.from({ length: this.roomCodeLength }, () =>
       String.fromCharCode(Math.floor(Math.random() * 26) + 65)
     ).join("");
+  }
+
+  GetGameLogs(roomCode: string): LogInfo[] {
+    if (!this.gameLogs[roomCode]) this.gameLogs[roomCode] = [];
+
+    return this.gameLogs[roomCode];
   }
 
   GetRoomCode(roomCode: string): boolean {
