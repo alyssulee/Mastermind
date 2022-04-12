@@ -18,6 +18,7 @@ export class UserPopupBoxComponent implements OnInit {
   valueUsername: string;
   spectator: boolean;
   displayUsernameError: boolean;
+  displaySwitchTeamError: boolean;
 
   constructor(
     private router: Router,
@@ -28,6 +29,7 @@ export class UserPopupBoxComponent implements OnInit {
     this.username = gameState.user.username;
     this.valueUsername = this.username;
     this.displayUsernameError = false;
+    this.displaySwitchTeamError = false;
 
     if (this.team == Team.Green) {
       this.oppositeColor = Team.Purple;
@@ -90,10 +92,28 @@ export class UserPopupBoxComponent implements OnInit {
   }
 
   switchTeam() {
-    this.gameState.setTeam(this.oppositeColor);
-    console.log('this switch team clicked');
-    console.log('value of opposite team is' + this.oppositeColor);
-    this.gameState.clicked();
+    var OtherTeamMinions = this.roomService.getUsers(
+      this.oppositeColor,
+      Role.Minion
+    );
+
+    var OtherTeamMastermind = this.roomService.getUsers(
+      this.oppositeColor,
+      Role.Mastermind
+    );
+
+    console.log(OtherTeamMastermind.length);
+    if (OtherTeamMastermind.length < 1) {
+      this.gameState.setTeamAndRole(this.oppositeColor, Role.Mastermind);
+      this.gameState.clicked();
+    } else if (OtherTeamMinions.length > 1) {
+      this.displaySwitchTeamError = true;
+    } else {
+      this.gameState.setTeamAndRole(this.oppositeColor, Role.Minion);
+      console.log('this switch team clicked');
+      console.log('value of opposite team is' + this.oppositeColor);
+      this.gameState.clicked();
+    }
   }
 
   onSubmit() {

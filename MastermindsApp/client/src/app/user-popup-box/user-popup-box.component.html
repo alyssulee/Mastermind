@@ -33,8 +33,22 @@
   [dismissableMask]="true"
 >
   <!-- <div class="errormessage"> -->
-    <h2 class="errorFontSize">
-      Whoops! Username Exceeds 12 Characters! Please try again.
-    </h2>
+  <h2 class="errorFontSize">
+    Whoops! Username Exceeds 12 Characters! Please try again.
+  </h2>
+  <!-- </div> -->
+</p-dialog>
+
+<p-dialog
+  class="background"
+  [(visible)]="displaySwitchTeamError"
+  [modal]="true"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="true"
+>
+  <!-- <div class="errormessage"> -->
+  <h2 class="errorFontSize">Whoops! The {{ oppositeColor }} team is full!</h2>
   <!-- </div> -->
 </p-dialog>
