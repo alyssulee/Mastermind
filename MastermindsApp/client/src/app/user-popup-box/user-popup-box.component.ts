@@ -100,6 +100,7 @@ export class UserPopupBoxComponent implements OnInit {
 
   leaveRoom() {
     this.roomService.onRequestToLeave();
+    this.gameState.clicked();
   }
 
   // onClickedOutside(e: Event) {
