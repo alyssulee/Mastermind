@@ -42,6 +42,13 @@ export class JoinGameComponent implements OnInit {
       $('#join-game-nickname').css('border', '2px solid #cc0000');
     });
 
+    this.roomService.onNicknameTooLongJoin().subscribe(() => {
+      $('#error-message-long-nickname-join').css('visibility', 'visible');
+      $('#error-message-long-nickname-join').show();
+      $('#error-message-nickname').hide();
+      $('#join-game-nickname').css('border', '2px solid #cc0000');
+    });
+
     this.roomService.onRoomDoesNotExist().subscribe(() => {
       $('#error-message-room-code').css('visibility', 'visible');
       $('#error-message-room-code').show();
@@ -68,8 +75,10 @@ export class JoinGameComponent implements OnInit {
   resetErrorMessages() {
     $('#error-message-nickname').css('visibility', 'hidden');
     $('#error-message-no-nickname-join').css('visibility', 'hidden');
+    $('#error-message-long-nickname-join').css('visibility', 'hidden');
     $('#error-message-nickname').show();
     $('#error-message-no-nickname-join').hide();
+    $('#error-message-long-nickname-join').hide();
     $('#error-message-room-code').css('visibility', 'hidden');
     $('#error-message-max-capacity').css('visibility', 'hidden');
     $('#error-message-room-code').show();

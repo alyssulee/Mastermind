@@ -17,6 +17,7 @@ export class UserPopupBoxComponent implements OnInit {
   oppositeColor: Team;
   valueUsername: string;
   spectator: boolean;
+  displayUsernameError: boolean;
 
   constructor(
     private router: Router,
@@ -26,6 +27,7 @@ export class UserPopupBoxComponent implements OnInit {
     this.team = gameState.user.team;
     this.username = gameState.user.username;
     this.valueUsername = this.username;
+    this.displayUsernameError = false;
 
     if (this.team == Team.Green) {
       this.oppositeColor = Team.Purple;
@@ -71,6 +73,7 @@ export class UserPopupBoxComponent implements OnInit {
   update() {
     this.username = this.gameState.user.username;
     this.team = this.gameState.user.team;
+
     if (this.team == Team.Green) {
       this.oppositeColor = Team.Purple;
     } else {
@@ -94,8 +97,12 @@ export class UserPopupBoxComponent implements OnInit {
   }
 
   onSubmit() {
-    this.gameState.setUsername(this.valueUsername);
-    this.gameState.clicked();
+    if (this.valueUsername.length > 12) {
+      this.displayUsernameError = true;
+    } else {
+      this.gameState.setUsername(this.valueUsername);
+      this.gameState.clicked();
+    }
   }
 
   leaveRoom() {
@@ -103,11 +110,6 @@ export class UserPopupBoxComponent implements OnInit {
     this.gameState.clicked();
   }
 
-  // onClickedOutside(e: Event) {
-  //   console.log('You Clicked Outside', e);
-
-  //   this.gameState.clicked();
-  // }
   becomeSpectator() {
     this.gameState.setTeamAndRole(Team.None, Role.None);
     this.gameState.clicked();
