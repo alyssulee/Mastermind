@@ -127,10 +127,24 @@ export class RoomService {
       });
     });
   }
+  onNicknameTooLongCreate() {
+    return new Observable<string>((observer) => {
+      this.socket.on('room:nickname-long-create', () => {
+        observer.next();
+      });
+    });
+  }
 
   onNicknameEmptyJoin() {
     return new Observable<string>((observer) => {
       this.socket.on('room:nickname-empty-join', () => {
+        observer.next();
+      });
+    });
+  }
+  onNicknameTooLongJoin() {
+    return new Observable<string>((observer) => {
+      this.socket.on('room:nickname-long-join', () => {
         observer.next();
       });
     });

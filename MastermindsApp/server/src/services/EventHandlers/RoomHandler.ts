@@ -28,6 +28,10 @@ module.exports = (io, socket, roomService: RoomService) => {
       io.to(socket.id).emit("room:nickname-empty-create");
       return;
     }
+    if (nickname.length > 12) {
+      io.to(socket.id).emit("room:nickname-long-create");
+      return;
+    }
 
     let user = roomService.AddUser(socket.id, nickname, roomCode);
 
@@ -55,6 +59,11 @@ module.exports = (io, socket, roomService: RoomService) => {
 
     if (nickname == "") {
       io.to(socket.id).emit("room:nickname-empty-join");
+      return;
+    }
+
+    if (nickname.length > 12) {
+      io.to(socket.id).emit("room:nickname-long-join");
       return;
     }
 
@@ -118,9 +127,15 @@ module.exports = (io, socket, roomService: RoomService) => {
 
   socket.on("changed-username", (username) => {
     var user = roomService.GetUser(socket.id);
-    roomService.roomGameStates[user.room].UpdateUsernameSuggestWords(user.username, username);
+    roomService.roomGameStates[user.room].UpdateUsernameSuggestWords(
+      user.username,
+      username
+    );
 
-    io.to(user.room).emit("game:update-words", roomService.roomGameStates[user.room].words)
+    io.to(user.room).emit(
+      "game:update-words",
+      roomService.roomGameStates[user.room].words
+    );
 
     io.to(user.room).emit("username-updated", {
       oldUsername: user.username,

@@ -1,8 +1,17 @@
 <div class="login">
-    <h1>Create a Game</h1>
-    <hr>
-    <h2>Nickname</h2>
-    <input type="text" id="create-game-nickname" (keydown)="resetErrorMessage()">    
-    <p class="error-message" id="error-message-no-nickname-create">The nickname cannot be empty.</p>  
-    <button (click)="createRoom()">Create</button>
+  <h1>Create a Game</h1>
+  <hr />
+  <h2>Nickname</h2>
+  <input
+    type="text"
+    id="create-game-nickname"
+    (keydown)="resetErrorMessage()"
+  />
+  <p class="error-message" id="error-message-no-nickname-create">
+    The nickname cannot be empty.
+  </p>
+  <p class="error-message" id="error-message-long-nickname-create">
+    The nickname cannot exceed 12 characters.
+  </p>
+  <button (click)="createRoom()">Create</button>
 </div>

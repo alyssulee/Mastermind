@@ -22,3 +22,28 @@
   </button>
   <button (click)="leaveRoom()" class="leave-room">Leave Room</button>
 </div>
+
+<p-dialog
+  class="background"
+  [(visible)]="displayUsernameError"
+  [modal]="true"
+  [style]="{
+    width: '70vw',
+    height: '25vh',
+    'background-color': '#EAEAEA',
+    'text-align': 'center',
+    color: '#000',
+    'border-radius': '20px',
+    border: '2px solid black',
+    padding: '10px'
+  }"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="errormessage">
+    <h2 class="errorFontSize">
+      Whoops! Username Exceeds 12 Characters! Please try again.
+    </h2>
+  </div>
+</p-dialog>
