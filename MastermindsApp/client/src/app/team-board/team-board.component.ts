@@ -12,7 +12,7 @@ import { RoomService } from '../services/room.service';
 export class TeamBoardComponent implements OnInit {
   @Input()
   team: Team = Team.None;
-  
+
   @Input()
   isMobile: boolean = false;
 
@@ -31,7 +31,6 @@ export class TeamBoardComponent implements OnInit {
     this.gameStateService.updated().subscribe(() => {
       let newGuessed = 0;
       let newRemaining = 0;
-
 
       for (let word of Object.values(this.gameStateService.gameWordSet)) {
         if (word.category.toString() == this.team.toString()) {
@@ -55,11 +54,17 @@ export class TeamBoardComponent implements OnInit {
   }
 
   joinMinion(): void {
-    this.gameStateService.setTeamAndRole(this.team, Role.Minion);
+    if (!this.minionFull()) {
+      this.gameStateService.setTeamAndRole(this.team, Role.Minion);
+    }
   }
 
   public mastermindTaken(): boolean {
     return this.getUsers(Role.Mastermind).length > 0;
+  }
+
+  public minionFull(): boolean {
+    return this.getUsers(Role.Minion).length > 1;
   }
 
   getUsers(role: Role): User[] {
