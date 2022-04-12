@@ -1,7 +1,7 @@
 import { getLocaleDateFormat } from '@angular/common';
 import { GameWord, WordCategory } from './GameWord';
 
-const MobileSize = 800;
+const MobileSize = 900;
 export default MobileSize;
 
 export class HelperMethods {

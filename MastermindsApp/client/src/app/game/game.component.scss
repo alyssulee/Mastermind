@@ -21,13 +21,14 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 18vw;
 }
 
 .right-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-width: 18em;
+  min-width: 20vw;
 }
 
 .top-buttons {
@@ -35,6 +36,8 @@ header {
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
 .spacer {
@@ -61,6 +64,10 @@ header {
   }
   .right-content {
     max-width: 5em;
+    min-width: auto;
+  }
+
+  .left-content {
     min-width: auto;
   }
 
