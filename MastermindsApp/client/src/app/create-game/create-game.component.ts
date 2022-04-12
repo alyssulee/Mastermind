@@ -30,6 +30,11 @@ export class CreateGameComponent implements OnInit {
       $('#error-message-no-nickname-create').css('visibility', 'visible');
       $('#create-game-nickname').css('border', '2px solid #cc0000');
     });
+
+    this.roomService.onNicknameTooLongCreate().subscribe(() => {
+      $('#error-message-long-nickname-create').css('visibility', 'visible');
+      $('#create-game-nickname').css('border', '2px solid #cc0000');
+    });
   }
 
   update() {
@@ -46,6 +51,7 @@ export class CreateGameComponent implements OnInit {
 
   resetErrorMessage() {
     $('#error-message-no-nickname-create').css('visibility', 'hidden');
+    $('#error-message-long-nickname-create').css('visibility', 'hidden');
     $('#create-game-nickname').css('border', '0px');
   }
 }
