@@ -28,7 +28,7 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-width: 20vw;
+  min-width: 15vw;
 }
 
 .top-buttons {
@@ -41,7 +41,7 @@ header {
 }
 
 .spacer {
-  margin-top: 3rem
+  margin-top: 3rem;
 }
 
 // Mobile
@@ -49,7 +49,7 @@ header {
   display: none;
   border-radius: 2em;
   background: $orange;
-  padding: 1em .5em;
+  padding: 1em 0.5em;
   color: white;
   font-size: small;
 
