@@ -1,9 +1,14 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import MobileSize, { Clue, Role, Team, Message } from '../interfaces/GameLogicInterfaces';
+import MobileSize, {
+  Clue,
+  Role,
+  Team,
+  Message,
+} from '../interfaces/GameLogicInterfaces';
 import { GameStateService } from '../services/game-state.service';
 import { ChatService } from '../services/chat.service';
 import { ElementRef } from '@angular/core';
-import * as $ from 'jquery'; 
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-chat',
@@ -36,9 +41,8 @@ export class ChatComponent implements OnInit {
     });
     this.chatService.clientMessagesReceived().subscribe((msgs: Message[]) => {
       const myNode = document.querySelector('.chat-msg');
-      
-      if(myNode)
-      {
+
+      if (myNode) {
         myNode!.textContent = '';
       }
 
@@ -112,26 +116,29 @@ export class ChatComponent implements OnInit {
   }
 
   /* Mobile Chat Popup */
-  MobileOpenChat() : void {
-    if($('.chat').is(":visible")) {
+  MobileOpenChat(): void {
+    if ($('.chat').is(':visible')) {
       $('.chat').hide();
       $('.mobile-overlay').hide();
-    }
-    else {
+    } else {
       $('.chat').show();
       $('.mobile-overlay').show();
-    }  }
+    }
+  }
 
-  IsMobile() : boolean {
-    return ( ( window.innerWidth <= MobileSize ));
+  IsMobile(): boolean {
+    return window.innerWidth <= MobileSize;
   }
 
   @ViewChild('mobileOverlay') mobileOverlay!: ElementRef;
 
   @HostListener('document:click', ['$event'])
   public onGlobalClick(event: any) {
-    if(this.IsMobile() && this.mobileOverlay && this.mobileOverlay.nativeElement == event.target )
-    {
+    if (
+      this.IsMobile() &&
+      this.mobileOverlay &&
+      this.mobileOverlay.nativeElement == event.target
+    ) {
       $('.chat').hide();
       $('.mobile-overlay').hide();
     }
@@ -139,12 +146,10 @@ export class ChatComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    if(!this.IsMobile())
-    {
+    if (!this.IsMobile()) {
       $('.chat').show();
       $('.mobile-overlay').show();
-    }
-    else {
+    } else {
       $('.chat').hide();
       $('.mobile-overlay').hide();
     }
