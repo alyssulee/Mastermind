@@ -35,9 +35,8 @@
 }
 
 .form-container {
-  padding: 0 15px;
+  padding: 0 5vw;
   padding-bottom: 0;
-  // background-color: #eaeaea;
 }
 
 .form-container form {
@@ -46,16 +45,17 @@
 
 .form-container input[type="text"] {
   padding: 0.5em;
+  width: 9vw;
   margin-bottom: 10px;
   height: 30px;
-  flex: 1;
+
   border-radius: 10px;
   border: 0;
 }
 
 .sendbtn {
   cursor: pointer;
-  padding: 5px 10px 5px 10px;
+  padding: 0.25vw 0.5vw 0.25vw 0.5vw;
   margin-right: 1px;
   margin-left: 3px;
   margin-bottom: 8px;
@@ -63,7 +63,7 @@
   color: black;
   border-radius: 10px;
   border: 0;
-  font-size: 15px;
+  font-size: 1vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -189,5 +189,14 @@ button {
 
   h1 {
     margin-left: auto;
+  }
+
+  .form-container input[type="text"] {
+    width: 80vw;
+  }
+
+  .sendbtn {
+    padding: 3vw 6w 3vw 6vw;
+    font-size: 2vw;
   }
 }
