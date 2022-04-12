@@ -27,23 +27,14 @@
   class="background"
   [(visible)]="displayUsernameError"
   [modal]="true"
-  [style]="{
-    width: '70vw',
-    height: '25vh',
-    'background-color': '#EAEAEA',
-    'text-align': 'center',
-    color: '#000',
-    'border-radius': '20px',
-    border: '2px solid black',
-    padding: '10px'
-  }"
   [baseZIndex]="10000"
   [draggable]="false"
   [resizable]="false"
+  [dismissableMask]="true"
 >
-  <div class="errormessage">
+  <!-- <div class="errormessage"> -->
     <h2 class="errorFontSize">
       Whoops! Username Exceeds 12 Characters! Please try again.
     </h2>
-  </div>
+  <!-- </div> -->
 </p-dialog>
