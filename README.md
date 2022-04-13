@@ -20,3 +20,4 @@ Masterminds was developed using an Angular front-end and Express backend.
 The web-app supports both desktop and mobile sizes. When using a mobile device, make sure to rotate the screen (landscape mode)! 
 
 See our video demo here:
+https://youtu.be/elPZMkBTxVk
