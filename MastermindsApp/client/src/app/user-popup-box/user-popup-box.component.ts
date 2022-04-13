@@ -19,6 +19,7 @@ export class UserPopupBoxComponent implements OnInit {
   spectator: boolean;
   displayUsernameError: boolean;
   displaySwitchTeamError: boolean;
+  displayEmptyUsernameError: boolean;
 
   constructor(
     private router: Router,
@@ -30,6 +31,7 @@ export class UserPopupBoxComponent implements OnInit {
     this.valueUsername = this.username;
     this.displayUsernameError = false;
     this.displaySwitchTeamError = false;
+    this.displayEmptyUsernameError = false;
 
     if (this.team == Team.Green) {
       this.oppositeColor = Team.Purple;
@@ -119,6 +121,8 @@ export class UserPopupBoxComponent implements OnInit {
   onSubmit() {
     if (this.valueUsername.length > 12) {
       this.displayUsernameError = true;
+    } else if (this.valueUsername === '') {
+      this.displayEmptyUsernameError = true;
     } else {
       this.gameState.setUsername(this.valueUsername);
       this.gameState.clicked();
