@@ -41,6 +41,22 @@
 
 <p-dialog
   class="background"
+  [(visible)]="displayEmptyUsernameError"
+  [modal]="true"
+  [baseZIndex]="10000"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="true"
+>
+  <!-- <div class="errormessage"> -->
+  <h2 class="errorFontSize">
+    Whoops! Username Cannot Be Empty! Please try again.
+  </h2>
+  <!-- </div> -->
+</p-dialog>
+
+<p-dialog
+  class="background"
   [(visible)]="displaySwitchTeamError"
   [modal]="true"
   [baseZIndex]="10000"
