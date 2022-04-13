@@ -13,7 +13,9 @@ In the game, there are two competing teams: the Purple Team and the Green Team. 
     - `npm start`
     - Navigate to `http://localhost:4200/`
 
+
 ## About The Project
-Masterminds was developed using an Angular front-end and Express backend.
+Masterminds was developed using an Angular front-end and Express backend. 
+The web-app supports both desktop and mobile sizes. When using a mobile device, make sure to rotate the screen (landscape mode)! 
 
 See our video demo here:
