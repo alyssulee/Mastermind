@@ -6,13 +6,12 @@ In the game, there are two competing teams: the Purple Team and the Green Team. 
 ## How to Run
 1. Before running, ensure all dependencies are installed by running `npm install` in both the client and server directories.
 2. To run the server: 
-    - `cd ./server`
+    - `cd ./MastermindsApp/server`
     - `npm start`
-3. To run the server: 
-    - `cd ./client`
+3. To run the client: 
+    - `cd ./MastermindsApp/client`
     - `npm start`
     - Navigate to `http://localhost:4200/`
-
 
 ## About The Project
 Masterminds was developed using an Angular front-end and Express backend. 
