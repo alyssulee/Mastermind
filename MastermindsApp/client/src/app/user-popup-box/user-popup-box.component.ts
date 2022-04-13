@@ -70,7 +70,7 @@ export class UserPopupBoxComponent implements OnInit {
     });
 
     this.roomService.onLeaveRoom().subscribe(() => {
-      this.router.navigate(['/login/']);
+      window.location.reload();
     });
   }
 
