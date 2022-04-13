@@ -1,33 +1,53 @@
 <!-- Mastermind  -->
 <ng-container *ngIf="isMastermind">
-    <div class="grid">
-        <ng-container *ngFor="let word of gameWordSet; let i = index;">
-            <ng-container *ngIf="(i % 5) == 0">
-                <div class='row'>
-                    <app-mastermind-word-card [gameWord]="gameWordSet[i]"></app-mastermind-word-card>
-                    <app-mastermind-word-card [gameWord]="gameWordSet[i+1]"></app-mastermind-word-card>
-                    <app-mastermind-word-card [gameWord]="gameWordSet[i+2]"></app-mastermind-word-card>
-                    <app-mastermind-word-card [gameWord]="gameWordSet[i+3]"></app-mastermind-word-card>
-                    <app-mastermind-word-card [gameWord]="gameWordSet[i+4]"></app-mastermind-word-card>
-                </div>
-            </ng-container>
-        </ng-container>
-    </div>
+  <div class="grid">
+    <ng-container *ngFor="let word of gameWordSet; let i = index">
+      <ng-container *ngIf="i % 5 == 0">
+        <div class="row">
+          <app-mastermind-word-card
+            [gameWord]="gameWordSet[i]"
+          ></app-mastermind-word-card>
+          <app-mastermind-word-card
+            [gameWord]="gameWordSet[i + 1]"
+          ></app-mastermind-word-card>
+          <app-mastermind-word-card
+            [gameWord]="gameWordSet[i + 2]"
+          ></app-mastermind-word-card>
+          <app-mastermind-word-card
+            [gameWord]="gameWordSet[i + 3]"
+          ></app-mastermind-word-card>
+          <app-mastermind-word-card
+            [gameWord]="gameWordSet[i + 4]"
+          ></app-mastermind-word-card>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
 </ng-container>
 
 <!-- Minion  -->
 <ng-container *ngIf="!isMastermind">
-    <div class="grid">
-        <ng-container *ngFor="let word of gameWordSet; let i = index;">
-            <ng-container *ngIf="(i % 5) == 0">
-                <div class='row'>
-                    <app-minion-word-card [gameWord]="gameWordSet[i]"></app-minion-word-card>
-                    <app-minion-word-card [gameWord]="gameWordSet[i+1]"></app-minion-word-card>
-                    <app-minion-word-card [gameWord]="gameWordSet[i+2]"></app-minion-word-card>
-                    <app-minion-word-card [gameWord]="gameWordSet[i+3]"></app-minion-word-card>
-                    <app-minion-word-card [gameWord]="gameWordSet[i+4]"></app-minion-word-card>
-                </div>
-            </ng-container>
-        </ng-container>
-    </div>
+  <div class="grid">
+    <ng-container *ngFor="let word of gameWordSet; let i = index">
+      <ng-container *ngIf="i % 5 == 0">
+        <div class="row" style="gap: auto auto">
+          <app-minion-word-card
+            [gameWord]="gameWordSet[i]"
+          ></app-minion-word-card>
+          <app-minion-word-card
+            [gameWord]="gameWordSet[i + 1]"
+          ></app-minion-word-card>
+          <app-minion-word-card
+            [gameWord]="gameWordSet[i + 2]"
+          ></app-minion-word-card>
+          <app-minion-word-card
+            [gameWord]="gameWordSet[i + 3]"
+          ></app-minion-word-card>
+          <app-minion-word-card
+            [gameWord]="gameWordSet[i + 4]"
+          ></app-minion-word-card>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
 </ng-container>
