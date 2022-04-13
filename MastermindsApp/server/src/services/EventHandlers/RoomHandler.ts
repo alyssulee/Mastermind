@@ -175,7 +175,9 @@ module.exports = (io, socket, roomService: RoomService) => {
   });
 
   socket.on("add-game-log", (log: LogInfo) => {
-    roomService.GetGameLogs(log.roomCode).push(log);
+    let roomLog: LogInfo[] = roomService.GetGameLogs(log.roomCode)
+    if (roomLog.length > 0 && roomLog[roomLog.length - 1] == log) return;
+    roomLog.push(log);
   });
 
   socket.on("game:restart-game", () => {

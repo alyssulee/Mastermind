@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'socket.io-client';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { GameService } from './game-service.service';
 import { JoinRequest } from '../interfaces/JoinRequest';
 import { Clue, Role, Team, Message } from '../interfaces/GameLogicInterfaces';
@@ -11,9 +11,16 @@ import { Clue, Role, Team, Message } from '../interfaces/GameLogicInterfaces';
 export class ChatService {
   private socket: Socket;
 
+  private messageSubject = new Subject<Message>();
+
   message: string = '';
   constructor(private gameService: GameService) {
     this.socket = this.gameService.socket;
+    
+    this.socket.on('message:send-message', (msg) => {
+      console.log('Received: ' + JSON.stringify(msg));
+      this.messageSubject.next(msg);
+    });
   }
 
   sendMessage(msg: Message) {
@@ -22,12 +29,7 @@ export class ChatService {
   }
 
   updated() {
-    return new Observable<Message>((observer) => {
-      this.socket.on('message:send-message', (msg) => {
-        console.log('Received: ' + JSON.stringify(msg));
-        observer.next(msg);
-      });
-    });
+    return this.messageSubject;
   }
 
   clientMessagesReceived() {

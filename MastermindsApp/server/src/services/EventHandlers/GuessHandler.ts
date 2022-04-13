@@ -20,13 +20,17 @@ module.exports = (
     saveGameService.SaveGames(roomGameStates);
   };
 
+  let lastClue: Clue = null;
+
   socket.on("clue:send-clue", (clue: Clue) => {
+    if (lastClue == clue) return;
     let roomCode = [...socket.rooms][1];
     updateTurn(roomCode);
     roomGameStates[roomCode].setClue(clue);
     console.log("emitting CLUE REGISTERED");
     io.to(roomCode).emit("server:clue-registered", clue);
     saveGameService.SaveGames(roomGameStates);
+    lastClue = clue;
   });
 
   socket.on("guess:suggest-word", (guess: Guess) => {
@@ -41,11 +45,15 @@ module.exports = (
     io.to(roomCode).emit("game:update-words", roomGameStates[roomCode].words);
   });
 
+  let lastGuess: Guess;
+
   socket.on("guess:guess-word", (guess: Guess) => {
+    if (lastGuess == guess) return;
     console.log("Guessing word", guess);
     let roomCode = [...socket.rooms][1];
     var guessResult = roomGameStates[roomCode].CheckGuessedWord(guess);
     io.to(roomCode).emit("game:update-words", roomGameStates[roomCode].words);
+    lastGuess = guess;
 
     switch (guessResult) {
       case GuessResult.Failure:

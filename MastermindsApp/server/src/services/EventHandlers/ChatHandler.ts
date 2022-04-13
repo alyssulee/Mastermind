@@ -11,6 +11,7 @@ import {
 import { ChatService } from "../ChatService";
 
 var saveGameService = new SaveGameService();
+var lastMessage: Message;
 
 module.exports = (
   io,
@@ -19,10 +20,12 @@ module.exports = (
 ) => {
   socket.on("message:new-message", (msg: Message) => {
     console.log("Received Message", msg);
+    if (lastMessage == msg) return;
     let roomCode = [...socket.rooms][1];
     io.to(roomCode).emit("message:send-message", msg);
     roomGameStates[roomCode].clientMessages.push(msg);
     saveGameService.SaveGames(roomGameStates);
+    lastMessage = msg;
   });
 
   socket.on("message:send-messages", () => {

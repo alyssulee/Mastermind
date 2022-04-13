@@ -67,8 +67,8 @@ export class ChatComponent implements OnInit {
       msg: this.message,
       team: this.gameState.user.team,
     };
-    this.chatService.sendMessage(msg);
     this.message = '';
+    this.chatService.sendMessage(msg);
   }
 
   outputMessage(msg: Message) {
